@@ -69,9 +69,9 @@ For this version of the specification - the SOG-IT set levels for the primary an
 
 This corresponds to the COSE algorithm parameter **ES256**.
 
-- Fallback Algorithm: The fallback algorithm is RSASSA-PKCS#1 v1.5 as defined in ([RFC 3447](https://tools.ietf.org/html/rfc3447)) with a modulus of 2048 bits in combination with the SHA–256 hash algorithm as defined in (ISO/IEC 10118–3:2004) function 4.
+- Fallback Algorithm: The fallback algorithm is RSASSA-PSS as defined in ([RFC 8230](https://tools.ietf.org/html/rfc8230)) with a modulus of 2048 bits in combination with the SHA–256 hash algorithm as defined in (ISO/IEC 10118–3:2004) function 4.
 
-This corresponds to the COSE algorithm parameter: **RS256**
+This corresponds to the COSE algorithm parameter: **PS256**
 
 #### Key Identifier
 

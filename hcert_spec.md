@@ -167,7 +167,9 @@ This specification may be used in a way which implies receiving data from untrus
 
 ## Appendix A
 
-([hcert_schema](https://raw.githubusercontent.com/kirei/hcert/main/hcert_schema.yaml))
+A proposed payload schema for [EU Health Certficate v1](eu_hcert_v1_schema.yaml).
+
+
 
 _________________
 

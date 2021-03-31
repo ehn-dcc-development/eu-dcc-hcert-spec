@@ -7,7 +7,7 @@ This repository contains a proposal for encoding and signing Electronic Health C
 
 ## Specification
 
-[A draft specification is available](spec.md).
+[A draft specification is available](hcert_spec.md).
 
 
 ## Overview

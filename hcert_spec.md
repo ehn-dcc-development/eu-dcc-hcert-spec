@@ -31,10 +31,11 @@ The Electronic Health Certificate (EHC) is designed to provide a uniform and sta
 
 Ability to read and interpret EHCs issued by any Issuer requires a common data structure and agreements of the significance of each data field. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema, Appendix A. Critical elements of a health certificate SHOULD use this data structure. A Participant MAY extend the objects with proprietary data. The naming of such objects MUST be agreed between all Participants.
 
+Note that the data structure is of importance here. The actual wire format is language neutral (CBOR).
 
 ### Structure of the Electronic Health Certificate
 
-The EHC is structured and encoded as a CBOR Web Token (CWT) as defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The EHC payloads, as defined below, is transported in a hcert claim (claim key TBD).
+The EHC is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The EHC payloads, as defined below, is transported in a hcert claim (claim key TBD).
 
 The integrity and authenticity of origin of EHC data, the CWT MUST be verifiable by the Verifier. To provide this mechanism, the issuer of the EHC MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
 
@@ -77,6 +78,8 @@ This corresponds to the COSE algorithm parameter: **PS256**
 
 The Key Identifier (**kid**) claim is used by Verifiers for selecting the correct public key from a list of keys pertaining to the Issuer (**iss**) Claim. Several keys may be used in parallel by an Issuer for administrative reasons and when performing key rollovers.The Key Identifier is not a security-critical field. For this reason, it MAY also be placed in an unprotected header if required. Verifiers MUST accept both options.
 
+The key identifier consists of the final (TBD) 8 bytes of the SHA256 fingerprint of the DSC (see section Trust management). Due to this shortening to 8 bytes there is a non-finite chance that the overall list of DSCs accepted by an validator contains DSCs with duplicate KIDs. For this reason a verifier MUST check all DSCs with that KID.
+
 ####  Issuer
 
 The Issuer (**iss**) claim is a string value which MAY hold the identifier of the entity issuing the EHC. The namespace of the Issuer Identifiers MUST be agreed between the Participants, but is not defined in the specification.
@@ -86,34 +89,43 @@ The Claim Key 1 is used to identify this claim.
 
 The Expiration Time (**exp**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the EHC. The Claim Key 4 is used to identify this claim.
 
+The Expiration Time MUST not exceed the validity time in the DSC.  The verifier SHOULD check this.
 
 #### Issued At
 
-The Issued At (**ia**t) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the EHC was created. Verifiers MAY apply policies with the purpose of restricting the validity of the EHC based on the time of issue. The Claim Key 6 is used to identify this claim.
+The Issued At (**ia**t) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the EHC was created. 
 
+The Issued At  MUST not predate the validity time in the DSC.  The verifier MAY check this.
+
+Verifiers MAY also apply additional policies with the purpose of restricting the validity of the EHC based on the time of issue. The Claim Key 6 is used to identify this claim.
 
 #### Health Certificate Claim
 
 The Health Certificate (**hcert**) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several EHCs MAY exist under the same claim.
 
+dirkx: _do we want this ? ie. make the JSON leading ? or do we simply make the JSON a rendition - but from a standard perspective try to keep the CBOR the 'master' ?_
+
 The Claim Key to be used to identify this claim is yet to be determined.
 
 Strings in the JSON object SHOULD be NFC normalised according to the Unicode standard. Decoding applications SHOULD however be permissive and robust in these aspects, and acceptance of any reasonable type conversion is strongly encouraged. If unnormalised data is found during decoding, or in subsequent comparison function, implementations SHOULD behave as if the input is normalised to NFC.
-
 
 ## Transport Encodings
 
 ### Raw
 
-For arbitrary data interfaces the EHC may be transferred as-is, utilising any underlying reliable data transport. These interfaces MAY include NFC, Bluetooth or transfer over an application layer protocol, for example transfer of an EHC from the Issuer to a holder’s mobile device.
+For arbitrary data interfaces the EHC may be transferred as-is, utilising any underlying, 8 bit safe, reliable data transport. These interfaces MAY include NFC, Bluetooth or transfer over an application layer protocol, for example transfer of an EHC from the Issuer to a holder’s mobile device.
 
 If the transfer of the EHC from the Issuer to the holder is based on a presentation-only interface (e.g., SMS, e-mail), the Raw transport encoding is obviously not applicable.
 
 ### Barcode
 
-To lower size and to improve speed and reliability in the reading process of the EHC, the CWT SHALL be compressed using ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the Deflate compression mechanism in the format defined in ([RFC 1951](https://tools.ietf.org/html/rfc1951)). In order to better handle legacy equipment designed to operate on ASCII payloads, the compressed CWT is encoded as ASCII using [Base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45) before encoded into a barcode.
+To lower size and to improve speed and reliability in the reading process of the EHC, the CWT SHALL be compressed using ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the Deflate compression mechanism in the format defined in ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
 
-Two barcode formats are supported; AZTEC (preferred) and QR (secondary). The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 65 mm.
+Verifiers MUST check of the presence of a valid ZLIB/Deflate header (0x78, 0xDA) - or proceed without this step when absent.
+
+In order to better handle legacy equipment designed to operate on ASCII payloads, the compressed CWT is encoded as ASCII using [Base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45) before encoded into a barcode.
+
+Two barcode formats are supported; AZTEC (preferred) and QR (secondary). 
 
 In order for readers to be able to detect optical payload content type, the base45 encoded data per this specification SHALL be prefixed by the string "HC1".
 
@@ -121,13 +133,13 @@ In order for readers to be able to detect optical payload content type, the base
 
 To optically represent the EHC using a compact machine-readable format the Aztec 2D Barcode (ISO/IEC 24778:2008) SHOULD be used.
 
-When generating the optical code with Aztec, an error correction rate of 23% is RECOMMENDED. 
-
+When generating the optical code with Aztec, an error correction rate of 23% is RECOMMENDED. The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 65 mm.
 
 #### QR 2D Barcode
 
-Alternatively a QR barcode may be used. An error correction rate of ‘Q’ (around 25%) recommended. 
+Alternatively a QR barcode may be used. An error correction rate of ‘Q’ (around 25%) RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
 
+The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 65 mm when used on an optical screen with at least 4 pixels per timing cell. 
 
 ## Security Considerations
 
@@ -165,17 +177,76 @@ However, regardless if an Issuer decides to use HSMs or not, a key roll-over sch
 This specification may be used in a way which implies receiving data from untrusted sources into systems which may be of mission-critical nature. To minimise the risks associated with this attack vector, all input fields MUST be properly validated by data types, lengths and contents. The Issuer Signature SHALL also be verified before any processing of the contents of the EHC takes place. However, the validation of the Issuer Signature implies parsing the Protected Issuer Header first, in which a potential attacker may attempt to inject carefully crafted information designed to compromise the security of the system.
 
 
-## Appendix A
+# Appendix A - Payload
 
 A proposed payload schema for [EU Health Certficate v1](eu_hcert_v1_schema.yaml).
 
+# Appendix B - Trust management
+
+The signature on the EHC requires a public key to verify. Countries, or institutions within countries, need to place those signatures. And ultimately every verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the signature).
+
+For this a simplified variation on the ICAO "_Master list_: will be used, tailored to this health application. Where each country is ultimately responsible for compiling their own master list. But with the aid of a coordinating secretariat for operational and practical purposes.
+
+The system consists of (just) two layers; for each Member State one or more country level certificate that each sign one or more document signing certificates that are used in day to day operations.
+
+The member-state certificates are called Certificate Signer Certificate Authority (CSCA) certificates and are (typically) self signed certificates. Countries may have more than one (e.g. in case of regional devolution). 
+
+Memberstates are required to keep a public register of these certificates at a stable URL.
+
+Memberstates may then bilaterally exchange CSCA certificates with a number of other States, verify these bilaterally and thus compile their own lists of CSCA certificates: a (MS specific) Master List. 
+
+These CSCA certificates regularly sign the Document Signing Certificates (DSC) used in day to day operations. Memberstates will each will maintain a public register of the DSC certificates that is kept current.
+
+Other memberstates must regularly fetch these list of DSC certificates and cryptographically verify these against the CSCA certificates (that they have verified by other, non-digital, means).  
+
+The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that verifiers can use to validate the signature on the CWT in the Qr code. 
+
+Verifiers should fetch update so this list regularly.
+
+## Differences with the ICAO MasterList system for passports
+
+While patterned on best practices of the ICAO Ml - there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope).
+
+* A Member-state may submit multiple CSCA certificates
+* A CSCA certificate may also be used --and published as-- a DSC.
+* The DSC (key usage) validity period may be set to any length not exceeding the CSCA.
+* The DSC certificate MAY contain policy identifers that are EHN specific.
+
+## Secretariat
+
+In order to alleviate the burden of countries during the initial phase -- there shall be a secretarial service that will:
+
+* Maintain a list of operational and legal contacts for each member-state to further orderly management of this health specific set of master lists.
+* Maintain a public 24x7 an incident/security contact point.
+* Maintain a public list of URLs with the most up to date CSCA lists for each member-state.
+* Maintain a public  list of URLs with the most up to date DSC lists for each member-state.
+* Maintain a public  single, aggregated, list of all CSCAs, that is updated daily.
+* Maintain a public single, aggregated, list of all DSAs, that is updated daily.
+* Provides MS with a secure (i.e. integrity protected) manner by which to provide the Secretariat with the MS its CSCA and DSC lists (CIRBAC, t.b.c)
+* Shall validate the DSCs against the CSCA prior to publication.
+* MAY sign the aggregated list.
+
+And that also will
+
+* Maintain a similar set of lists with 'test' certificates
+* Maintain a set of test certificates - at least one for each country.
+
+## Key Usage Policy Identifiers
+
+The document signing certificate MAY contain Extended key usage extension fields; these being:
+
+* OID 1.3.6.1.4.1.0.1847.2021.1.1        valid for test
+* OID 1.3.6.1.4.1.0.1847.2021.1.2        valid for vacc
+* OID 1.3.6.1.4.1.0.1847.2021.1.3        valid for recovery
+
+And if not present - shall be considered valid for all three.
 
 
 _________________
 
 - Fredrik Ljunggren, Kirei AB.
 - Jakob Schlyter, Kirei AB
-- Dirk-Willem van Gulik
+- Dirk-Willem van Gulik - For the Ministry of Public Health of the Netherlands
 - Martin Lindström, iDsec Solutions AB
 
 

@@ -9,11 +9,9 @@ This repository contains a proposal for encoding and signing Electronic Health C
 
 [A draft specification is available](hcert_spec.md).
 
-
 ## Overview
 
-![](overview.png)
-
+![overview](overview.png)
 
 ## Requirements and Design Principles
 
@@ -39,11 +37,33 @@ The following requirements and principles has been used when designing the Elect
 
      *Example: Base45 encoding for optical transport.*
 
+## Trust model
+
+The trust model is currently under development. It is assumed to be a Health specific version of the ICOA Master List concept (see also https://www.who.int/publications/m/item/interim-guidance-for-developing-a-smart-vaccination-certificate) that is Health and COVID specific.
+
+The core of this consists of a simple (at this time, one layer deep) list of Country Signing Certificate Authorities that sign Document Signer Certificates. These are then used to sign the above digital health certificates.
 
 ## Known Implemenations
 
 - [hcert test tool by Kirei AB](https://github.com/kirei/hcert)
 
+Highly simplified JSON/CBOR/COSE/Zlib/Base45 pipelines:
+
+- [javascript](https://github.com/ehn-digital-green-development/ehn-sign-verify-javascript-trivial)
+- [python3](https://github.com/ehn-digital-green-development/ehn-sign-verify-python-trivial)
+
+## Base45
+
+Qr and Aztec code have a specific, highly efficient, method for storing alphanumeric characters (MODE 2/0010). In particular compared to UTF-8 (where the first 32 characters are essentially unused; and successive non-latin characters loose  an additional 128 values as the topbit needs to be set).
+
+Details of this 11 bits per two characters can be found at
+
+-	 https://www.thonky.com/qr-code-tutorial/alphanumeric-mode-encoding
+-	https://raw.githubusercontent.com/yansikeim/QR-Code/master/ISO%20IEC%2018004%202015%20Standard.pdf - section 7.44 on page 26
+
+For this reason - the industry generally encodes these in base45. A document for this defacto standard is in flight:
+
+- https://datatracker.ietf.org/doc/draft-faltstrom-base45/
 
 ## Presentation
 
@@ -63,3 +83,4 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+> 

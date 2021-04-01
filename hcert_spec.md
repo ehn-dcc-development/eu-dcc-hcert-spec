@@ -31,7 +31,7 @@ The Electronic Health Certificate (EHC) is designed to provide a uniform and sta
 
 Ability to read and interpret EHCs issued by any Issuer requires a common data structure and agreements of the significance of each data field. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema, Appendix A. Critical elements of a health certificate SHOULD use this data structure. A Participant MAY extend the objects with proprietary data. The naming of such objects MUST be agreed between all Participants.
 
-Note that the data structure is of importance here. The actual wire format is language neutral (CBOR).
+Note that the data structure is of importance here. The actual wire format is language neutral (CBOR and CWT (which itself CBOR again)).
 
 ### Structure of the Electronic Health Certificate
 
@@ -103,7 +103,7 @@ Verifiers MAY also apply additional policies with the purpose of restricting the
 
 The Health Certificate (**hcert**) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several EHCs MAY exist under the same claim.
 
-dirkx: _do we want this ? ie. make the JSON leading ? or do we simply make the JSON a rendition - but from a standard perspective try to keep the CBOR the 'master' ?_
+Note here that the JSON is purely for schema purposes. The wire format is CBOR. Application developers may not actually ever de-, or encode to and from a JSON; but use the in memory structure.
 
 The Claim Key to be used to identify this claim is yet to be determined.
 
@@ -201,7 +201,7 @@ Other memberstates must regularly fetch these list of DSC certificates and crypt
 
 The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that verifiers can use to validate the signature on the CWT in the Qr code. 
 
-Verifiers should fetch update so this list regularly.
+Verifiers should fetch update so this list regularly. Verifiers are expected to tune the format to this list for their own national setting; and the file format of this, internal, trusted list may vary, e.g. it can be a plain JWKS like https://github.com/ehn-digital-green-development/hcert-testdata/blob/main/testdata/jwks.json or something specific to the technology used.
 
 ## Differences with the ICAO MasterList system for passports
 
@@ -225,6 +225,8 @@ In order to alleviate the burden of countries during the initial phase -- there 
 * Provides MS with a secure (i.e. integrity protected) manner by which to provide the Secretariat with the MS its CSCA and DSC lists (CIRBAC, t.b.c)
 * Shall validate the DSCs against the CSCA prior to publication.
 * MAY sign the aggregated list.
+
+The format for these lists is TBC and will likely follow current ICAO-ML standards closely. They are likely to be optimised for clarity and interoperability. And are therefore highly likely to be very different from the trust-lists that the verifiers  download daily from the field. As these are highly Member State specific; and need to be tuned to the technological setting at hand.
 
 And that also will
 

@@ -141,6 +141,35 @@ Alternatively a QR barcode may be used. An error correction rate of ‘Q’ (aro
 
 The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size for at least 35 mm; and when used on an optical screen with at least 4 pixels per timing cell. (recommended and max size to be confirmed).
 
+## Trusted List Format (DSC list)
+
+Each country will provide a list of one or more CSCAs.
+
+The CSCA and the trusted DSC list format will follow the format of the ICAO master list (ldif) with the public key pairs packaged into a X.509v3 certificate as a base64 encoder DER.
+
+Each certificate:
+
+- MUST contain A valid ‘C’ that matches the country of issuance.
+- MUST contain a well managed, unique, DN and unique Serial number
+- MUST contain a 256bit Authority (Issuer) key identifier
+- MUST contain a 256bit Subject key identifier
+
+In addition - each DSC certificate:
+
+- MUST contain validity range that is in line or broader than the EHC Validity Time of all EHC periods signed by that key.
+- SHOULD contain aX509v3 Private Key Usage Period period.
+- MUST contain a 256bit Authority (Issuer) key identifier
+- MUST contain a 256bit Subject key identifier
+
+TBD.
+
+It is expressly allowed to have the CSCA be identical to the DSC. Or in other words - if a country uses a set of self-signed certificates; it would submit these both as its CSCA’s and as its DSC list.
+
+As of this version of the specifications - countries should NOT assume that any CRL information is used; or that the Private Key Usage Period is verified by implementors.
+
+Instead - the primary validity mechanism is appearance on the most recent version of the list.
+
+
 ## Security Considerations
 
 When designing a scheme using this specification, several important security aspects must be considered. These can not preemptively be accounted for in this specification, but must be identified, analysed and monitored by the Participants.

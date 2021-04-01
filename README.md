@@ -43,6 +43,10 @@ The trust model is currently under development. It is assumed to be a Health spe
 
 The core of this consists of a simple (at this time, one layer deep) list of Country Signing Certificate Authorities that sign Document Signer Certificates. These are then used to sign the above digital health certificates.
 
+The list of trusted keys used by verifiers will include a number of public keys together with issuer metadata. The keys used to sign the HCERTs are included on the Trusted List, there are no CAs or other intermediate parties 
+involved in the validation process in the verifier. If there are any CAs - they are _only_ there to facilitate the creation of the trusted list of public keys. They are not used during verification itself (as this is generally offline -- and purely based on the trusted list of that day).
+
+
 ## Known Implemenations
 
 - [hcert test tool by Kirei AB](https://github.com/kirei/hcert)

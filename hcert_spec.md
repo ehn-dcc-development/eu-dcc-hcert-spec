@@ -139,7 +139,7 @@ When generating the optical code with Aztec, an error correction rate of 23% is 
 
 Alternatively a QR barcode may be used. An error correction rate of ‘Q’ (around 25%) RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
 
-The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 65 mm when used on an optical screen with at least 4 pixels per timing cell. 
+The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size for at least 35 mm; and when used on an optical screen with at least 4 pixels per timing cell. (recommended and max size to be confirmed).
 
 ## Security Considerations
 

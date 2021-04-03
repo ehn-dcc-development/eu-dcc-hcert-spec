@@ -222,7 +222,7 @@ In order to alleviate the burden of countries during the initial phase -- there 
 * Maintain a public  list of URLs with the most up to date DSC lists for each member-state.
 * Maintain a public  single, aggregated, list of all CSCAs, that is updated daily.
 * Maintain a public single, aggregated, list of all DSAs, that is updated daily.
-* Provides MS with a secure (i.e. integrity protected) manner by which to provide the Secretariat with the MS its CSCA and DSC lists (CIRBAC, t.b.c)
+* Provide MS with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the member states aggregated CSCA and DSC lists (CIRBAC, t.b.c)
 * Shall validate the DSCs against the CSCA prior to publication.
 * MAY sign the aggregated list.
 

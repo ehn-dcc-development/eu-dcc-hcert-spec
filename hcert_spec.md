@@ -232,7 +232,7 @@ This list format for interchange between the member states is likely to be quite
 
 Member State are also expected to publish country-specific lists, in formats tuned to the technological setting at hand in that member state.
 
-And that also will
+And that the Secretarial also will:
 
 * Maintain a similar set of lists with 'test' certificates
 * Maintain a set of test certificates - at least one for each country.

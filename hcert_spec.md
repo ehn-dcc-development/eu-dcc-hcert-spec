@@ -226,7 +226,11 @@ In order to alleviate the burden of countries during the initial phase -- there 
 * Shall validate the DSCs against the CSCA prior to publication.
 * MAY sign the aggregated list.
 
-The format for these lists is TBC and will likely follow current ICAO-ML standards closely. They are likely to be optimised for clarity and interoperability. And are therefore highly likely to be very different from the trust-lists that the verifiers  download daily from the field. As these are highly Member State specific; and need to be tuned to the technological setting at hand.
+The format for the lists used for the interchange between the member states and the Secretariat is TBC, and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
+
+This list format for interchange between the member states is likely to be quite different from format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should take care to publish the aggregated list of DSCs in an, from a verifiers perspective, accessible and easy to use format.
+
+Member State are also expected to publish country-specific lists, in formats tuned to the technological setting at hand in that member state.
 
 And that also will
 

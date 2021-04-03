@@ -78,7 +78,7 @@ This corresponds to the COSE algorithm parameter: **PS256**
 
 The Key Identifier (**kid**) claim is used by Verifiers for selecting the correct public key from a list of keys pertaining to the Issuer (**iss**) Claim. Several keys may be used in parallel by an Issuer for administrative reasons and when performing key rollovers.The Key Identifier is not a security-critical field. For this reason, it MAY also be placed in an unprotected header if required. Verifiers MUST accept both options.
 
-The key identifier consists of the final (TBD) 8 bytes of the SHA256 fingerprint of the DSC (see section Trust management). Due to this shortening to 8 bytes there is a non-finite chance that the overall list of DSCs accepted by an validator contains DSCs with duplicate KIDs. For this reason a verifier MUST check all DSCs with that KID.
+Due to this shortening of the identifier (for space preservin reasons) there is a non-finite chance that the overall list of DSCs accepted by an validator contains DSCs with duplicate KIDs. For this reason a verifier MUST check all DSCs with that KID.
 
 ####  Issuer
 
@@ -202,6 +202,10 @@ Other memberstates must regularly fetch these list of DSC certificates and crypt
 The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that verifiers can use to validate the signature on the CWT in the Qr code. 
 
 Verifiers should fetch update so this list regularly. Verifiers are expected to tune the format to this list for their own national setting; and the file format of this, internal, trusted list may vary, e.g. it can be a plain JWKS like https://github.com/ehn-digital-green-development/hcert-testdata/blob/main/testdata/jwks.json or something specific to the technology used.
+
+### The Key Identifier (KIDs)
+
+The key identifier consists of the final (TBD) 8 bytes of the SHA256 fingerprint of the DSC.
 
 ## Differences with the ICAO MasterList system for passports
 

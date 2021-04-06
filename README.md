@@ -2,7 +2,7 @@
 
 # Electronic Health Certificates
 
-This repository contains a proposal for encoding and signing Electronic Health Certificates (EHC), as a candidate to be adapted and adopted by eHealth authorities and other stakeholders as they seem fit.
+This repository contains a proposal for encoding and signing the Electronic Health Certificate (HCERT), as a candidate to be adapted and adopted by eHealth authorities and other stakeholders as they seem fit.
 
 
 ## Specification
@@ -15,7 +15,7 @@ This repository contains a proposal for encoding and signing Electronic Health C
 
 ## Requirements and Design Principles
 
-The following requirements and principles has been used when designing the Electronic Health Certificates (EHC):
+The following requirements and principles has been used when designing the Electronic Health Certificate (HCERT):
 
   1. Electronic Health Certificates shall be carried by the holder and must have the ability to be securely validated off-line (using strong and proven cryptographic primitives).
 

@@ -208,7 +208,7 @@ This specification may be used in a way which implies receiving data from untrus
 
 # Appendix A - Payload
 
-A proposed payload schema for [EU Health Certficate v1](eu_hcert_v1_schema.yaml).
+A proposed payload schema for [EU Health Certficate v1](https://github.com/ehn-digital-green-development/hcert-schema/blob/main/eu_hcert_v1_schema.yaml).
 
 # Appendix B - Trust management
 

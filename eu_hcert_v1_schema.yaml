@@ -2,9 +2,6 @@
 $schema: http://json-schema.org/schema#
 
 type: object
-required:
-  - sub
-  - vac
 properties:
   sub:
     description: Subject
@@ -189,3 +186,13 @@ properties:
             (ISO 3166 Country Code)
           format: string
           example: SE
+anyOf:
+  - required:
+    - sub
+    - vac
+  - required:
+    - sub
+    - tst
+  - required:
+    - sub
+    - rec

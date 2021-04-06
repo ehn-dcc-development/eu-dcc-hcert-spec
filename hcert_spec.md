@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 0.1.3, 2021-03-30.
+Version 0.1.4, 2021-04-06.
 
 
 ## Abstract
@@ -10,34 +10,34 @@ This document specifies a data structure and encoding mechanisms for electronic 
 
 ## Terminology
 
-Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status is called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a name space and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Coordinator, carries out these tasks. The health certificate format of this specification is called the Electronic Health Certificate, hereafter referred to as the EHC.
+Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status is called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a name space and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Coordinator, carries out these tasks. The health certificate format of this specification is called the Electronic Health Certificate, hereafter referred to as the HCERT.
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED" and "MAY" should be interpreted as described in ([RFC 2119](https://tools.ietf.org/html/rfc2119)).
 
 
 ### Versioning Policy
 
-Versions of this specification follow semantic versioning (semver.org) and consist of three different integers describing the _major_, _minor_ and _edition_ version. A change in the _major_ version is an update that includes material changes affecting the decoding of the EHC or the validation of it. An update of the _minor_ version is a feature or maintenance update that maintains backward compatibility with previous versions.
+Versions of this specification follow semantic versioning (semver.org) and consist of three different integers describing the _major_, _minor_ and _edition_ version. A change in the _major_ version is an update that includes material changes affecting the decoding of the HCERT or the validation of it. An update of the _minor_ version is a feature or maintenance update that maintains backward compatibility with previous versions.
 
-In addition, there is an _edition_ version number used for publishing updates to the document itself which have no effect on the EHC, such as correcting spelling, providing clarifications or addressing ambiguities, et cetera. Hence, the edition number is not indicated in the EHC. The version numbers are expressed in the title page of the document using a _major.minor.edition_ format, where the three parts are separated by decimal dots.
+In addition, there is an _edition_ version number used for publishing updates to the document itself which have no effect on the HCERT, such as correcting spelling, providing clarifications or addressing ambiguities, et cetera. Hence, the edition number is not indicated in the HCERT. The version numbers are expressed in the title page of the document using a _major.minor.edition_ format, where the three parts are separated by decimal dots.
 
 
 ## Electronic Health Certificate
 
-The Electronic Health Certificate (EHC) is designed to provide a uniform and standardised vehicle for health certificates from different Issuers. The aim is to harmonise how these health certificates are represented, encoded and signed with the goal of facilitating interoperability, while protecting the holder’s personal integrity and minimise costs in implementation.
+The Electronic Health Certificate (HCERT) is designed to provide a uniform and standardised vehicle for health certificates from different Issuers. The aim is to harmonise how these health certificates are represented, encoded and signed with the goal of facilitating interoperability, while protecting the holder’s personal integrity and minimise costs in implementation.
 
 
 ### Coordinated Data Structure
 
-Ability to read and interpret EHCs issued by any Issuer requires a common data structure and agreements of the significance of each data field. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema, Appendix A. Critical elements of a health certificate SHOULD use this data structure. A Participant MAY extend the objects with proprietary data. The naming of such objects MUST be agreed between all Participants.
+Ability to read and interpret HCERTs issued by any Issuer requires a common data structure and agreements of the significance of each data field. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema, Appendix A. Critical elements of a health certificate SHOULD use this data structure. A Participant MAY extend the objects with proprietary data. The naming of such objects MUST be agreed between all Participants.
 
 Note that the data structure is of importance here. The actual wire format is language neutral (CBOR and CWT (which itself CBOR again)).
 
 ### Structure of the Electronic Health Certificate
 
-The EHC is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The EHC payloads, as defined below, is transported in a hcert claim (claim key TBD).
+The HCERT is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The HCERT payloads, as defined below, is transported in a hcert claim (claim key TBD).
 
-The integrity and authenticity of origin of EHC data, the CWT MUST be verifiable by the Verifier. To provide this mechanism, the issuer of the EHC MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
+The integrity and authenticity of origin of HCERT data, the CWT MUST be verifiable by the Verifier. To provide this mechanism, the issuer of the HCERT MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
 
 
 ### CWT Claims
@@ -82,26 +82,26 @@ Due to this shortening of the identifier (for space preservin reasons) there is 
 
 ####  Issuer
 
-The Issuer (**iss**) claim is a string value which MAY hold the identifier of the entity issuing the EHC. The namespace of the Issuer Identifiers MUST be agreed between the Participants, but is not defined in the specification.
+The Issuer (**iss**) claim is a string value which MAY hold the identifier of the entity issuing the HCERT. The namespace of the Issuer Identifiers MUST be agreed between the Participants, but is not defined in the specification.
 The Claim Key 1 is used to identify this claim.
 
 #### Expiration Time
 
-The Expiration Time (**exp**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the EHC. The Claim Key 4 is used to identify this claim.
+The Expiration Time (**exp**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the HCERT. The Claim Key 4 is used to identify this claim.
 
 The Expiration Time MUST not exceed the validity time in the DSC.  The verifier SHOULD check this.
 
 #### Issued At
 
-The Issued At (**ia**t) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the EHC was created. 
+The Issued At (**ia**t) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the HCERT was created. 
 
 The Issued At  MUST not predate the validity time in the DSC.  The verifier MAY check this.
 
-Verifiers MAY also apply additional policies with the purpose of restricting the validity of the EHC based on the time of issue. The Claim Key 6 is used to identify this claim.
+Verifiers MAY also apply additional policies with the purpose of restricting the validity of the HCERT based on the time of issue. The Claim Key 6 is used to identify this claim.
 
 #### Health Certificate Claim
 
-The Health Certificate (**hcert**) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several EHCs MAY exist under the same claim.
+The Health Certificate (**hcert**) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several HCERTs MAY exist under the same claim.
 
 Note here that the JSON is purely for schema purposes. The wire format is CBOR. Application developers may not actually ever de-, or encode to and from a JSON; but use the in memory structure.
 
@@ -113,13 +113,13 @@ Strings in the JSON object SHOULD be NFC normalised according to the Unicode sta
 
 ### Raw
 
-For arbitrary data interfaces the EHC may be transferred as-is, utilising any underlying, 8 bit safe, reliable data transport. These interfaces MAY include NFC, Bluetooth or transfer over an application layer protocol, for example transfer of an EHC from the Issuer to a holder’s mobile device.
+For arbitrary data interfaces the HCERT may be transferred as-is, utilising any underlying, 8 bit safe, reliable data transport. These interfaces MAY include NFC, Bluetooth or transfer over an application layer protocol, for example transfer of an HCERT from the Issuer to a holder’s mobile device.
 
-If the transfer of the EHC from the Issuer to the holder is based on a presentation-only interface (e.g., SMS, e-mail), the Raw transport encoding is obviously not applicable.
+If the transfer of the HCERT from the Issuer to the holder is based on a presentation-only interface (e.g., SMS, e-mail), the Raw transport encoding is obviously not applicable.
 
 ### Barcode
 
-To lower size and to improve speed and reliability in the reading process of the EHC, the CWT SHALL be compressed using ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the Deflate compression mechanism in the format defined in ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
+To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT SHALL be compressed using ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the Deflate compression mechanism in the format defined in ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
 
 Verifiers MUST check of the presence of a valid ZLIB/Deflate header (0x78, 0xDA) - or proceed without this step when absent.
 
@@ -131,7 +131,7 @@ In order for readers to be able to detect optical payload content type, the base
 
 #### AZTEC 2D Barcode
 
-To optically represent the EHC using a compact machine-readable format the Aztec 2D Barcode (ISO/IEC 24778:2008) SHOULD be used.
+To optically represent the HCERT using a compact machine-readable format the Aztec 2D Barcode (ISO/IEC 24778:2008) SHOULD be used.
 
 When generating the optical code with Aztec, an error correction rate of 23% is RECOMMENDED. The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 65 mm.
 
@@ -147,11 +147,11 @@ When designing a scheme using this specification, several important security asp
 
 As input to the continuous analysis and monitoring of risks, the following topics SHOULD be taken into account:
 
-### EHC Validity Time
+### HCERT Validity Time
 
-It is anticipated that EHCs can not be reliably revoked once issued, especially not if this specification would be used on a global scale. Mainly for this reason, this specification requires the Issuer of an EHC to limit the EHC’s validity period by specifying an expiry time. This requires to holder of an EHC to renew the EHC on some regular basis. 
+It is anticipated that HCERTs can not be reliably revoked once issued, especially not if this specification would be used on a global scale. Mainly for this reason, this specification requires the Issuer of an HCERT to limit the HCERT’s validity period by specifying an expiry time. This requires to holder of an HCERT to renew the HCERT on some regular basis. 
 
-The acceptable validity period would be determined by practical constraints, a traveller may not have the possibility to renew the EHC during a travel overseas. But it may also be that an Issuer of EHC’s are considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an Issuer Key (invalidating all EHCs signed using that key). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all EHCs, on some reasonable interval.
+The acceptable validity period would be determined by practical constraints, a traveller may not have the possibility to renew the HCERT during a travel overseas. But it may also be that an Issuer of HCERT’s are considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an Issuer Key (invalidating all HCERTs signed using that key). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all HCERTs, on some reasonable interval.
 
 
 ### Key Management
@@ -167,14 +167,14 @@ The confidentiality of cryptographic keys can be compromised in a number of diff
 
 To mitigate against the risks that the signing algorithm is found to be weak, allowing the private keys to be compromised through cryptanalysis, this specification recommends all Participants to implement a fallback signature algorithm based on different parameters or a different mathematical problem than the primary.
 
-The other risks mentioned here are related to the Issuers' operating environments. One effective control to mitigate significant parts of these risks is to generate, store and use the private keys in Hardware Security Modules (HSMs). Use of HSMs for signing EHCs is highly encouraged.
+The other risks mentioned here are related to the Issuers' operating environments. One effective control to mitigate significant parts of these risks is to generate, store and use the private keys in Hardware Security Modules (HSMs). Use of HSMs for signing HCERTs is highly encouraged.
 
-However, regardless if an Issuer decides to use HSMs or not, a key roll-over schedule SHOULD be established where the frequency of the key roll-overs is proportionate to the exposure of keys to external networks, other systems and personnel. A well-chosen roll-over schedule also limits the risks associated with erroneously issued EHCs, enabling an Issuer to revoke such EHCs in batches, by withdrawing a key, if required.
+However, regardless if an Issuer decides to use HSMs or not, a key roll-over schedule SHOULD be established where the frequency of the key roll-overs is proportionate to the exposure of keys to external networks, other systems and personnel. A well-chosen roll-over schedule also limits the risks associated with erroneously issued HCERTs, enabling an Issuer to revoke such HCERTs in batches, by withdrawing a key, if required.
 
 
 ### Input Data Validation
 
-This specification may be used in a way which implies receiving data from untrusted sources into systems which may be of mission-critical nature. To minimise the risks associated with this attack vector, all input fields MUST be properly validated by data types, lengths and contents. The Issuer Signature SHALL also be verified before any processing of the contents of the EHC takes place. However, the validation of the Issuer Signature implies parsing the Protected Issuer Header first, in which a potential attacker may attempt to inject carefully crafted information designed to compromise the security of the system.
+This specification may be used in a way which implies receiving data from untrusted sources into systems which may be of mission-critical nature. To minimise the risks associated with this attack vector, all input fields MUST be properly validated by data types, lengths and contents. The Issuer Signature SHALL also be verified before any processing of the contents of the HCERT takes place. However, the validation of the Issuer Signature implies parsing the Protected Issuer Header first, in which a potential attacker may attempt to inject carefully crafted information designed to compromise the security of the system.
 
 
 # Appendix A - Payload
@@ -183,7 +183,7 @@ A proposed payload schema for [EU Health Certficate v1](eu_hcert_v1_schema.yaml)
 
 # Appendix B - Trust management
 
-The signature on the EHC requires a public key to verify. Countries, or institutions within countries, need to place those signatures. And ultimately every verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the signature).
+The signature on the HCERT requires a public key to verify. Countries, or institutions within countries, need to place those signatures. And ultimately every verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the signature).
 
 For this a simplified variation on the ICAO "_Master list_: will be used, tailored to this health application. Where each country is ultimately responsible for compiling their own master list. But with the aid of a coordinating secretariat for operational and practical purposes.
 

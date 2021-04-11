@@ -236,7 +236,11 @@ For the sake of simplicity; memberstates may both submit their existing CSCA cer
 
 ## The Key Identifier (KIDs)
 
-The key identifier consists of the final (TBD) 8 bytes of the SHA256 fingerprint of the DSC.
+The key identifier (kid) is calculated when constructing the list of trusted list of public keys from DSC certificates, and consists of a truncated (first 8 bytes) SHA-256 fingerprint of the DSC encoded in DER (raw) format.
+
+Note 1: Verifiers does not need to calculate the kid based on the DSC certificate and can directly match the key identifier in issued health certificate with the kid on the trusted list.
+
+Note 2: Verifiers should anticipate that the KIDs are not nessecarily unique and that they need to check all matching keys.
 
 ## Differences with the ICAO MasterList system for passports
 

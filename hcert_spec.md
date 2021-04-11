@@ -224,7 +224,7 @@ Memberstates are required to keep a public register of these certificates at a s
 
 Memberstates may then bilaterally exchange CSCA certificates with a number of other States, verify these bilaterally and thus compile their own lists of CSCA certificates: a (MS specific) Master List. 
 
-These CSCA certificates regularly sign the Document Signing Certificates (DSC) used in day to day operations. Memberstates will each will maintain a public register of the DSC certificates that is kept current.
+These CSCA certificates regularly sign the Document Signing Certificates (DSC) used in day to day operations. Memberstates will each will maintain a public register of the DSC certificates that is kept current. 
 
 Other memberstates must regularly fetch these list of DSC certificates and cryptographically verify these against the CSCA certificates (that they have verified by other, non-digital, means).  
 
@@ -232,7 +232,9 @@ The resulting list of DSC certificates then provides the acceptable public keys 
 
 Verifiers should fetch update so this list regularly. Verifiers are expected to tune the format to this list for their own national setting; and the file format of this, internal, trusted list may vary, e.g. it can be a plain JWKS like https://github.com/ehn-digital-green-development/hcert-testdata/blob/main/testdata/jwks.json or something specific to the technology used.
 
-### The Key Identifier (KIDs)
+For the sake of simplicity; memberstates may both submit their existing CSCA certificates from their ICAO eMRTD systems or, as recommended by the WHO, create one specifically for this health domain. Furthermore, though not encouraged, memberstates may also submit their CSCA as their (only) DSC as to faciliate a fast start.
+
+## The Key Identifier (KIDs)
 
 The key identifier consists of the final (TBD) 8 bytes of the SHA256 fingerprint of the DSC.
 
@@ -241,9 +243,10 @@ The key identifier consists of the final (TBD) 8 bytes of the SHA256 fingerprint
 While patterned on best practices of the ICAO Ml - there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope).
 
 * A Member-state may submit multiple CSCA certificates
-* A CSCA certificate may also be used --and published as-- a DSC.
-* The DSC (key usage) validity period may be set to any length not exceeding the CSCA.
+* A CSCA certificate may also be used --and published as-- a DSC. (Note: _the same validation rules still apply - i.e. every DSC is verified against the CSCA_)
+* The DSC (key usage) validity period may be set to any length not exceeding the CSCA _and_ may be absent.
 * The DSC certificate MAY contain policy identifers that are EHN specific.
+* Memberstates may choose to never do any verification of published revocations; but instead purely rely on the DSC lists they get daily from the Secretariat or complile themselves.
 
 ## Secretariat
 

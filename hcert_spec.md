@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 0.1.4, 2021-04-06.
+Version 1.00-draft, 2021-04-12.
 
 
 ## Abstract
@@ -35,7 +35,7 @@ Note that the data structure is of importance here. The actual wire format is la
 
 ### Structure of the Electronic Health Certificate
 
-The HCERT is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The HCERT payloads, as defined below, is transported in a hcert claim (claim key TBD).
+The HCERT is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The HCERT payloads, as defined below, is transported in a hcert claim.
 
 The integrity and authenticity of origin of HCERT data, the CWT MUST be verifiable by the Verifier. To provide this mechanism, the issuer of the HCERT MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
 
@@ -51,7 +51,7 @@ The integrity and authenticity of origin of HCERT data, the CWT MUST be verifiab
   - Issuer (`iss`, claim key 1, optional, ISO 3166 Country Code of issuer)
   - Issued At (`iat`, claim key 6)
   - Expiration Time (`exp`, claim key 4)
-  - Health Certificate (`hcert`, claim key TBD)
+  - Health Certificate (`hcert`, claim key -260 (To be Confirmed by IANA))
     - EU Health Certficate v1 (`eu_hcert_v1`, claim key 1)
 - Signature
 
@@ -161,7 +161,7 @@ In addition - each DSC certificate:
 - MUST contain a 256bit Authority (Issuer) key identifier
 - MUST contain a 256bit Subject key identifier
 
-TBD.
+### Simplified CSCA/DSC
 
 It is expressly allowed to have the CSCA be identical to the DSC. Or in other words - if a country uses a set of self-signed certificates; it would submit these both as its CSCA’s and as its DSC list.
 
@@ -169,6 +169,9 @@ As of this version of the specifications - countries should NOT assume that any 
 
 Instead - the primary validity mechanism is appearance on the most recent version of the list.
 
+### ICAO-ML and Trust Centers
+
+Member states can use a sepearate CSCA (as per the WHO advice) - but may also use submit thier existing eMRT CSCA and/or DSC certificates; and may even chose to procure these from (commercial) trustcenters - and submit these. However - any DSC certificate must always be signed by the CSCA submitted by that country.
 
 ## Security Considerations
 
@@ -266,7 +269,7 @@ In order to alleviate the burden of countries during the initial phase -- there 
 * Shall validate the DSCs against the CSCA prior to publication.
 * MAY sign the aggregated list.
 
-The format for the lists used for the interchange between the member states and the Secretariat is TBC, and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
+The format for the lists used for the interchange between the member states and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
 
 This list format for interchange between the member states is likely to be quite different from format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should take care to publish the aggregated list of DSCs in an, from a verifiers perspective, accessible and easy to use format.
 

@@ -168,7 +168,7 @@ Instead, the primary validity mechanism is presence of the certificate on the mo
 
 ### ICAO-ML and Trust Centers
 
-Member states can use a sepearate CSCA [as per the WHO advice](#ref) - but may also use submit their existing eMRT CSCA and/or DSC certificates; and may even choose to procure these from (commercial) Trust Centers and submit these. However, any DSC certificate must always be signed by the CSCA submitted by that country.
+Member States can use a sepearate CSCA [as per the WHO advice](#ref) - but may also use submit their existing eMRT CSCA and/or DSC certificates; and may even choose to procure these from (commercial) Trust Centers and submit these. However, any DSC certificate must always be signed by the CSCA submitted by that country.
 
 ## Security Considerations
 
@@ -218,7 +218,7 @@ A simplified variation on the ICAO "_Master list_: will be used, tailored to thi
 
 The system consists of (only) two layers; for each Member State one or more country level certificate that each sign one or more document signing certificates that are used in day to day operations.
 
-The member-state certificates are called Certificate Signer Certificate Authority (CSCA) certificates and are (typically) self-signed certificates. Countries may have more than one (e.g. in case of regional devolution). 
+The Member State certificates are called Certificate Signer Certificate Authority (CSCA) certificates and are (typically) self-signed certificates. Countries may have more than one (e.g. in case of regional devolution). 
 
 Member States are required to keep a public register of these certificates at a stable URL.
 
@@ -262,13 +262,13 @@ In order to alleviate the burden of countries during the initial phase, there sh
 * Maintain a public list of URLs with the most up to date DSC lists for each Member State.
 * Maintain a public single, aggregated, list of all CSCAs, which is updated daily.
 * Maintain a public single, aggregated, list of all DSAs, which is updated daily.
-* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the member states aggregated CSCA and DSC lists (CIRBAC, t.b.c)
+* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, t.b.c)
 * Shall validate the DSCs against the CSCA prior to publication.
 * MAY sign the aggregated list.
 
 The format for the lists used for the interchange between the Member States and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
 
-This list format for interchange between the member states is likely to be quite different from the format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should publish the aggregated list of DSCs in an accessible and easy to use format (as seen from a verifier's perspective).
+This list format for interchange between the Member States is likely to be quite different from the format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should publish the aggregated list of DSCs in an accessible and easy to use format (as seen from a verifier's perspective).
 
 Member States are also expected to publish country-specific lists, in formats adapted to the technological setting at hand in that Member State.
 

@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.00-draft, 2021-04-12.
+Version 1.01-draft, 2021-04-12.
 
 
 ## Abstract

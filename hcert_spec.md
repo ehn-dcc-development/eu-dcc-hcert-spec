@@ -127,10 +127,7 @@ If the transfer of the HCERT from the Issuer to the holder is based on a present
 
 #### Payload (CWT) Compression
 
-To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT MAY be compressed. The compression algorithm used shall be detected at runtime (e.g. by interrogating the file header). If no particular constraints are present, the recommended compression mechanism is ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the corresponding deflate compression mechanism as per ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
-
-Verifiers MUST check of the presence of a valid compression header. The recommended ZLIB/Deflate header begins with the bytes (0x78, 0xDA). If no 
-compression signature bytes are detected, the implementation SHALL assume an uncompressed format.
+To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT SHALL be compressed using ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the Deflate compression mechanism in the format defined in ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
 
 #### QR 2D Barcode
 

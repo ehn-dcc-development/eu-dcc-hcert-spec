@@ -147,19 +147,16 @@ The optical code is RECOMMENDED to be rendered on the presentation media with a 
 
 Each Participating country is REQUIRED to provide a list of one or more Certificate Signing Certificate Authorities (CSCAs) and a list of all valid Document Signing Certificates (DSCs), and keep these lists current.
 
-The CSCA and DSC list format MUST follow the format of the ICAO master list (ldif) with the public key pairs packaged into an X.509v3 certificate as a base64 encoder DER.
-
-Each certificate:
+For the list of CSCA certificates, each certificate:
 
 - MUST contain A valid ‘C’ that matches the country of issuance.
-- MUST contain a well managed, unique, DN and unique Serial number
+- MUST contain a well managed, unique DN and unique Serial number
 - MUST contain a 256-bit Authority (Issuer) key identifier
 - MUST contain a 256-bit Subject key identifier
 
-In addition - each DSC certificate:
+In addition, for the list of DSC certificates, each certificate:
 
 - MUST contain validity range that is in line or broader than the EHC Validity Time of all EHC periods signed by that key.
-- SHOULD contain a X.509v3 Private Key Usage Period.
 - MUST contain a 256-bit Authority (Issuer) key identifier
 - MUST contain a 256-bit Subject key identifier
 

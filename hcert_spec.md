@@ -93,7 +93,7 @@ The Expiration Time MUST not exceed the validity time in the DSC.  The verifier 
 
 #### Issued At
 
-The Issued At (**ia**t) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the HCERT was created. 
+The Issued At (**iat**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the HCERT was created. 
 
 The Issued At field MUST not predate the validity time in the DSC.  The verifier MAY check this.
 
@@ -168,7 +168,7 @@ Instead, the primary validity mechanism is presence of the certificate on the mo
 
 ### ICAO-ML and Trust Centers
 
-Member states can use a sepearate CSCA [as per the WHO advice](#ref) - but may also use submit their existing eMRT CSCA and/or DSC certificates; and may even ch0ose to procure these from (commercial) Trust Centers and submit these. However, any DSC certificate must always be signed by the CSCA submitted by that country.
+Member states can use a sepearate CSCA [as per the WHO advice](#ref) - but may also use submit their existing eMRT CSCA and/or DSC certificates; and may even choose to procure these from (commercial) Trust Centers and submit these. However, any DSC certificate must always be signed by the CSCA submitted by that country.
 
 ## Security Considerations
 

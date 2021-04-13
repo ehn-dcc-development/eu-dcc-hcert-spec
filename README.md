@@ -49,7 +49,8 @@ involved in the validation process in the verifier. If a CSCA'ss public keys app
 
 ## Known Implementations
 
-- [hcert test tool by Kirei AB](https://github.com/kirei/hcert)
+Multiple implementations are available via the ["European eHealth network - digital green development coordination"
+](https://github.com/ehn-digital-green-development) GitHub repository.
 
 Highly simplified JSON/CBOR/COSE/Zlib/Base45 pipelines:
 
@@ -67,7 +68,7 @@ Details of this "11 bits per two characters" encoding can be found at
 
 For this reason, the industry generally encodes these in base45. A document for this de-facto standard is in progress:
 
-- https://datatracker.ietf.org/doc/draft-faltstrom-base45/
+- [Internet Draft draft-faltstrom-base45/](https://datatracker.ietf.org/doc/draft-faltstrom-base45/)
 
 ## Presentation
 
@@ -76,7 +77,7 @@ For this reason, the industry generally encodes these in base45. A document for 
 
 ## Contributions
 
-Contributions are very welcome - please generate a pull request.
+Contributions are very welcome - please generate a [pull request](https://github.com/ehn-digital-green-development/hcert-spec/pulls) or create an [issue](https://github.com/ehn-digital-green-development/hcert-spec/issues).
 
 _________________
 

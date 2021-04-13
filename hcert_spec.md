@@ -130,7 +130,6 @@ To lower size and to improve speed and reliability in the reading process of the
 
 To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT MAY be compressed. The compression algorithm used shall be detected at runtime (e.g. by interrogating the file header). If no particular constraints are present, the recommended compression mechanism is ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the corresponding deflate compression mechanism as per ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
 
-
 In order to better handle legacy equipment designed to operate on ASCII payloads, the compressed CWT is encoded as ASCII using [Base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45) before encoded into a barcode.
 
 Two barcode formats are supported; AZTEC (preferred) and QR (secondary). 

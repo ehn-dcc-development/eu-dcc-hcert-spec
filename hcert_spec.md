@@ -225,13 +225,13 @@ The system consists of (only) two layers; for each Member State one or more coun
 
 The Member State certificates are called Certificate Signer Certificate Authorities (CSCAs) and are (typically) self-signed certificates. Countries may have more than one (e.g. in case of regional devolution). These CSCA certificates regularly sign the Document Signing Certificates (DSCs) used for signing HCERTs. Member States will each maintain a public register of the DSC certificates that is kept current and published at a stable URL which is communicated to the Secretariat. Member States MUST remove any revoked or stale certificates from this list.
 
-The Secretariat will regularly retrieve the Member States DSCs, verify these agains the list of CSCA certificates (which have been conveyed and verified by other means) and publish an aggregated list of DSCs in various formats for Verifiers to retrieve. 
+The Secretariat will regularly aggregate and publish the Member States DSCs, after having verified these agains the list of CSCA certificates (which have been conveyed and verified by other means). 
 
-The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that Verifiers can use to validate the signatures over the HCERTs. Verifiers MUST both fetch and update this list regularly.
+The resulting list of DSC certificates then provides the aggregated set of acceptable public keys (and the corresponding KIDs) that Verifiers can use to validate the signatures over the HCERTs. Verifiers MUST fetch and update this list regularly.
 
 Member States may also bilaterally exchange CSCA certificates with a number of other Member States, verify these bilaterally and thus compile their own lists of CSCA and DSC certificates which is specific to that Member State. Verifiers may choose to rely on such a national list.
 
-Such Member State-specific lists are expected to be adapted in the format for their own national setting. As such, the file format of this trusted list may vary, e.g. it can be a plain JWKS like https://github.com/ehn-digital-green-development/hcert-testdata/blob/main/testdata/jwks.json or something specific to the technology used.
+Such Member State-specific lists are expected to be adapted in the format for their own national setting. As such, the file format of this trusted list may vary, e.g. it can be a signed JWKS ([JWK set format per RFC 7517 section 5](https://tools.ietf.org/html/rfc7517#section-5)) or any other format specific to the technology used in that Member State.
 
 For the sake of simplicity: Member States may both submit their existing CSCA certificates from their ICAO eMRTD systems or, as recommended by the WHO, create one specifically for this health domain. Furthermore, although not encouraged, Member States may also submit their CSCA as their (only) DSC in order to facilitate a fast start.
 

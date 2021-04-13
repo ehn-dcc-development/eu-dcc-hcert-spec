@@ -53,7 +53,7 @@ The integrity and authenticity of origin of HCERT data MUST be verifiable by the
 
 - Protected Header
   - Signature Algorithm (`alg`, label 1)
-  - Key Identifier (`KID`, label 4)
+  - Key Identifier (`kid`, label 4)
 - Payload
   - Issuer (`iss`, claim key 1, optional, ISO 3166 Country Code of issuer)
   - Issued At (`iat`, claim key 6)
@@ -83,7 +83,7 @@ This corresponds to the COSE algorithm parameter: **PS256**
 
 #### Key Identifier
 
-The Key Identifier (**KID**) claim is used by Verifiers for selecting the correct public key from a list of keys pertaining to the Issuer (**iss**) Claim. Several keys may be used in parallel by an Issuer for administrative reasons and when performing key rollovers. The Key Identifier is not a security-critical field. For this reason, it MAY also be placed in an unprotected header if required. Verifiers MUST accept both options.
+The Key Identifier (**kid**) claim is used by Verifiers for selecting the correct public key from a list of keys pertaining to the Issuer (**iss**) Claim. Several keys may be used in parallel by an Issuer for administrative reasons and when performing key rollovers. The Key Identifier is not a security-critical field. For this reason, it MAY also be placed in an unprotected header if required. Verifiers MUST accept both options.
 
 Due to the shortening of the identifier (for space-preserving reasons) there is a slim but non-finite chance that the overall list of DSCs accepted by a validator may contain DSCs with duplicate KIDs. For this reason a verifier MUST check all DSCs with that KID.
 

@@ -7,6 +7,13 @@ Version 1.00-draft, 2021-04-12.
 
 This document specifies a data structure and encoding mechanisms for electronic health certificates. It also specifies a transport encoding mechanism in a machine-readable optical format (QR), which can be displayed on the screen of a mobile device or printed on a piece of paper.
 
+### Version History
+
+| version | status | Comments |
+|----------|----------|----------|
+| 1.00  | draft | first version |
+| 1.01  | draft | minor typograhic edits |
+
 
 ## Terminology
 
@@ -166,7 +173,7 @@ Instead, the primary validity mechanism is presence of the certificate on the mo
 
 ### ICAO-ML and Trust Centers
 
-Member States can use a separate CSCA [as per the WHO advice](#ref) - but may also submit their existing eMRT CSCA and/or DSC certificates; and may even choose to procure these from (commercial) Trust Centres and submit these. However, any DSC certificate must always published in the DSC list and be signed by the CSCA submitted by that country.
+Member states can use a sepearate CSCA (as per the WHO advice)(#ref) - but may also use submit their existing eMRT CSCA and/or DSC certificates; and may even chose to procure these from (commercial) trustcenters - and submit these. However - any DSC certificate must always be signed by the CSCA submitted by that country.
 
 ## Security Considerations
 
@@ -218,9 +225,11 @@ The system consists of (only) two layers; for each Member State one or more coun
 
 The Member State certificates are called Certificate Signer Certificate Authorities (CSCAs) and are (typically) self-signed certificates. Countries may have more than one (e.g. in case of regional devolution). These CSCA certificates regularly sign the Document Signing Certificates (DSCs) used in day to day operations. 
 
-Member States acting as Participants are required to keep a public register of these certificates at a stable URL. The Secretariat is anticipated to regularly retrieve the Member States DSCs, verify these agains the list of CSCA certificates (which have been verified by other means) and to publish an aggregated list of DSCs in various formats for Verifiers to retrieve. 
+These CSCA certificates regularly sign the Document Signing Certificates (DSC) used in day to day operations. Memberstates will each will maintain a public register of the DSC certificates that is kept current at a stable URL communicated to the secretariat.  Memberstates *must* remove any revoked certificates from this list.
 
-The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that Verifiers can use to validate the signatures over the HCERTs. Verifiers should both fetch and update this list regularly.
+Other memberstates must regularly fetch these list of DSC certificates and cryptographically verify these against the CSCA certificates (that they have verified by other, non-digital, means). Such fetch should only contain the certificates that that memberstates considers valid at the time of the fetch. 
+
+Verifiers should fetch and update this list regularly. This list of DSC certificates then provides the basis for the acceptable public keys (and the corresponding KIDs) that Verifiers can use to validate the signatures over the HCERTs. 
 
 Member States may also bilaterally exchange CSCA certificates with a number of other Member States, verify these bilaterally and thus compile their own lists of CSCA and DSC certificates which is specific to that Member State. Verifiers may choose to rely on such a national list.
 
@@ -298,3 +307,5 @@ This work is licensed under a
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+
+

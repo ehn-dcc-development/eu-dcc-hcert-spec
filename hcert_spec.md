@@ -1,23 +1,23 @@
 # Electronic Health Certificate Specification
 
-Version 0.1.4, 2021-04-06.
+Version 1.00-draft, 2021-04-12.
 
 
 ## Abstract
 
-This document specifies a data structure and encoding mechanisms for electronic health certificates. It also specifies a transport encoding mechanism in a machine-readable optical format (Aztec), which can be displayed on the screen of a mobile device or printed on a piece of paper.
+This document specifies a data structure and encoding mechanisms for electronic health certificates. It also specifies a transport encoding mechanism in a machine-readable optical format (QR), which can be displayed on the screen of a mobile device or printed on a piece of paper.
 
 
 ## Terminology
 
-Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status is called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a name space and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Coordinator, carries out these tasks. The health certificate format of this specification is called the Electronic Health Certificate, hereafter referred to as the HCERT.
+Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status are called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a namespace and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Secretariat, carries out these tasks. The health certificate format of this specification is called the Electronic Health Certificate, hereafter referred to as the HCERT.
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED" and "MAY" should be interpreted as described in ([RFC 2119](https://tools.ietf.org/html/rfc2119)).
 
 
 ### Versioning Policy
 
-Versions of this specification follow semantic versioning (semver.org) and consist of three different integers describing the _major_, _minor_ and _edition_ version. A change in the _major_ version is an update that includes material changes affecting the decoding of the HCERT or the validation of it. An update of the _minor_ version is a feature or maintenance update that maintains backward compatibility with previous versions.
+Versions of this specification follow [semantic versioning](semver.org) and consist of three different integers describing the _major_, _minor_ and _edition_ version. A change in the _major_ version is an update that includes material changes affecting the decoding of the HCERT or the validation of it. An update of the _minor_ version is a feature or maintenance update that maintains backward compatibility with previous versions.
 
 In addition, there is an _edition_ version number used for publishing updates to the document itself which have no effect on the HCERT, such as correcting spelling, providing clarifications or addressing ambiguities, et cetera. Hence, the edition number is not indicated in the HCERT. The version numbers are expressed in the title page of the document using a _major.minor.edition_ format, where the three parts are separated by decimal dots.
 
@@ -31,13 +31,13 @@ The Electronic Health Certificate (HCERT) is designed to provide a uniform and s
 
 Ability to read and interpret HCERTs issued by any Issuer requires a common data structure and agreements of the significance of each data field. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema, Appendix A. Critical elements of a health certificate SHOULD use this data structure. A Participant MAY extend the objects with proprietary data. The naming of such objects MUST be agreed between all Participants.
 
-Note that the data structure is of importance here. The actual wire format is language neutral (CBOR and CWT (which itself CBOR again)).
+Note that the data structure is of importance here. The actual wire format is language neutral (CBOR and CWT).
 
 ### Structure of the Electronic Health Certificate
 
-The HCERT is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The HCERT payloads, as defined below, is transported in a hcert claim (claim key TBD).
+The HCERT is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The HCERT payload, as defined below, is transported in a `hcert` claim.
 
-The integrity and authenticity of origin of HCERT data, the CWT MUST be verifiable by the Verifier. To provide this mechanism, the issuer of the HCERT MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
+The integrity and authenticity of origin of HCERT data MUST be verifiable by the Verifier. To provide this mechanism, the issuer of the HCERT MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
 
 
 ### CWT Claims
@@ -46,13 +46,13 @@ The integrity and authenticity of origin of HCERT data, the CWT MUST be verifiab
 
 - Protected Header
   - Signature Algorithm (`alg`, label 1)
-  - Key Identifier (`kid`, label 4)
+  - Key Identifier (`KID`, label 4)
 - Payload
   - Issuer (`iss`, claim key 1, optional, ISO 3166 Country Code of issuer)
   - Issued At (`iat`, claim key 6)
   - Expiration Time (`exp`, claim key 4)
-  - Health Certificate (`hcert`, claim key TBD)
-    - EU Health Certficate v1 (`eu_hcert_v1`, claim key 1)
+  - Health Certificate (`hcert`, claim key -260 (To be Confirmed by IANA))
+    - EU Health Certificate v1 (`eu_hcert_v1`, claim key 1)
 - Signature
 
 
@@ -70,44 +70,43 @@ For this version of the specification - the SOG-IT set levels for the primary an
 
 This corresponds to the COSE algorithm parameter **ES256**.
 
-- Fallback Algorithm: The fallback algorithm is RSASSA-PSS as defined in ([RFC 8230](https://tools.ietf.org/html/rfc8230)) with a modulus of 2048 bits in combination with the SHA–256 hash algorithm as defined in (ISO/IEC 10118–3:2004) function 4.
+- Secondary Algorithm: The secondary algorithm is RSASSA-PSS as defined in ([RFC 8230](https://tools.ietf.org/html/rfc8230)) with a modulus of 2048 bits in combination with the SHA–256 hash algorithm as defined in (ISO/IEC 10118–3:2004) function 4.
 
 This corresponds to the COSE algorithm parameter: **PS256**
 
 #### Key Identifier
 
-The Key Identifier (**kid**) claim is used by Verifiers for selecting the correct public key from a list of keys pertaining to the Issuer (**iss**) Claim. Several keys may be used in parallel by an Issuer for administrative reasons and when performing key rollovers.The Key Identifier is not a security-critical field. For this reason, it MAY also be placed in an unprotected header if required. Verifiers MUST accept both options.
+The Key Identifier (**KID**) claim is used by Verifiers for selecting the correct public key from a list of keys pertaining to the Issuer (**iss**) Claim. Several keys may be used in parallel by an Issuer for administrative reasons and when performing key rollovers. The Key Identifier is not a security-critical field. For this reason, it MAY also be placed in an unprotected header if required. Verifiers MUST accept both options.
 
-Due to this shortening of the identifier (for space preservin reasons) there is a non-finite chance that the overall list of DSCs accepted by an validator contains DSCs with duplicate KIDs. For this reason a verifier MUST check all DSCs with that KID.
+Due to the shortening of the identifier (for space-preserving reasons) there is a slim but non-finite chance that the overall list of DSCs accepted by a validator may contain DSCs with duplicate KIDs. For this reason a verifier MUST check all DSCs with that KID.
 
 ####  Issuer
 
-The Issuer (**iss**) claim is a string value which MAY hold the identifier of the entity issuing the HCERT. The namespace of the Issuer Identifiers MUST be agreed between the Participants, but is not defined in the specification.
-The Claim Key 1 is used to identify this claim.
+The Issuer (**iss**) claim is a string value which MAY optionally hold the ISO 3166 Country Code of the entity issuing the HCERT. This claim can be used by a Verifier to identify which set of DSCs to use for validation. The Claim Key 1 is used to identify this claim.
 
 #### Expiration Time
 
 The Expiration Time (**exp**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the HCERT. The Claim Key 4 is used to identify this claim.
 
-The Expiration Time MUST not exceed the validity time in the DSC.  The verifier SHOULD check this.
+The Expiration Time MUST not exceed the validity period of the DSC.
 
 #### Issued At
 
-The Issued At (**ia**t) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the HCERT was created. 
+The Issued At (**iat**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the HCERT was created. 
 
-The Issued At  MUST not predate the validity time in the DSC.  The verifier MAY check this.
+The Issued At field MUST not predate the validity period of the DSC.
 
-Verifiers MAY also apply additional policies with the purpose of restricting the validity of the HCERT based on the time of issue. The Claim Key 6 is used to identify this claim.
+Verifiers MAY apply additional policies with the purpose of restricting the validity of the HCERT based on the time of issue. The Claim Key 6 is used to identify this claim.
 
 #### Health Certificate Claim
 
-The Health Certificate (**hcert**) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several HCERTs MAY exist under the same claim.
+The Health Certificate (**hcert**) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several different types of HCERTs MAY exist under the same claim.
 
-Note here that the JSON is purely for schema purposes. The wire format is CBOR. Application developers may not actually ever de-, or encode to and from a JSON; but use the in memory structure.
+Note here that the JSON is purely for schema purposes. The wire format is CBOR. Application developers may not actually ever de-, or encode to and from the JSON format; but use the in-memory structure.
 
-The Claim Key to be used to identify this claim is yet to be determined.
+The Claim Key to be used to identify this claim is -260 (pending).
 
-Strings in the JSON object SHOULD be NFC normalised according to the Unicode standard. Decoding applications SHOULD however be permissive and robust in these aspects, and acceptance of any reasonable type conversion is strongly encouraged. If unnormalised data is found during decoding, or in subsequent comparison function, implementations SHOULD behave as if the input is normalised to NFC.
+Strings in the JSON object SHOULD be NFC normalised according to the Unicode standard. Decoding applications SHOULD however be permissive and robust in these aspects, and acceptance of any reasonable type conversion is strongly encouraged. If non-normalised data is found during decoding, or in subsequent comparison functions, implementations SHOULD behave as if the input is normalised to NFC.
 
 ## Transport Encodings
 
@@ -119,82 +118,81 @@ If the transfer of the HCERT from the Issuer to the holder is based on a present
 
 ### Barcode
 
-To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT SHALL be compressed using ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the Deflate compression mechanism in the format defined in ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
+#### Payload (CWT) Compression
 
-Verifiers MUST check of the presence of a valid ZLIB/Deflate header (0x78, 0xDA) - or proceed without this step when absent.
+To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT MAY be compressed. The compression algorithm used shall be detected at runtime (e.g. by interrogating the file header). If no particular constraints are present, the recommended compression mechanism is ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the corresponding deflate compression mechanism as per ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
 
-In order to better handle legacy equipment designed to operate on ASCII payloads, the compressed CWT is encoded as ASCII using [Base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45) before encoded into a barcode.
-
-Two barcode formats are supported; AZTEC (preferred) and QR (secondary). 
-
-In order for readers to be able to detect optical payload content type, the base45 encoded data per this specification SHALL be prefixed by the string "HC1".
-
-#### AZTEC 2D Barcode
-
-To optically represent the HCERT using a compact machine-readable format the Aztec 2D Barcode (ISO/IEC 24778:2008) SHOULD be used.
-
-When generating the optical code with Aztec, an error correction rate of 23% is RECOMMENDED. The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 65 mm.
+Verifiers MUST check of the presence of a valid compression header. The recommended ZLIB/Deflate header begins with the bytes (0x78, 0xDA). If no 
+compression signature bytes are detected, the implementation SHALL assume an uncompressed format.
 
 #### QR 2D Barcode
 
-Alternatively a QR barcode may be used. An error correction rate of ‘Q’ (around 25%) RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
+In order to better handle legacy equipment designed to operate on ASCII payloads, the compressed CWT is encoded as ASCII using [Base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45) before being encoded into a 2D barcode.
+
+The QR format as defined in (ISO/IEC 18004:2015) SHALL be used for 2D barcode generation. An error correction rate of ‘Q’ (around 25%) RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
+
+In order for readers to be able to detect optical payload content type, the base45 encoded data (as per this specification) SHALL be prefixed by the string "HC1".
 
 The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size for at least 35 mm; and when used on an optical screen with at least 4 pixels per timing cell. (recommended and max size to be confirmed).
 
+
 ## Trusted List Format (DSC list)
 
-Each country will provide a list of one or more CSCAs.
+Each Participating country is REQUIRED to provide a list of one or more Certificate Signing Certificate Authorities (CSCAs) and a list of all valid Document Signing Certificates (DSCs), and keep these lists current.
 
-The CSCA and the trusted DSC list format will follow the format of the ICAO master list (ldif) with the public key pairs packaged into a X.509v3 certificate as a base64 encoder DER.
+The CSCA and DSC list format MUST follow the format of the ICAO master list (ldif) with the public key pairs packaged into an X.509v3 certificate as a base64 encoder DER.
 
 Each certificate:
 
 - MUST contain A valid ‘C’ that matches the country of issuance.
 - MUST contain a well managed, unique, DN and unique Serial number
-- MUST contain a 256bit Authority (Issuer) key identifier
-- MUST contain a 256bit Subject key identifier
+- MUST contain a 256-bit Authority (Issuer) key identifier
+- MUST contain a 256-bit Subject key identifier
 
 In addition - each DSC certificate:
 
 - MUST contain validity range that is in line or broader than the EHC Validity Time of all EHC periods signed by that key.
-- SHOULD contain aX509v3 Private Key Usage Period period.
-- MUST contain a 256bit Authority (Issuer) key identifier
-- MUST contain a 256bit Subject key identifier
+- SHOULD contain a X.509v3 Private Key Usage Period.
+- MUST contain a 256-bit Authority (Issuer) key identifier
+- MUST contain a 256-bit Subject key identifier
 
-TBD.
+### Simplified CSCA/DSC
 
-It is expressly allowed to have the CSCA be identical to the DSC. Or in other words - if a country uses a set of self-signed certificates; it would submit these both as its CSCA’s and as its DSC list.
+It is expressly allowed to have the CSCA be identical to the DSC. In other words: if a participating country uses a set of self-signed certificates it would submit these to both its CSCA and its DSC list.
 
-As of this version of the specifications - countries should NOT assume that any CRL information is used; or that the Private Key Usage Period is verified by implementors.
+As of this version of the specifications - countries should NOT assume that any Certificate Revocation List (CRL) information is used; or that the Private Key Usage Period is verified by implementors.
 
-Instead - the primary validity mechanism is appearance on the most recent version of the list.
+Instead, the primary validity mechanism is presence of the certificate on the most recent version of that certificate list.
 
+### ICAO-ML and Trust Centers
+
+Member States can use a separate CSCA [as per the WHO advice](#ref) - but may also submit their existing eMRT CSCA and/or DSC certificates; and may even choose to procure these from (commercial) Trust Centres and submit these. However, any DSC certificate must always published in the DSC list and be signed by the CSCA submitted by that country.
 
 ## Security Considerations
 
-When designing a scheme using this specification, several important security aspects must be considered. These can not preemptively be accounted for in this specification, but must be identified, analysed and monitored by the Participants.
+When designing a scheme using this specification, several important security aspects must be considered. These cannot preemptively be accounted for in this specification but must be identified, analysed and monitored by the Participants.
 
 As input to the continuous analysis and monitoring of risks, the following topics SHOULD be taken into account:
 
 ### HCERT Validity Time
 
-It is anticipated that HCERTs can not be reliably revoked once issued, especially not if this specification would be used on a global scale. Mainly for this reason, this specification requires the Issuer of an HCERT to limit the HCERT’s validity period by specifying an expiry time. This requires to holder of an HCERT to renew the HCERT on some regular basis. 
+It is anticipated that HCERTs can not be reliably revoked once issued, especially not if this specification would be used on a global scale. Mainly for this reason, this specification requires the Issuer of an HCERT to limit the HCERT’s validity period by specifying a signature expiry time. This requires the holder of an HCERT to renew the HCERT at periodic intervals. 
 
-The acceptable validity period would be determined by practical constraints, a traveller may not have the possibility to renew the HCERT during a travel overseas. But it may also be that an Issuer of HCERT’s are considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an Issuer Key (invalidating all HCERTs signed using that key). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all HCERTs, on some reasonable interval.
+The acceptable validity period may be determined by practical constraints. For example, a traveller may not have the possibility to renew the HCERT during a trip overseas. However, it may also be the case that an Issuer of HCERT’s are considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an DSC (invalidating all HCERTs issued using that key). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all HCERTs, on some reasonable interval.
 
 
 ### Key Management
 
-This specification relies heavily on strong cryptographic mechanisms to secure data integrity and data origin authentication. Maintaining the confidentiality of the private encryption keys are therefor of utmost importance.
+This specification relies heavily on strong cryptographic mechanisms to secure data integrity and data origin authentication. Maintaining the confidentiality of the private keys is therefore of utmost importance.
 
-The confidentiality of cryptographic keys can be compromised in a number of different ways, for instance;
+The confidentiality of cryptographic keys can be compromised in a number of different ways, for instance:
 
 - The key generation process may be flawed, resulting in weak keys.
 - The keys may be exposed by human error.
 - The keys may be stolen by external or internal perpetrators.
 - The keys may be calculated using cryptanalysis.
 
-To mitigate against the risks that the signing algorithm is found to be weak, allowing the private keys to be compromised through cryptanalysis, this specification recommends all Participants to implement a fallback signature algorithm based on different parameters or a different mathematical problem than the primary.
+To mitigate against the risks that the signing algorithm is found to be weak, allowing the private keys to be compromised through cryptanalysis, this specification recommends all Participants to implement a secondary fallback signature algorithm based on different parameters or a different mathematical problem than the primary.
 
 The other risks mentioned here are related to the Issuers' operating environments. One effective control to mitigate significant parts of these risks is to generate, store and use the private keys in Hardware Security Modules (HSMs). Use of HSMs for signing HCERTs is highly encouraged.
 
@@ -212,67 +210,61 @@ A proposed payload schema for [EU Health Certficate v1](https://github.com/ehn-d
 
 # Appendix B - Trust management
 
-The signature on the HCERT requires a public key to verify. Countries, or institutions within countries, need to place those signatures. And ultimately every verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the signature).
+The signature of the HCERT requires a public key to verify. Countries, or institutions within countries, need to make these public keys available. Ultimately, every verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the HCERT).
 
-For this a simplified variation on the ICAO "_Master list_: will be used, tailored to this health application. Where each country is ultimately responsible for compiling their own master list. But with the aid of a coordinating secretariat for operational and practical purposes.
+A simplified variation on the ICAO "_Master list_" will be used, tailored to this health certificate application, whereby each country is ultimately responsible for compiling their own master list. The aid of a coordinating Secretariat for operational and practical purposes will be available.
 
-The system consists of (just) two layers; for each Member State one or more country level certificate that each sign one or more document signing certificates that are used in day to day operations.
+The system consists of (only) two layers; for each Member State one or more country level certificate that each sign one or more document signing certificates that are used in day to day operations.
 
-The member-state certificates are called Certificate Signer Certificate Authority (CSCA) certificates and are (typically) self signed certificates. Countries may have more than one (e.g. in case of regional devolution). 
+The Member State certificates are called Certificate Signer Certificate Authorities (CSCAs) and are (typically) self-signed certificates. Countries may have more than one (e.g. in case of regional devolution). These CSCA certificates regularly sign the Document Signing Certificates (DSCs) used in day to day operations. 
 
-Memberstates are required to keep a public register of these certificates at a stable URL.
+Member States acting as Participants are required to keep a public register of these certificates at a stable URL. The Secretariat is anticipated to regularly retrieve the Member States DSCs, verify these agains the list of CSCA certificates (which have been verified by other means) and to publish an aggregated list of DSCs in various formats for Verifiers to retrieve. 
 
-Memberstates may then bilaterally exchange CSCA certificates with a number of other States, verify these bilaterally and thus compile their own lists of CSCA certificates: a (MS specific) Master List. 
+The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that Verifiers can use to validate the signatures over the HCERTs. Verifiers should both fetch and update this list regularly.
 
-These CSCA certificates regularly sign the Document Signing Certificates (DSC) used in day to day operations. Memberstates will each will maintain a public register of the DSC certificates that is kept current. 
+Member States may also bilaterally exchange CSCA certificates with a number of other Member States, verify these bilaterally and thus compile their own lists of CSCA and DSC certificates which is specific to that Member State. Verifiers may choose to rely on such a national list.
 
-Other memberstates must regularly fetch these list of DSC certificates and cryptographically verify these against the CSCA certificates (that they have verified by other, non-digital, means).  
+Such Member State-specific lists are expected to be adapted in the format for their own national setting. As such, the file format of this internal, trusted list may vary, e.g. it can be a plain JWKS like https://github.com/ehn-digital-green-development/hcert-testdata/blob/main/testdata/jwks.json or something specific to the technology used.
 
-The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that verifiers can use to validate the signature on the CWT in the Qr code. 
-
-Verifiers should fetch update so this list regularly. Verifiers are expected to tune the format to this list for their own national setting; and the file format of this, internal, trusted list may vary, e.g. it can be a plain JWKS like https://github.com/ehn-digital-green-development/hcert-testdata/blob/main/testdata/jwks.json or something specific to the technology used.
-
-For the sake of simplicity; memberstates may both submit their existing CSCA certificates from their ICAO eMRTD systems or, as recommended by the WHO, create one specifically for this health domain. Furthermore, though not encouraged, memberstates may also submit their CSCA as their (only) DSC as to faciliate a fast start.
+For the sake of simplicity: Member States may both submit their existing CSCA certificates from their ICAO eMRTD systems or, as recommended by the WHO, create one specifically for this health domain. Furthermore, although not encouraged, Member States may also submit their CSCA as their (only) DSC in order to facilitate a fast start.
 
 ## The Key Identifier (KIDs)
 
-The key identifier (kid) is calculated when constructing the list of trusted list of public keys from DSC certificates, and consists of a truncated (first 8 bytes) SHA-256 fingerprint of the DSC encoded in DER (raw) format.
+The key identifier (KID) is calculated when constructing the list of trusted public keys from DSC certificates and consists of a truncated (first 8 bytes) SHA-256 fingerprint of the DSC encoded in DER (raw) format.
 
-Note 1: Verifiers does not need to calculate the kid based on the DSC certificate and can directly match the key identifier in issued health certificate with the kid on the trusted list.
+Note that Verifiers do not need to calculate the KID based on the DSC certificate and can directly match the key identifier in issued health certificate with the KID on the trusted list.
 
-Note 2: Verifiers should anticipate that the KIDs are not nessecarily unique and that they need to check all matching keys.
+## Differences to the ICAO MasterList system for passports
 
-## Differences with the ICAO MasterList system for passports
+While patterned on best practices of the ICAO ML, there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope).
 
-While patterned on best practices of the ICAO Ml - there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope).
-
-* A Member-state may submit multiple CSCA certificates
+* A Member State may submit multiple CSCA certificates.
 * A CSCA certificate may also be used --and published as-- a DSC. (Note: _the same validation rules still apply - i.e. every DSC is verified against the CSCA_)
 * The DSC (key usage) validity period may be set to any length not exceeding the CSCA _and_ may be absent.
-* The DSC certificate MAY contain policy identifers that are EHN specific.
-* Memberstates may choose to never do any verification of published revocations; but instead purely rely on the DSC lists they get daily from the Secretariat or complile themselves.
+* The DSC certificate MAY contain policy identifiers that are EHN specific.
+* Member States may choose to never do any verification of published revocations; but instead purely rely on the DSC lists they get daily from the Secretariat or compile themselves.
 
 ## Secretariat
 
-In order to alleviate the burden of countries during the initial phase -- there shall be a secretarial service that will:
+In order to alleviate the burden of countries during the initial phase, there shall be a secretarial service which will:
 
-* Maintain a list of operational and legal contacts for each member-state to further orderly management of this health specific set of master lists.
-* Maintain a public 24x7 an incident/security contact point.
-* Maintain a public list of URLs with the most up to date CSCA lists for each member-state.
-* Maintain a public  list of URLs with the most up to date DSC lists for each member-state.
-* Maintain a public  single, aggregated, list of all CSCAs, that is updated daily.
-* Maintain a public single, aggregated, list of all DSAs, that is updated daily.
-* Provide MS with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the member states aggregated CSCA and DSC lists (CIRBAC, t.b.c)
+* Maintain a list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
+* Maintain a public 24x7 incident/security contact point.
+* Maintain a public list of URLs with the most up to date CSCA lists for each Member State.
+* Maintain a public list of URLs with the most up to date DSC lists for each Member State.
+* Maintain a public single, aggregated, list of all CSCAs, which is updated daily.
+* Maintain a public single, aggregated, list of all DSAs, which is updated daily.
+* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, t.b.c)
 * Shall validate the DSCs against the CSCA prior to publication.
 * MAY sign the aggregated list.
 
-The format for the lists used for the interchange between the member states and the Secretariat is TBC, and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
+The format for the lists used for the interchange between the Member States and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
 
-This list format for interchange between the member states is likely to be quite different from format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should take care to publish the aggregated list of DSCs in an, from a verifiers perspective, accessible and easy to use format.
+This list format for interchange between the Member States is likely to be quite different from the format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should publish the aggregated list of DSCs in an accessible and easy to use format (as seen from a verifier's perspective).
 
-Member State are also expected to publish country-specific lists, in formats tuned to the technological setting at hand in that member state.
+Member States are also expected to publish country-specific lists, in formats adapted to the technological setting at hand in that Member State.
 
-And that the Secretarial also will:
+The Secretarial shall also:
 
 * Maintain a similar set of lists with 'test' certificates
 * Maintain a set of test certificates - at least one for each country.
@@ -282,11 +274,10 @@ And that the Secretarial also will:
 The document signing certificate MAY contain Extended key usage extension fields; these being:
 
 * OID 1.3.6.1.4.1.0.1847.2021.1.1        valid for test
-* OID 1.3.6.1.4.1.0.1847.2021.1.2        valid for vacc
+* OID 1.3.6.1.4.1.0.1847.2021.1.2        valid for vaccinations
 * OID 1.3.6.1.4.1.0.1847.2021.1.3        valid for recovery
 
-And if not present - shall be considered valid for all three.
-
+If none of these OIDs are present the document shall be considered valid for all three.
 
 _________________
 

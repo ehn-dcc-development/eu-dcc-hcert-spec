@@ -234,9 +234,9 @@ Memberstates are required to keep a public register of these certificates at a s
 
 Memberstates may then bilaterally exchange CSCA certificates with a number of other States, verify these bilaterally and thus compile their own lists of CSCA certificates: a (MS specific) Master List. 
 
-These CSCA certificates regularly sign the Document Signing Certificates (DSC) used in day to day operations. Memberstates will each will maintain a public register of the DSC certificates that is kept current. 
+These CSCA certificates regularly sign the Document Signing Certificates (DSC) used in day to day operations. Memberstates will each will maintain a public register of the DSC certificates that is kept current.  Memberstates *must* remove any revoked certificates from this list.
 
-Other memberstates must regularly fetch these list of DSC certificates and cryptographically verify these against the CSCA certificates (that they have verified by other, non-digital, means).  
+Other memberstates must regularly fetch these list of DSC certificates and cryptographically verify these against the CSCA certificates (that they have verified by other, non-digital, means). Such fetch should only contain the certificates that that memberstates considers valid at the time of the fetch. 
 
 The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that verifiers can use to validate the signature on the CWT in the Qr code. 
 

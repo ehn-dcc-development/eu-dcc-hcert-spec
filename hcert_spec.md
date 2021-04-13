@@ -210,27 +210,23 @@ A proposed payload schema for [EU Health Certficate v1](https://github.com/ehn-d
 
 # Appendix B - Trust management
 
-The signature on the HCERT requires a public key to verify. Countries, or institutions within countries, need to make these public keys available. Ultimately, every verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the signature).
+The signature of the HCERT requires a public key to verify. Countries, or institutions within countries, need to make these public keys available. Ultimately, every verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the HCERT).
 
-A simplified variation on the ICAO "_Master list_: will be used, tailored to this health application, whereby each country is ultimately responsible for compiling their own master list. The aid of a coordinating Secretariat for operational and practical purposes will be available.
+A simplified variation on the ICAO "_Master list_" will be used, tailored to this health certificate application, whereby each country is ultimately responsible for compiling their own master list. The aid of a coordinating Secretariat for operational and practical purposes will be available.
 
 The system consists of (only) two layers; for each Member State one or more country level certificate that each sign one or more document signing certificates that are used in day to day operations.
 
-The Member State certificates are called Certificate Signer Certificate Authority (CSCA) certificates and are (typically) self-signed certificates. Countries may have more than one (e.g. in case of regional devolution). 
+The Member State certificates are called Certificate Signer Certificate Authorities (CSCAs) and are (typically) self-signed certificates. Countries may have more than one (e.g. in case of regional devolution). These CSCA certificates regularly sign the Document Signing Certificates (DSCs) used in day to day operations. 
 
-Member States are required to keep a public register of these certificates at a stable URL.
+Member States acting as Participants are required to keep a public register of these certificates at a stable URL. The Secretariat is anticipated to regularly retrieve the Member States DSCs, verify these agains the list of CSCA certificates (which have been verified by other means) and to publish an aggregated list of DSCs in various formats for Verifiers to retrieve. 
 
-Member States may then bilaterally exchange CSCA certificates with a number of other Member States, verify these bilaterally and thus compile their own lists of CSCA certificates resulting in a Master List which is specific to that Member State. 
+The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that Verifiers can use to validate the signatures over the HCERTs. Verifiers should both fetch and update this list regularly.
 
-These CSCA certificates regularly sign the Document Signing Certificates (DSC) used in day to day operations. Member States will each maintain a public register of the DSC certificates that is kept current. 
+Member States may also bilaterally exchange CSCA certificates with a number of other Member States, verify these bilaterally and thus compile their own lists of CSCA and DSC certificates which is specific to that Member State. Verifiers may choose to rely on such a national list.
 
-Other Member States must regularly fetch these lists of DSC certificates and cryptographically verify these against the CSCA certificates (that they have verified by other, non-digital, means).  
+Such Member State-specific lists are expected to be adapted in the format for their own national setting. As such, the file format of this internal, trusted list may vary, e.g. it can be a plain JWKS like https://github.com/ehn-digital-green-development/hcert-testdata/blob/main/testdata/jwks.json or something specific to the technology used.
 
-The resulting list of DSC certificates then provides the acceptable public keys (and the corresponding KIDs) that verifiers can use to validate the signature on the CWT in the Qr code. 
-
-Verifiers should both fetch and update this list regularly. Verifiers are expected to adapt the format of this list for their own national setting. As such, the file format of this internal, trusted list may vary, e.g. it can be a plain JWKS like https://github.com/ehn-digital-green-development/hcert-testdata/blob/main/testdata/jwks.json or something specific to the technology used.
-
-For the sake of simplicity: Member States may both submit their existing CSCA certificates from their ICAO eMRTD systems or, as recommended by the WHO, create one specifically for this health domain. Furthermore, although not encouraged, Member States may also submit their CSCA as their (only) DSC in order to faciliate a fast start.
+For the sake of simplicity: Member States may both submit their existing CSCA certificates from their ICAO eMRTD systems or, as recommended by the WHO, create one specifically for this health domain. Furthermore, although not encouraged, Member States may also submit their CSCA as their (only) DSC in order to facilitate a fast start.
 
 ## The Key Identifier (KIDs)
 

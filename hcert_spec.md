@@ -53,7 +53,7 @@ The integrity and authenticity of origin of HCERT data, the CWT MUST be verifiab
 
 - Protected Header
   - Signature Algorithm (`alg`, label 1)
-  - Key Identifier (`kid`, label 4)
+  - Key Identifier (`KID`, label 4)
 - Payload
   - Issuer (`iss`, claim key 1, optional, ISO 3166 Country Code of issuer)
   - Issued At (`iat`, claim key 6)
@@ -128,7 +128,8 @@ If the transfer of the HCERT from the Issuer to the holder is based on a present
 
 To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT SHALL be compressed using ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the Deflate compression mechanism in the format defined in ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
 
-Verifiers MUST check of the presence of a valid ZLIB/Deflate header (0x78, 0xDA) - or proceed without this step when absent.
+To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT MAY be compressed. The compression algorithm used shall be detected at runtime (e.g. by interrogating the file header). If no particular constraints are present, the recommended compression mechanism is ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the corresponding deflate compression mechanism as per ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
+
 
 In order to better handle legacy equipment designed to operate on ASCII payloads, the compressed CWT is encoded as ASCII using [Base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45) before encoded into a barcode.
 

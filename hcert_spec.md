@@ -10,7 +10,7 @@ This document specifies a data structure and encoding mechanisms for electronic 
 
 ## Terminology
 
-Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status are called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a namespace and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Coordinator, carries out these tasks. The health certificate format of this specification is called the Electronic Health Certificate, hereafter referred to as the HCERT.
+Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status are called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a namespace and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Secretariat, carries out these tasks. The health certificate format of this specification is called the Electronic Health Certificate, hereafter referred to as the HCERT.
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED" and "MAY" should be interpreted as described in ([RFC 2119](https://tools.ietf.org/html/rfc2119)).
 
@@ -214,7 +214,7 @@ A proposed payload schema for [EU Health Certficate v1](https://github.com/ehn-d
 
 The signature on the HCERT requires a public key to verify. Countries, or institutions within countries, need to make these public keys available. Ultimately, every verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the signature).
 
-A simplified variation on the ICAO "_Master list_: will be used, tailored to this health application, whereby each country is ultimately responsible for compiling their own master list. The aid of a coordinating secretariat for operational and practical purposes will be available.
+A simplified variation on the ICAO "_Master list_: will be used, tailored to this health application, whereby each country is ultimately responsible for compiling their own master list. The aid of a coordinating Secretariat for operational and practical purposes will be available.
 
 The system consists of (only) two layers; for each Member State one or more country level certificate that each sign one or more document signing certificates that are used in day to day operations.
 

@@ -148,15 +148,15 @@ Each certificate:
 
 - MUST contain A valid ‘C’ that matches the country of issuance.
 - MUST contain a well managed, unique, DN and unique Serial number
-- MUST contain a 256bit Authority (Issuer) key identifier
-- MUST contain a 256bit Subject key identifier
+- MUST contain a 256-bit Authority (Issuer) key identifier
+- MUST contain a 256-bit Subject key identifier
 
 In addition - each DSC certificate:
 
 - MUST contain validity range that is in line or broader than the EHC Validity Time of all EHC periods signed by that key.
-- SHOULD contain aX509v3 Private Key Usage Period.
-- MUST contain a 256bit Authority (Issuer) key identifier
-- MUST contain a 256bit Subject key identifier
+- SHOULD contain a X.509v3 Private Key Usage Period.
+- MUST contain a 256-bit Authority (Issuer) key identifier
+- MUST contain a 256-bit Subject key identifier
 
 ### Simplified CSCA/DSC
 

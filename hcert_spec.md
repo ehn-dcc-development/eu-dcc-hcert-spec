@@ -7,6 +7,13 @@ Version 1.00-draft, 2021-04-12.
 
 This document specifies a data structure and encoding mechanisms for electronic health certificates. It also specifies a transport encoding mechanism in a machine-readable optical format (Aztec), which can be displayed on the screen of a mobile device or printed on a piece of paper.
 
+### Version History
+
+| version | status | Comments |
+|----------|----------|----------|
+| 1.00  | draft | first version |
+| 1.01  | draft | minor typograhic edits |
+
 
 ## Terminology
 
@@ -35,7 +42,7 @@ Note that the data structure is of importance here. The actual wire format is la
 
 ### Structure of the Electronic Health Certificate
 
-The HCERT is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The HCERT payloads, as defined below, is transported in a hcert claim.
+The HCERT is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The HCERT payload, as defined below, is transported in a hcert claim.
 
 The integrity and authenticity of origin of HCERT data, the CWT MUST be verifiable by the Verifier. To provide this mechanism, the issuer of the HCERT MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
 
@@ -171,7 +178,7 @@ Instead - the primary validity mechanism is appearance on the most recent versio
 
 ### ICAO-ML and Trust Centers
 
-Member states can use a sepearate CSCA (as per the WHO advice) - but may also use submit thier existing eMRT CSCA and/or DSC certificates; and may even chose to procure these from (commercial) trustcenters - and submit these. However - any DSC certificate must always be signed by the CSCA submitted by that country.
+Member states can use a sepearate CSCA (as per the WHO advice) - but may also use submit their existing eMRT CSCA and/or DSC certificates; and may even chose to procure these from (commercial) trustcenters - and submit these. However - any DSC certificate must always be signed by the CSCA submitted by that country.
 
 ## Security Considerations
 
@@ -310,3 +317,5 @@ This work is licensed under a
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+
+

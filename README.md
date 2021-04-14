@@ -7,7 +7,7 @@ This repository contains a proposal for encoding and signing the Electronic Heal
 
 ## Specification
 
-[A draft specification is available](hcert_spec.md).
+[A first version of specification is available](hcert_spec.md).
 
 ## Overview
 

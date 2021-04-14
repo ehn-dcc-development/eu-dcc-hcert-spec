@@ -35,7 +35,7 @@ The Electronic Health Certificate (HCERT) is designed to provide a uniform and s
 
 ### Coordinated Data Structure
 
-Ability to read and interpret HCERTs issued by any Issuer requires a common data structure and agreements of the significance of each data field. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema, Appendix A. Critical elements of a health certificate SHOULD use this data structure. A Participant MAY extend the objects with proprietary data. The naming of such objects MUST be agreed between all Participants.
+Ability to read and interpret HCERTs issued by any Issuer requires a common data structure and agreements of the significance of each data field. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema. Critical elements of a health certificate SHOULD use this data structure. A Participant MAY extend the objects with proprietary data. The naming of such objects MUST be agreed between all Participants.
 
 Note that the data structure is of importance here. The actual wire format is language neutral (CBOR and CWT).
 
@@ -203,12 +203,7 @@ However, regardless if an Issuer decides to use HSMs or not, a key roll-over sch
 
 This specification may be used in a way which implies receiving data from untrusted sources into systems which may be of mission-critical nature. To minimise the risks associated with this attack vector, all input fields MUST be properly validated by data types, lengths and contents. The Issuer Signature SHALL also be verified before any processing of the contents of the HCERT takes place. However, the validation of the Issuer Signature implies parsing the Protected Issuer Header first, in which a potential attacker may attempt to inject carefully crafted information designed to compromise the security of the system.
 
-
-# Appendix A - Payload
-
-A proposed payload schema for [EU Health Certficate v1](https://github.com/ehn-digital-green-development/hcert-schema/blob/main/eu_hcert_v1_schema.yaml).
-
-# Appendix B - Trust management
+# Appendix A - Trust management
 
 The signature of the HCERT requires a public key to verify. Countries, or institutions within countries, need to make these public keys available. Ultimately, every Verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the HCERT).
 

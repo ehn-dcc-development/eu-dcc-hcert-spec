@@ -55,7 +55,7 @@ The integrity and authenticity of origin of HCERT data MUST be verifiable by the
   - Signature Algorithm (`alg`, label 1)
   - Key Identifier (`kid`, label 4)
 - Payload
-  - Issuer (`iss`, claim key 1, optional, ISO 3166 Country Code of issuer)
+  - Issuer (`iss`, claim key 1, optional, ISO 3166-1 alpha-2 of issuer)
   - Issued At (`iat`, claim key 6)
   - Expiration Time (`exp`, claim key 4)
   - Health Certificate (`hcert`, claim key -260 (To be Confirmed by IANA))
@@ -89,7 +89,7 @@ Due to the shortening of the identifier (for space-preserving reasons) there is 
 
 ####  Issuer
 
-The Issuer (**iss**) claim is a string value which MAY optionally hold the ISO 3166 Country Code of the entity issuing the HCERT. This claim can be used by a Verifier to identify which set of DSCs to use for validation. The Claim Key 1 is used to identify this claim.
+The Issuer (**iss**) claim is a string value which MAY optionally hold the ISO 3166-1 alpha-2 Country Code of the entity issuing the HCERT. This claim can be used by a Verifier to identify which set of DSCs to use for validation. The Claim Key 1 is used to identify this claim.
 
 #### Expiration Time
 

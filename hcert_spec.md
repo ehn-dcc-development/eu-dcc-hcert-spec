@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.01-draft, 2021-04-12.
+Version 1.0.0, 2021-04-14.
 
 
 ## Abstract
@@ -11,8 +11,7 @@ This document specifies a data structure and encoding mechanisms for electronic 
 
 | version | status | Comments |
 |----------|----------|----------|
-| 1.00  | draft | first version |
-| 1.01  | draft | minor typograhic edits |
+| 1.0.0  | final | first version |
 
 
 ## Terminology

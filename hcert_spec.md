@@ -137,8 +137,9 @@ The QR format as defined in (ISO/IEC 18004:2015) SHALL be used for 2D barcode ge
 
 In order for readers to be able to detect optical payload content type, the base45 encoded data (as per this specification) SHALL be prefixed by the string "HC1".
 
-The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size for at least 35 mm; and when used on an optical screen with at least 4 pixels per timing cell. (recommended and max size to be confirmed).
+The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 60 mm to accommodate for readers with fixed optics where the presentation media is required to be placed on the surface of the reader.
 
+If the optical code is printed on paper using low-resolution (< 300 dpi) printers, care must be taken to represent each symbol (dot) of the QR code exactly square. Non-proportional scaling will result in some rows or columns in the QR having rectangular symbols, which will hamper readbility in many cases.
 
 ## Trusted List Format (DSC list)
 

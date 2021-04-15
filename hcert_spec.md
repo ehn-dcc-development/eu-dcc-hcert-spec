@@ -243,17 +243,33 @@ While patterned on best practices of the ICAO ML, there are a number of simplifi
 
 ## Secretariat
 
-In order to alleviate the burden of countries during the initial phase, there shall be a secretarial service which will:
+But in order to alleviate the burden of countries during the initial phase, there shall be a secretarial service which will:
 
-* Maintain a list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
+### version 1.00 - secretariat tasks
+
+In the first version - the secretariat will:
+
+* Maintain a non-public list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
 * Maintain a public 24x7 incident/security contact point.
-* Maintain a public list of URLs with the most up to date CSCA lists for each Member State. (DGCG)
-* Maintain a public list of URLs with the most up to date DSC lists for each Member State. (DGCG)
-* Maintain a public single, aggregated, list of all CSCAs, which is updated daily. (DGCG)
-* Maintain a public single, aggregated, list of all DSAs, which is updated daily. (DGCG)
-* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, DGCG, t.b.c)
+* Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DGCG)
 * Shall validate the DSCs against the CSCA prior to publication (DGCG).
-* MAY sign the aggregated list (DGCG).
+* Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSAs thus validated (DGCG)
+* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, DGCG, t.b.c)
+
+**In all cases - the secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**
+
+Note 1: The curent DGCG design allows for list to be up to date in real time (i.e. it is dynamically generated from a database with the most up to date information then available. So the here aggregated is the output of a data query to given parameters against the uploaded data by the memberstates) The technical requirement is lighter - the lists should be updated within 24 hours of any change submitted by a memberstate.
+
+Note 2: While data integrity is important from a security perspective - there are no confidentiality requirements for the lists of CSCAs and DSCs. 
+
+### versionTBD- secretariat tasks
+
+In a later version - the service may also:
+
+* Maintain a public,  integrity(secure) protected,  list of URLs with the most up to date CSCA lists for each Member State. (DGCG)
+* Maintain a public, integrity(secure) protected,  list of URLs with the most up to date DSC lists for each Member State. (DGCG)
+
+### Automation by the DGCG
 
 The tasks that are marked _DGCG_ or _CIRBAC_ are expected to be handled by DGCG automation, _CIRBAC_ or similar systems under control and responsibility of the Secretariat.
 
@@ -262,6 +278,7 @@ The format for the lists used for the interchange between the Member States and 
 This list format for interchange between the Member States is likely to be quite different from the format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should publish the aggregated list of DSCs in an accessible and easy to use format (as seen from a verifier's perspective).
 
 Member States are also expected to publish country-specific lists, in formats adapted to the technological setting at hand in that Member State.
+
 
 The Secretarial shall also:
 

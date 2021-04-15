@@ -269,15 +269,6 @@ The Secretarial shall also:
 * Maintain a similar set of lists with 'test' certificates
 * Maintain a set of test certificates - at least one for each country.
 
-## Key Usage Policy Identifiers
-
-The document signing certificate MAY contain Extended key usage extension fields; these being:
-
-* OID 1.3.6.1.4.1.0.1847.2021.1.1        valid for test
-* OID 1.3.6.1.4.1.0.1847.2021.1.2        valid for vaccinations
-* OID 1.3.6.1.4.1.0.1847.2021.1.3        valid for recovery
-
-If none of these OIDs are present the document shall be considered valid for all three.
 
 _________________
 

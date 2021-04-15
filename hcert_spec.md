@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.1, 2021-04-15.
+Version 1.0.2, 2021-04-15.
 
 
 ## Abstract
@@ -12,7 +12,8 @@ This document specifies a generic data structure and encoding mechanisms for ele
 | version | status | Comments |
 |----------|----------|----------|
 | 1.0.0  | final | first version |
-| 1.0.1 | draft | A number of clarifications |
+| 1.0.1 | draft | A number of clarifications, remove SSC |
+| 1.0.2 | draft | Correct CIRCABC spelling |
 
 
 ## Terminology
@@ -234,7 +235,6 @@ Note that Verifiers do not need to calculate the KID based on the DSC certificat
 While patterned on best practices of the ICAO ML, there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope).
 
 * A Member State may submit multiple CSCA certificates.
-* A CSCA certificate may also be used --and published as-- a DSC. (Note: _the same validation rules still apply - i.e. every DSC is verified against the CSCA_)
 * The DSC (key usage) validity period may be set to any length not exceeding the CSCA _and_ may be absent.
 * The DSC certificate MAY contain policy identifiers that are EHN specific.
 * Member States may choose to never do any verification of published revocations; but instead purely rely on the DSC lists they get daily from the Secretariat or compile themselves.
@@ -269,7 +269,7 @@ In a later version - the service may also:
 
 ### Automation by the DGCG
 
-The tasks that are marked _DGCG_ or _CIRCABCare expected to be handled by DGCG automation, _CIRCABCor similar systems under control and responsibility of the Secretariat.
+The tasks that are marked _DGCG_ or _CIRCABC are expected to be handled by DGCG automation, _CIRCABC or similar systems under control and responsibility of the Secretariat.
 
 The format for the lists used for the interchange between the Member States and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
 

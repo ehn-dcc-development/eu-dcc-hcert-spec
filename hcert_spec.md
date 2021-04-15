@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.0, 2021-04-14.
+Version 1.0.1, 2021-04-14.
 
 
 ## Abstract
@@ -12,6 +12,7 @@ This document specifies a data structure and encoding mechanisms for electronic 
 | version | status | Comments |
 |----------|----------|----------|
 | 1.0.0  | final | first version |
+| 1.0.1 | draft | Secretariat clarified |
 
 
 ## Terminology
@@ -209,6 +210,8 @@ The signature of the HCERT requires a public key to verify. Countries, or instit
 
 A simplified variation on the ICAO "_Master list_" will be used, tailored to this health certificate application, whereby each country is ultimately responsible for compiling their own master list and making that available to the other Participants. The aid of a coordinating Secretariat for operational and practical purposes will be available.
 
+The _"Secretariat"_ is a functional role; not a person or a piece of software. It is expected that the Digital Green Certificate Gateway (DGCG) will automate most of these tasks.
+
 The system consists of (only) two layers; for each Member State one or more country level certificate that each sign one or more document signing certificates that are used in day to day operations.
 
 The Member State certificates are called Certificate Signer Certificate Authorities (CSCAs) and are (typically) self-signed certificates. Countries may have more than one (e.g. in case of regional devolution). These CSCA certificates regularly sign the Document Signing Certificates (DSCs) used for signing HCERTs. Member States will each maintain a public register of the DSC certificates that is kept current, communicated to the Secretariat and also published at a stable URL for bilateral exchange. Member States MUST remove any revoked or stale certificates from this list.
@@ -245,13 +248,15 @@ In order to alleviate the burden of countries during the initial phase, there sh
 
 * Maintain a list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
 * Maintain a public 24x7 incident/security contact point.
-* Maintain a public list of URLs with the most up to date CSCA lists for each Member State.
-* Maintain a public list of URLs with the most up to date DSC lists for each Member State.
-* Maintain a public single, aggregated, list of all CSCAs, which is updated daily.
-* Maintain a public single, aggregated, list of all DSAs, which is updated daily.
-* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, t.b.c)
-* Shall validate the DSCs against the CSCA prior to publication.
-* MAY sign the aggregated list.
+* Maintain a public list of URLs with the most up to date CSCA lists for each Member State. (DGCG)
+* Maintain a public list of URLs with the most up to date DSC lists for each Member State. (DGCG)
+* Maintain a public single, aggregated, list of all CSCAs, which is updated daily. (DGCG)
+* Maintain a public single, aggregated, list of all DSAs, which is updated daily. (DGCG)
+* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, DGCG, t.b.c)
+* Shall validate the DSCs against the CSCA prior to publication (DGCG).
+* MAY sign the aggregated list (DGCG).
+
+The tasks that are marked _DGCG_ or _CIRBAC_ are expected to be handled by DGCG automation, _CIRBAC_ or similar systems under control and responsibility of the Secretariat.
 
 The format for the lists used for the interchange between the Member States and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
 

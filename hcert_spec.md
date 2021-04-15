@@ -246,15 +246,25 @@ While patterned on best practices of the ICAO ML, there are a number of simplifi
 
 In order to alleviate the burden of countries during the initial phase, there shall be a secretarial service which will:
 
-* Maintain a list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
-* Maintain a public 24x7 incident/security contact point.
+### version 1.00 - secretariat tasks
+
+In a later version - the service may also:
+
 * Maintain a public list of URLs with the most up to date CSCA lists for each Member State. (DGCG)
 * Maintain a public list of URLs with the most up to date DSC lists for each Member State. (DGCG)
 * Maintain a public single, aggregated, list of all CSCAs, which is updated daily. (DGCG)
 * Maintain a public single, aggregated, list of all DSAs, which is updated daily. (DGCG)
+* MAY sign the aggregated list (DGCG)
+
+### version 2.00 - secretariat tasks
+
 * Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, DGCG, t.b.c)
 * Shall validate the DSCs against the CSCA prior to publication (DGCG).
-* MAY sign the aggregated list (DGCG).
+* Maintain a list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
+* Maintain a public 24x7 incident/security contact point.
+
+
+### Automation by the DGCG
 
 The tasks that are marked _DGCG_ or _CIRBAC_ are expected to be handled by DGCG automation, _CIRBAC_ or similar systems under control and responsibility of the Secretariat.
 

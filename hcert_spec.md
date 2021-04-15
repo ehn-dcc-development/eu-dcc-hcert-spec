@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.1, 2021-04-15.
+Version 1.0.2, 2021-04-15.
 
 
 ## Abstract
@@ -12,7 +12,8 @@ This document specifies a generic data structure and encoding mechanisms for ele
 | version | status | Comments |
 |----------|----------|----------|
 | 1.0.0  | final | first version |
-| 1.0.1 | draft | A number of clarifications |
+| 1.0.1 | draft | A number of clarifications, remove SSC |
+| 1.0.2 | draft | Correct CIRCABC spelling |
 
 
 ## Terminology
@@ -148,17 +149,16 @@ For the list of CSCA certificates, each certificate:
 
 - MUST contain a valid Country attribute in the subject DN that matches the country of issuance.
 - MUST contain DN that is unique within the specified country.
-- MUST contain a unique Subject key identifier according to ([RFC5280](https://tools.ietf.org/html/rfc5280))
+- MUST contain a unique Subject Key Identifier (SKI) according to ([RFC5280](https://tools.ietf.org/html/rfc5280))
 
 In addition, for the list of DSC certificates, each certificate:
 
-- MUST contain validity range that is in line or broader than the EHC Validity Time of all EHC periods signed by that key.
-- MUST contain an Authority key identifier matching the Subject key identifier of the issuing CSCA certificate.
-- SHOULD contain a unique Subject key identifier derived from the subject public key.
+- MUST be signed with the private key corresponding to a CSCA certificate published on the aforementioned list.
+- MUST contain an Authority Key Identifier (AKI) matching the Subject Key Identifier (SKI) of the issuing CSCA certificate.
+- MUST have a validity period that is in line with or longer than the validity period of all certificates signed using that key.
+- SHOULD contain a unique Subject Key Identifier derived from the subject public key.
 
 ### Simplified CSCA/DSC
-
-It is expressly allowed to have the CSCA be identical to the DSC. In other words: if a participating country uses a set of self-signed certificates it would submit these to both its CSCA and its DSC list.
 
 As of this version of the specifications - countries should NOT assume that any Certificate Revocation List (CRL) information is used; or that the Private Key Usage Period is verified by implementors.
 
@@ -205,7 +205,7 @@ This specification may be used in a way which implies receiving data from untrus
 
 # Appendix A - Trust management
 
-The signature of the HCERT requires a public key to verify. Countries, or institutions within countries, need to make these public keys available. Ultimately, every Verifier needs to have a list of the public keys it is willing to trust (the public key is not part of the HCERT).
+The signature of the HCERT requires a public key to verify. Countries, or institutions within countries, need to make these public keys available. Ultimately, every Verifier needs to have a list of a;; public keys it is willing to trust (as the public key is not part of the HCERT).
 
 A simplified variation on the ICAO "_Master list_" will be used, tailored to this health certificate application, whereby each country is ultimately responsible for compiling their own master list and making that available to the other Participants. The aid of a coordinating Secretariat for operational and practical purposes will be available.
 
@@ -223,7 +223,7 @@ Member States may also bilaterally exchange CSCA certificates with a number of o
 
 Such Member State-specific lists are expected to be adapted in the format for their own national setting. As such, the file format of this trusted list may vary, e.g. it can be a signed JWKS ([JWK set format per RFC 7517 section 5](https://tools.ietf.org/html/rfc7517#section-5)) or any other format specific to the technology used in that Member State.
 
-For the sake of simplicity: Member States may both submit their existing CSCA certificates from their ICAO eMRTD systems or, as recommended by the WHO, create one specifically for this health domain. Furthermore, although not encouraged, Member States may also submit their CSCA as their (only) DSC in order to facilitate a fast start.
+For the sake of simplicity: Member States may both submit their existing CSCA certificates from their ICAO eMRTD systems or, as recommended by the WHO, create one specifically for this health domain. 
 
 ## The Key Identifier (KIDs)
 
@@ -236,7 +236,6 @@ Note that Verifiers do not need to calculate the KID based on the DSC certificat
 While patterned on best practices of the ICAO ML, there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope).
 
 * A Member State may submit multiple CSCA certificates.
-* A CSCA certificate may also be used --and published as-- a DSC. (Note: _the same validation rules still apply - i.e. every DSC is verified against the CSCA_)
 * The DSC (key usage) validity period may be set to any length not exceeding the CSCA _and_ may be absent.
 * The DSC certificate MAY contain policy identifiers that are EHN specific.
 * Member States may choose to never do any verification of published revocations; but instead purely rely on the DSC lists they get daily from the Secretariat or compile themselves.
@@ -254,7 +253,7 @@ In the first version - the secretariat will:
 * Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DGCG)
 * Shall validate the DSCs against the CSCA prior to publication (DGCG).
 * Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSAs thus validated (DGCG)
-* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, DGCG, t.b.c)
+* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DGCG, t.b.c)
 
 **In all cases - the secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**
 
@@ -271,7 +270,7 @@ In a later version - the service may also:
 
 ### Automation by the DGCG
 
-The tasks that are marked _DGCG_ or _CIRBAC_ are expected to be handled by DGCG automation, _CIRBAC_ or similar systems under control and responsibility of the Secretariat.
+The tasks that are marked _DGCG_ or _CIRCABC are expected to be handled by DGCG automation, _CIRCABC or similar systems under control and responsibility of the Secretariat.
 
 The format for the lists used for the interchange between the Member States and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
 

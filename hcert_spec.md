@@ -12,7 +12,7 @@ This document specifies a generic data structure and encoding mechanisms for ele
 | version | status | Comments |
 |----------|----------|----------|
 | 1.0.0  | final | first version |
-| 1.0.1 | draft | Secretariat clarified |
+| 1.0.1 | draft | A number of clarifications |
 
 
 ## Terminology

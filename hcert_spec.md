@@ -154,7 +154,7 @@ For the list of CSCA certificates, each certificate:
 In addition, for the list of DSC certificates, each certificate:
 
 - MUST contain validity range that is in line or broader than the EHC Validity Time of all EHC periods signed by that key.
-- MUST, if the DSCA certificate is issued by a CSCA, contain an Authority key identifier matching the Subject key identifier of the issuing CSCA certificate.
+- MUST contain an Authority key identifier matching the Subject key identifier of the issuing CSCA certificate.
 - SHOULD contain a unique Subject key identifier derived from the subject public key.
 
 ### Simplified CSCA/DSC

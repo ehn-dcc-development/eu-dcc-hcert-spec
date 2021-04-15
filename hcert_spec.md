@@ -280,7 +280,7 @@ This list format for interchange between the Member States is likely to be quite
 Member States are also expected to publish country-specific lists, in formats adapted to the technological setting at hand in that Member State.
 
 
-The Secretarial shall also:
+The Secretariat shall also:
 
 * Maintain a similar set of lists with 'test' certificates
 * Maintain a set of test certificates - at least one for each country.

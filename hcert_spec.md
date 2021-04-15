@@ -166,7 +166,7 @@ Instead, the primary validity mechanism is presence of the certificate on the mo
 
 ### ICAO-ML and Trust Centers
 
-Member states can use a sepearate CSCA (as per the WHO advice)(#ref) - but may also use submit their existing eMRT CSCA and/or DSC certificates; and may even chose to procure these from (commercial) trustcenters - and submit these. However - any DSC certificate must always be signed by the CSCA submitted by that country.
+Member States can use a sepearate CSCA (as per the WHO advice)(#ref) - but may also use submit their existing eMRT CSCA and/or DSC certificates; and may even chose to procure these from (commercial) trustcenters - and submit these. However - any DSC certificate must always be signed by the CSCA submitted by that country.
 
 ## Security Considerations
 

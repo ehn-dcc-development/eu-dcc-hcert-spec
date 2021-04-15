@@ -158,8 +158,6 @@ In addition, for the list of DSC certificates, each certificate:
 
 ### Simplified CSCA/DSC
 
-It is expressly allowed to have the CSCA be identical to the DSC. In other words: if a participating country uses a set of self-signed certificates it would submit these to both its CSCA and its DSC list.
-
 As of this version of the specifications - countries should NOT assume that any Certificate Revocation List (CRL) information is used; or that the Private Key Usage Period is verified by implementors.
 
 Instead, the primary validity mechanism is presence of the certificate on the most recent version of that certificate list.

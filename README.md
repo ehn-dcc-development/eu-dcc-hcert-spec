@@ -41,7 +41,7 @@ The following requirements and principles have been used when designing the Elec
 
 The trust model is currently under development. It is assumed to be a health-specific version of the ICAO Master List concept (see also https://www.who.int/publications/m/item/interim-guidance-for-developing-a-smart-vaccination-certificate) that is both health and COVID-19 specific.
 
-The core of the trust model consists of a simple (at this time, one layer deep) list of Country Signing Certificate Authorities (CSCA) that sign Document Signer Certificates (DSC). These are then used to sign the above-mentioned digital health certificates (HCERT).
+The core of the trust model consists of a simple (at this time, one layer deep) list of Country Signing Certificate Authorities (CSCA) that sign Document Signer Certificates (DSC). These are then used to sign the aforementioned digital health certificates (HCERT).
 
 The trusted keys which will be used by verifiers are published in a list which includes all public keys together with issuer metadata. The keys which from time to time are used to sign the HCERTs and should be trusted are included on the Trusted List. There are no CAs or other intermediate parties 
 involved in the validation process in the verifier. If a CSCA'ss public keys appear in the list - they are _only_ there to facilitate the creation of the trusted list of public keys itself. They are not used during verification of an HCERT (as this is generally offline -- and purely based on the trusted list of that day).

@@ -248,21 +248,25 @@ In order to alleviate the burden of countries during the initial phase, there sh
 
 ### version 1.00 - secretariat tasks
 
+In the first version - the secretariat will:
+
+* Maintain a non-public list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
+* Maintain a public 24x7 incident/security contact point.
+* Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DGCG)
+* Shall validate the DSCs against the CSCA prior to publication (DGCG).
+* Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSAs thus validated (DGCG)
+* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, DGCG, t.b.c)
+
+Note 1: The DGCG allows for list to be up to date in real time (i.e. it is dynamically generated from a database with the most up to date information then available), The technical requirement is lighter - the lists should be updated within 24 hours of any change submitted by a memberstate.
+
+Note 2: While data integrity is important from a security perspective - there are no confidentiality requirements for the lists of CSCAs and DSCs. 
+
+### versionTBD- secretariat tasks
+
 In a later version - the service may also:
 
-* Maintain a public list of URLs with the most up to date CSCA lists for each Member State. (DGCG)
-* Maintain a public list of URLs with the most up to date DSC lists for each Member State. (DGCG)
-* Maintain a public single, aggregated, list of all CSCAs, which is updated daily. (DGCG)
-* Maintain a public single, aggregated, list of all DSAs, which is updated daily. (DGCG)
-* MAY sign the aggregated list (DGCG)
-
-### version 2.00 - secretariat tasks
-
-* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, DGCG, t.b.c)
-* Shall validate the DSCs against the CSCA prior to publication (DGCG).
-* Maintain a list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
-* Maintain a public 24x7 incident/security contact point.
-
+* Maintain a public,  integrity(secure) protected,  list of URLs with the most up to date CSCA lists for each Member State. (DGCG)
+* Maintain a public, integrity(secure) protected,  list of URLs with the most up to date DSC lists for each Member State. (DGCG)
 
 ### Automation by the DGCG
 

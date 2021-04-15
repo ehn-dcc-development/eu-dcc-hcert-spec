@@ -5,7 +5,7 @@ Version 1.0.1, 2021-04-15.
 
 ## Abstract
 
-This document specifies a data structure and encoding mechanisms for electronic health certificates. It also specifies a transport encoding mechanism in a machine-readable optical format (QR), which can be displayed on the screen of a mobile device or printed on a piece of paper.
+This document specifies a generic data structure and encoding mechanisms for electronic health certificates. It also specifies a transport encoding mechanism in a machine-readable optical format (QR), which can be displayed on the screen of a mobile device or printed on a piece of paper.
 
 ### Version History
 
@@ -17,7 +17,7 @@ This document specifies a data structure and encoding mechanisms for electronic 
 
 ## Terminology
 
-Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status are called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a namespace and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Secretariat, carries out these tasks. The health certificate format of this specification is called the Electronic Health Certificate, hereafter referred to as the HCERT.
+Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status are called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a namespace and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Secretariat, carries out these tasks. The health certificate container format (HCERT) of this specification is generic, but in this context used to carry the European Digital Green Certificate (DGC).
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 ([RFC2119](https://tools.ietf.org/html/rfc2119), [RFC8174](https://tools.ietf.org/html/rfc8174)) when, and only when, they appear in all capitals, as shown here.
 
@@ -29,22 +29,21 @@ Versions of this specification follow [semantic versioning](semver.org) and cons
 In addition, there is an _edition_ version number used for publishing updates to the document itself which has no effect on the HCERT, such as correcting spelling, providing clarifications or addressing ambiguities, et cetera. Hence, the edition number is not indicated in the HCERT. The version numbers are expressed in the title page of the document using a _major.minor.edition_ format, where the three parts are separated by decimal dots.
 
 
-## Electronic Health Certificate
+## Electronic Health Certificate Container Format
 
-The Electronic Health Certificate (HCERT) is designed to provide a uniform and standardised vehicle for health certificates from different Issuers. The aim is to harmonise how these health certificates are represented, encoded and signed with the goal of facilitating interoperability, while protecting the holder’s personal integrity and minimise costs in implementation.
+The Electronic Health Certificate Container Format (HCERT) is designed to provide a uniform and standardised vehicle for health certificates from different Issuers. The aim is to harmonise how these health certificates are represented, encoded and signed with the goal of facilitating interoperability.
 
+### The European Digital Green Certificate (DGC)
 
-### Coordinated Data Structure
+Ability to read and interpret a DGC issued by any Issuer requires a common data structure and agreements of the significance of each data field of the payload. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema which consitutes the framing of the DGC. The use of these elements is outside the scope of this specification, and is anticipated to be regulated by European Union law.
 
-Ability to read and interpret HCERTs issued by any Issuer requires a common data structure and agreements of the significance of each data field. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema. Critical elements of a health certificate SHOULD use this data structure. A Participant MAY extend the objects with proprietary data. The naming of such objects MUST be agreed between all Participants.
+Note that the DGC defines the data structure, the actual wire format (HCERT) is content neutral.
 
-Note that the data structure is of importance here. The actual wire format is language neutral (CBOR and CWT).
+### Structure of the payload
 
-### Structure of the Electronic Health Certificate
+The payload is structured and encoded as a CBOR with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The payload, as defined below, is transported in a `hcert` claim.
 
-The HCERT is structured and encoded as a CBOR payload with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The HCERT payload, as defined below, is transported in a `hcert` claim.
-
-The integrity and authenticity of origin of HCERT data MUST be verifiable by the Verifier. To provide this mechanism, the issuer of the HCERT MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
+The integrity and authenticity of origin of payload data MUST be verifiable by the Verifier. To provide this mechanism, the issuer of MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
 
 
 ### CWT Claims
@@ -59,7 +58,7 @@ The integrity and authenticity of origin of HCERT data MUST be verifiable by the
   - Issued At (`iat`, claim key 6)
   - Expiration Time (`exp`, claim key 4)
   - Health Certificate (`hcert`, claim key -260 (To be Confirmed by IANA))
-    - EU Health Certificate v1 (`eu_hcert_v1`, claim key 1)
+    - EU Digital Green Certificate v1 (`eu_dgc_v1`, claim key 1)
 - Signature
 
 
@@ -89,25 +88,25 @@ Due to the shortening of the identifier (for space-preserving reasons) there is 
 
 ####  Issuer
 
-The Issuer (**iss**) claim is a string value which MAY optionally hold the ISO 3166-1 alpha-2 Country Code of the entity issuing the HCERT. This claim can be used by a Verifier to identify which set of DSCs to use for validation. The Claim Key 1 is used to identify this claim.
+The Issuer (**iss**) claim is a string value which MAY optionally hold the ISO 3166-1 alpha-2 Country Code of the entity issuing the health certificate. This claim can be used by a Verifier to identify which set of DSCs to use for validation. The Claim Key 1 is used to identify this claim.
 
 #### Expiration Time
 
-The Expiration Time (**exp**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the HCERT. The Claim Key 4 is used to identify this claim.
+The Expiration Time (**exp**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the health certificate. The Claim Key 4 is used to identify this claim.
 
 The Expiration Time MUST not exceed the validity period of the DSC.
 
 #### Issued At
 
-The Issued At (**iat**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the HCERT was created. 
+The Issued At (**iat**) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the health certificate was created. 
 
 The Issued At field MUST not predate the validity period of the DSC.
 
-Verifiers MAY apply additional policies with the purpose of restricting the validity of the HCERT based on the time of issue. The Claim Key 6 is used to identify this claim.
+Verifiers MAY apply additional policies with the purpose of restricting the validity of the health certificate based on the time of issue. The Claim Key 6 is used to identify this claim.
 
 #### Health Certificate Claim
 
-The Health Certificate (**hcert**) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several different types of HCERTs MAY exist under the same claim.
+The Health Certificate (**hcert**) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several different types of health certificate MAY exist under the same claim, of which the European DGC is one.
 
 Note here that the JSON is purely for schema purposes. The wire format is CBOR. Application developers may not actually ever de-, or encode to and from the JSON format; but use the in-memory structure.
 
@@ -119,7 +118,7 @@ Strings in the JSON object SHOULD be NFC normalised according to the Unicode sta
 
 ### Raw
 
-For arbitrary data interfaces the HCERT may be transferred as-is, utilising any underlying, 8 bit safe, reliable data transport. These interfaces MAY include NFC, Bluetooth or transfer over an application layer protocol, for example transfer of an HCERT from the Issuer to a holder’s mobile device.
+For arbitrary data interfaces the HCERT container and its payloads may be transferred as-is, utilising any underlying, 8 bit safe, reliable data transport. These interfaces MAY include NFC, Bluetooth or transfer over an application layer protocol, for example transfer of an HCERT from the Issuer to a holder’s mobile device.
 
 If the transfer of the HCERT from the Issuer to the holder is based on a presentation-only interface (e.g., SMS, e-mail), the Raw transport encoding is obviously not applicable.
 
@@ -135,7 +134,7 @@ In order to better handle legacy equipment designed to operate on ASCII payloads
 
 The QR format as defined in (ISO/IEC 18004:2015) SHALL be used for 2D barcode generation. An error correction rate of ‘Q’ (around 25%) is RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
 
-In order for Verifiers to be able to detect type of data encoded and to select the proper decoding and processing scheme, the base45 encoded data (as per this specification) SHALL be prefixed by the Context Identifier string "HC1". Future versions of this specification which impacts backwards-compatibilty SHALL define a new Context Identifier, whereas the character following "HC" SHALL be taken from the character set [1-9A-Z]. The order of increments is defined to be in that order, i.e first [1-9] and then [A-Z].
+In order for Verifiers to be able to detect the type of data encoded and to select the proper decoding and processing scheme, the base45 encoded data (as per this specification) SHALL be prefixed by the Context Identifier string "HC1". Future versions of this specification which impacts backwards-compatibilty SHALL define a new Context Identifier, whereas the character following "HC" SHALL be taken from the character set [1-9A-Z]. The order of increments is defined to be in that order, i.e first [1-9] and then [A-Z].
 
 The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 60 mm to accommodate for readers with fixed optics where the presentation media is required to be placed on the surface of the reader.
 
@@ -175,11 +174,11 @@ When designing a scheme using this specification, several important security asp
 
 As input to the continuous analysis and monitoring of risks, the following topics SHOULD be taken into account:
 
-### HCERT Validity Time
+### HCERT signature validity time
 
-It is anticipated that HCERTs can not be reliably revoked once issued, especially not if this specification would be used on a global scale. Mainly for this reason, this specification requires the Issuer of an HCERT to limit the HCERT’s validity period by specifying a signature expiry time. This requires the holder of an HCERT to renew the HCERT at periodic intervals. 
+It is anticipated that health certificates can not be reliably revoked once issued, especially not if this specification would be used on a global scale. Publishing of recovation information containing identifiers may also consistute privacy concerns, as this information is per definition Personally Identifiable Information (PII). For these reasons, this specification requires the Issuer of HCERTs to limit the validity period of the signature by specifying a signature expiry time. This requires the holder of a health certificate to renew it at periodic intervals. 
 
-The acceptable validity period may be determined by practical constraints. For example, a traveller may not have the possibility to renew the HCERT during a trip overseas. However, it may also be the case that an Issuer of HCERT’s are considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an DSC (invalidating all HCERTs issued using that key). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all HCERTs, on some reasonable interval.
+The acceptable validity period may be determined by practical constraints. For example, a traveller may not have the possibility to renew the health certificate during a trip overseas. However, it may also be the case that an Issuer are considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an DSC (invalidating all health certificates issued using that key which is still within their validity period). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all health certificates, on some reasonable interval.
 
 
 ### Key Management
@@ -195,9 +194,9 @@ The confidentiality of cryptographic keys can be compromised in a number of diff
 
 To mitigate against the risks that the signing algorithm is found to be weak, allowing the private keys to be compromised through cryptanalysis, this specification recommends all Participants to implement a secondary fallback signature algorithm based on different parameters or a different mathematical problem than the primary.
 
-The other risks mentioned here are related to the Issuers' operating environments. One effective control to mitigate significant parts of these risks is to generate, store and use the private keys in Hardware Security Modules (HSMs). Use of HSMs for signing HCERTs is highly encouraged.
+The other risks mentioned here are related to the Issuers' operating environments. One effective control to mitigate significant parts of these risks is to generate, store and use the private keys in Hardware Security Modules (HSMs). Use of HSMs for signing health certificates is highly encouraged.
 
-However, regardless if an Issuer decides to use HSMs or not, a key roll-over schedule SHOULD be established where the frequency of the key roll-overs is proportionate to the exposure of keys to external networks, other systems and personnel. A well-chosen roll-over schedule also limits the risks associated with erroneously issued HCERTs, enabling an Issuer to revoke such HCERTs in batches, by withdrawing a key, if required.
+However, regardless if an Issuer decides to use HSMs or not, a key roll-over schedule SHOULD be established where the frequency of the key roll-overs is proportionate to the exposure of keys to external networks, other systems and personnel. A well-chosen roll-over schedule also limits the risks associated with erroneously issued health certificates, enabling an Issuer to revoke such health certificates in batches, by withdrawing a key, if required.
 
 
 ### Input Data Validation

@@ -252,7 +252,7 @@ In the first version - the secretariat will:
 * Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DGCG)
 * Shall validate the DSCs against the CSCA prior to publication (DGCG).
 * Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSAs thus validated (DGCG)
-* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRBAC, DGCG, t.b.c)
+* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DGCG, t.b.c)
 
 **In all cases - the secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**
 
@@ -269,7 +269,7 @@ In a later version - the service may also:
 
 ### Automation by the DGCG
 
-The tasks that are marked _DGCG_ or _CIRBAC_ are expected to be handled by DGCG automation, _CIRBAC_ or similar systems under control and responsibility of the Secretariat.
+The tasks that are marked _DGCG_ or _CIRCABCare expected to be handled by DGCG automation, _CIRCABCor similar systems under control and responsibility of the Secretariat.
 
 The format for the lists used for the interchange between the Member States and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
 

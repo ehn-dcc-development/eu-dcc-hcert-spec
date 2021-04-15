@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.1, 2021-04-14.
+Version 1.0.1, 2021-04-15.
 
 
 ## Abstract
@@ -133,9 +133,9 @@ To lower size and to improve speed and reliability in the reading process of the
 
 In order to better handle legacy equipment designed to operate on ASCII payloads, the compressed CWT is encoded as ASCII using [Base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45) before being encoded into a 2D barcode.
 
-The QR format as defined in (ISO/IEC 18004:2015) SHALL be used for 2D barcode generation. An error correction rate of ‘Q’ (around 25%) RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
+The QR format as defined in (ISO/IEC 18004:2015) SHALL be used for 2D barcode generation. An error correction rate of ‘Q’ (around 25%) is RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
 
-In order for readers to be able to detect optical payload content type, the base45 encoded data (as per this specification) SHALL be prefixed by the string "HC1".
+In order for Verifiers to be able to detect type of data encoded and to select the proper decoding and processing scheme, the base45 encoded data (as per this specification) SHALL be prefixed by the Context Identifier string "HC1". Future versions of this specification which impacts backwards-compatibilty SHALL define a new Context Identifier, whereas the integer following "HC" SHALL be incremented by one.
 
 The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 60 mm to accommodate for readers with fixed optics where the presentation media is required to be placed on the surface of the reader.
 

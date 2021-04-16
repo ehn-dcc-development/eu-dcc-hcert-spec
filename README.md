@@ -69,7 +69,7 @@ Details of this "11 bits per two characters" encoding can be found at
 
 For this reason, the industry generally encodes these in base45. A document for this de-facto standard is in progress:
 
-- [Internet Draft draft-faltstrom-base45/](https://datatracker.ietf.org/doc/draft-faltstrom-base45)
+- [Internet Draft draft-faltstrom-base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45)
 
 
 ## Contributions

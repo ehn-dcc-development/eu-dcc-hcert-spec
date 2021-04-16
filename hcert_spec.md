@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.2, 2021-04-15.
+Version 1.0.3-draft, 2021-04-15.
 
 
 ## Abstract
@@ -58,7 +58,7 @@ The integrity and authenticity of origin of payload data MUST be verifiable by t
   - Issuer (`iss`, claim key 1, optional, ISO 3166-1 alpha-2 of issuer)
   - Issued At (`iat`, claim key 6)
   - Expiration Time (`exp`, claim key 4)
-  - Health Certificate (`hcert`, claim key -260 (To be Confirmed by IANA))
+  - Health Certificate (`hcert`, claim key -260)
     - EU Digital Green Certificate v1 (`eu_dgc_v1`, claim key 1)
 - Signature
 
@@ -111,7 +111,7 @@ The Health Certificate (**hcert**) claim is a JSON ([RFC 7159](https://tools.iet
 
 Note here that the JSON is purely for schema purposes. The wire format is CBOR. Application developers may not actually ever de-, or encode to and from the JSON format; but use the in-memory structure.
 
-The Claim Key to be used to identify this claim is -260 (pending).
+The Claim Key to be used to identify this claim is -260.
 
 Strings in the JSON object SHOULD be NFC normalised according to the Unicode standard. Decoding applications SHOULD however be permissive and robust in these aspects, and acceptance of any reasonable type conversion is strongly encouraged. If non-normalised data is found during decoding, or in subsequent comparison functions, implementations SHOULD behave as if the input is normalised to NFC.
 

@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.3-draft, 2021-04-15.
+Version 1.0.3, 2021-04-16
 
 
 ## Abstract
@@ -9,11 +9,12 @@ This document specifies a generic data structure and encoding mechanisms for ele
 
 ### Version History
 
-| version | status | Comments |
-|----------|----------|----------|
-| 1.0.0  | final | first version |
-| 1.0.1 | draft | A number of clarifications, remove SSC |
-| 1.0.2 | draft | Correct CIRCABC spelling |
+| version  | status | Comments |
+|----------|--------|-----------|
+| 1.0.0    | final  | first version |
+| 1.0.1    | draft  | A number of clarifications, remove SSC |
+| 1.0.2    | draft  | Correct CIRCABC spelling |
+| 1.0.3    | draft  | Editorial changes |
 
 
 ## Terminology

@@ -256,7 +256,7 @@ In the first version, the secretariat will:
 
 **In all cases, the secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**
 
-Note 1: The curent DGCG design allows for list to be up to date in real time (i.e., it is dynamically generated from a database with the most up to date information then available. So the here aggregated is the output of a data query to given parameters against the uploaded data by the member states) The technical requirement is lighter - the lists should be updated within 24 hours of any change submitted by a member state.
+Note 1: The current DGCG design allows for the list to be up to date in real-time (i.e., it is dynamically generated from a database with the most up to date information available at this point in time. So the here aggregated list is the output of a data query to given parameters against the uploaded data by the Member States). The technical requirement is lighter - the lists should be updated within 24 hours of any change submitted by a Member State.
 
 Note 2: While data integrity is important from a security perspective, there are no confidentiality requirements for the lists of CSCAs and DSCs. 
 
@@ -312,4 +312,3 @@ This work is licensed under a
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
-

@@ -230,13 +230,13 @@ The key identifier (`kid`) is calculated when constructing the list of trusted p
 
 Note that Verifiers do not need to calculate the `kid` based on the DSC certificate and can directly match the key identifier in issued health certificate with the `kid` on the trusted list.
 
-## A.2 Differences with the ICAO MasterList System for Passports
+## A.2 Differences to the ICAO eMRTD PKI trust model
 
-While patterned on best practices of the ICAO ML, there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope).
+While patterned on best practices of the ICAO eMRTD PKI trust model, there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope):
 
-* A Member State may submit multiple CSCA certificates.
-* The DSC (key usage) validity period may be set to any length not exceeding the CSCA _and_ may be absent.
-* The DSC certificate MAY contain policy identifiers that are EHN specific.
+*  A Member State may submit multiple CSCA certificates.
+* The DSC (key usage) validity period may be set to any length not exceeding the CSCA _and MAY be absent_.
+* The DSC certificate MAY contain policy identifiers (Extended Key Usage) that are EHN specific.
 * Member States may choose to never do any verification of published revocations; but instead purely rely on the DSC lists they get daily from the Secretariat or compile themselves.
 
 ## A.3 Secretariat

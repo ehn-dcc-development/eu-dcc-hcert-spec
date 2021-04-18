@@ -283,16 +283,17 @@ The Secretariat shall also:
 * Maintain a similar set of lists with 'test' certificates
 * Maintain a set of test certificates - at least one for each country.
 
-## A.4 Key Usage Policy Identifiers
+## A.4 Extended key Usage Identifiers
 
-The document signing certificate MAY contain Extended key usage extension fields; these being:
+The document signing certificate MAY contain Extended Key Usage extension fields; these being:
 
-* OID 1.3.6.1.4.1.0.1847.2021.1.1        valid for test
-* OID 1.3.6.1.4.1.0.1847.2021.1.2        valid for vaccinations
-* OID 1.3.6.1.4.1.0.1847.2021.1.3        valid for recovery
+* OID 1.3.6.1.4.1.0.1847.2021.1.1 --  valid for test
+* OID 1.3.6.1.4.1.0.1847.2021.1.2  -- valid for vaccinations
+* OID 1.3.6.1.4.1.0.1847.2021.1.3  -- valid for recovery
 
-If none of these OIDs are present the document shall be considered valid for all three.
+The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If present the verifiers SHALL verify the key usage against the stored HCERT. 
 
+In absence of any key usage extension, this certificate can be used to validate any type of HCERT.  Other documents MAY define relevant additional extended key usage policy identifiers used with validation of HCERTs.
 _________________
 
 - Fredrik Ljunggren, Kirei AB.

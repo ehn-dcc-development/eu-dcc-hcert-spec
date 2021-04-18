@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.3, 2021-04-16
+Version 1.0.4, 2021-04-18
 
 
 ## Introduction
@@ -21,6 +21,7 @@ In addition, there is an _edition_ version number used for publishing updates to
 | 1.0.1    | draft  | A number of clarifications, remove SSC |
 | 1.0.2    | draft  | Correct CIRCABC spelling |
 | 1.0.3    | draft  | Editorial changes |
+| 1.0.4    | draft  | Optical preamble update, editorial changes |
 
 
 ## 1. Terminology

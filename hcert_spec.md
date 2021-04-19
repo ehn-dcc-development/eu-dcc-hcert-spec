@@ -252,7 +252,7 @@ In the first version, the secretariat will:
 * Maintain a public 24x7 incident/security contact point.
 * Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DGCG).
 * Shall validate the DSCs against the CSCA prior to publication (DGCG).
-* Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSAs thus validated (DGCG).
+* Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSCs thus validated (DGCG).
 * Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DGCG, t.b.c)
 
 **In all cases, the secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**

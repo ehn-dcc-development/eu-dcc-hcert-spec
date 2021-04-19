@@ -15,14 +15,14 @@ In addition, there is an _edition_ version number used for publishing updates to
 
 ### Version History
 
-| version  | status | Comments |
-|----------|--------|-----------|
-| 1.0.0    | final  | first version |
-| 1.0.1    | draft  | A number of clarifications, remove SSC |
-| 1.0.2    | draft  | Correct CIRCABC spelling |
-| 1.0.3    | draft  | Editorial changes |
-| 1.0.4    | draft  | Optical preamble update, editorial changes |
-
+| version  | status | Comments                                    |
+|----------|--------|---------------------------------------------|
+| 1.0.0    | final  | first version                               |
+| 1.0.1    | draft  | A number of clarifications, remove SSC      |
+| 1.0.2    | draft  | Correct CIRCABC spelling                    |
+| 1.0.3    | draft  | Editorial changes                           |
+| 1.0.4    | draft  | Optical preamble update, editorial changes  |
+| 1.0.5    | final  | As accepted in eHN WC 2021-04-19            |
 
 ## 2. Terminology
 

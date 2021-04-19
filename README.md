@@ -4,9 +4,10 @@
 
 This repository contains a proposal for encoding and signing the Electronic Health Certificate (HCERT), as a candidate to be adapted and adopted by eHealth authorities and other stakeholders as they see fit.
 
+
 ## Specification
 
-The current authoritative version is v1.0.5
+[A first version of specification is available](hcert_spec.md).
 
 ## Overview
 

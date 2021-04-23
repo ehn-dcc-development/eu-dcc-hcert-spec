@@ -108,9 +108,9 @@ Verifiers MAY apply additional policies with the purpose of restricting the vali
 
 #### 3.3.7 Health Certificate Claim
 
-The Health Certificate (`hcert`) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several different types of health certificate MAY exist under the same claim, of which the European DGC is one.
+The Health Certificate (`hcert`) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information. Several different types of health certificate MAY exist under the same claim, of which the European DGC is one.
 
-Note here that the JSON is purely for schema purposes. The wire format is CBOR. Application developers may not actually ever de-, or encode to and from the JSON format, but use the in-memory structure.
+Note here that the JSON is purely for schema purposes. The wire format is CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Application developers may not actually ever de-, or encode to and from the JSON format, but use the in-memory structure.
 
 The Claim Key to be used to identify this claim is -260.
 

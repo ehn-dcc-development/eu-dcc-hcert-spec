@@ -94,13 +94,13 @@ The Issuer (`iss`) claim is a string value that MAY optionally hold the ISO 3166
 
 #### 3.3.5 Expiration Time
 
-The Expiration Time (`exp`) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the health certificate. The Claim Key 4 is used to identify this claim.
+The Expiration Time (`exp`) claim MUST hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload MUST be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the health certificate. The Claim Key 4 is used to identify this claim.
 
 The Expiration Time MUST not exceed the validity period of the DSC.
 
 #### 3.3.6 Issued At
 
-The Issued At (`iat`) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the health certificate was created. 
+The Issued At (`iat`) claim MUST hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the health certificate was created. 
 
 The Issued At field MUST not predate the validity period of the DSC.
 
@@ -128,15 +128,15 @@ If the transfer of the HCERT from the Issuer to the holder is based on a present
 
 #### 4.2.1 Payload (CWT) Compression
 
-To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT SHALL be compressed using ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the Deflate compression mechanism in the format defined in ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
+To lower size and to improve speed and reliability in the reading process of the HCERT, the CWT MUST be compressed using ZLIB ([RFC 1950](https://tools.ietf.org/html/rfc1950)) and the Deflate compression mechanism in the format defined in ([RFC 1951](https://tools.ietf.org/html/rfc1951)). 
 
 #### 4.2.2 QR 2D Barcode
 
 In order to better handle legacy equipment designed to operate on ASCII payloads, the compressed CWT is encoded as ASCII using [Base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45) before being encoded into a 2D barcode.
 
-The QR format as defined in (ISO/IEC 18004:2015) SHALL be used for 2D barcode generation. An error correction rate of ‘Q’ (around 25%) is RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
+The QR format as defined in (ISO/IEC 18004:2015) MUST be used for 2D barcode generation. An error correction rate of ‘Q’ (around 25%) is RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
 
-In order for Verifiers to be able to detect the type of data encoded and to select the proper decoding and processing scheme, the base45 encoded data (as per this specification) SHALL be prefixed by the Context Identifier string "HC1:". Future versions of this specification that impact backwards-compatibilty SHALL define a new Context Identifier, whereas the character following "HC" SHALL be taken from the character set [1-9A-Z]. The order of increments is defined to be in that order, i.e., first [1-9] and then [A-Z].
+In order for Verifiers to be able to detect the type of data encoded and to select the proper decoding and processing scheme, the base45 encoded data (as per this specification) MUST be prefixed by the Context Identifier string "HC1:". Future versions of this specification that impact backwards-compatibilty MUST define a new Context Identifier, whereas the character following "HC" MUST be taken from the character set [1-9A-Z]. The order of increments is defined to be in that order, i.e., first [1-9] and then [A-Z].
 
 The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 60 mm to accommodate readers with fixed optics where the presentation media is required to be placed on the surface of the reader.
 
@@ -144,7 +144,7 @@ If the optical code is printed on paper using low-resolution (< 300 dpi) printer
 
 ## 5 Trusted List Format (DSC list)
 
-Each Participating country is REQUIRED to provide a list of one or more Certificate Signing Certificate Authorities (CSCAs) and a list of all valid Document Signing Certificates (DSCs), and keep these lists current.
+Each Participating country MUST provide a list of one or more Certificate Signing Certificate Authorities (CSCAs) and a list of all valid Document Signing Certificates (DSCs), and keep these lists current.
 
 For the list of CSCA certificates, each certificate:
 
@@ -161,7 +161,7 @@ In addition, for the list of DSC certificates, each certificate:
 
 ### 5.1 Simplified CSCA/DSC
 
-As of this version of the specifications, countries should NOT assume that any Certificate Revocation List (CRL) information is used; or that the Private Key Usage Period is verified by implementors.
+As of this version of the specifications, countries SHOULD NOT assume that any Certificate Revocation List (CRL) information is used; or that the Private Key Usage Period is verified by implementors.
 
 Instead, the primary validity mechanism is the presence of the certificate on the most recent version of that certificate list.
 
@@ -201,7 +201,7 @@ However, regardless of whether an Issuer decides to use HSMs or not, a key roll-
 
 ### 6.3 Input Data Validation
 
-This specification may be used in a way that implies receiving data from untrusted sources into systems that may be of mission-critical nature. To minimise the risks associated with this attack vector, all input fields MUST be properly validated by data types, lengths and contents. The Issuer Signature SHALL also be verified before any processing of the contents of the HCERT takes place. However, the validation of the Issuer Signature implies parsing the Protected Issuer Header first, in which a potential attacker may attempt to inject carefully crafted information designed to compromise the security of the system.
+This specification may be used in a way that implies receiving data from untrusted sources into systems that may be of mission-critical nature. To minimise the risks associated with this attack vector, all input fields MUST be properly validated by data types, lengths and contents. The Issuer Signature MUST also be verified before any processing of the contents of the HCERT takes place. However, the validation of the Issuer Signature implies parsing the Protected Issuer Header first, in which a potential attacker may attempt to inject carefully crafted information designed to compromise the security of the system.
 
 # Appendix A - Trust management
 
@@ -251,7 +251,7 @@ In the first version, the secretariat will:
 * Maintain a non-public list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
 * Maintain a public 24x7 incident/security contact point.
 * Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DGCG).
-* Shall validate the DSCs against the CSCA prior to publication (DGCG).
+* MUST validate the DSCs against the CSCA prior to publication (DGCG).
 * Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSAs thus validated (DGCG).
 * Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DGCG, t.b.c)
 
@@ -292,7 +292,7 @@ The document signing certificate MAY contain Extended Key Usage extension fields
 * OID 1.3.6.1.4.1.0.1847.2021.1.2  -- valid for vaccinations
 * OID 1.3.6.1.4.1.0.1847.2021.1.3  -- valid for recovery
 
-The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If present the verifiers SHALL verify the key usage against the stored HCERT. 
+The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If present, the verifiers MUST verify the key usage against the stored HCERT. 
 
 In absence of any key usage extension, this certificate can be used to validate any type of HCERT.  Other documents MAY define relevant additional extended key usage policy identifiers used with validation of HCERTs.
 _________________

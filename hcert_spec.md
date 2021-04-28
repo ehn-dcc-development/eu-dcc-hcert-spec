@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.6-PRE, 2021-04-XX
+Version 1.0.6, 2021-04-28
 
 
 ## 1. Introduction
@@ -23,6 +23,7 @@ In addition, there is an _edition_ version number used for publishing updates to
 | 1.0.3    | draft  | Editorial changes                           |
 | 1.0.4    | draft  | Optical preamble update, editorial changes  |
 | 1.0.5    | final  | As accepted in eHN WC 2021-04-19            |
+| 1.0.6    | draft  | Minor clarifications                        |
 
 ## 2. Terminology
 

@@ -289,9 +289,9 @@ The Secretariat shall also:
 
 The document signing certificate MAY contain Extended Key Usage extension fields; these being:
 
-* OID 1.3.6.1.4.1.0.1847.2021.1.1 --  valid for test
-* OID 1.3.6.1.4.1.0.1847.2021.1.2  -- valid for vaccinations
-* OID 1.3.6.1.4.1.0.1847.2021.1.3  -- valid for recovery
+* OID 1.3.6.1.4.1.1847.2021.1.1 --  valid for test
+* OID 1.3.6.1.4.1.1847.2021.1.2  -- valid for vaccinations
+* OID 1.3.6.1.4.1.1847.2021.1.3  -- valid for recovery
 
 The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If present the verifiers SHALL verify the key usage against the stored HCERT. 
 

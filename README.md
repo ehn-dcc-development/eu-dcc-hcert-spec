@@ -7,7 +7,7 @@ This repository contains a proposal for encoding and signing the Electronic Heal
 
 ## Specification
 
-The current authoritative version is v1.0.5 at https://github.com/ehn-digital-green-development/hcert-spec/blob/v105/hcert_spec.md
+The current authoritative version is v1.0.5 at https://github.com/ehn-digital-green-development/hcert-spec/blob/master/hcert_spec.md
 
 ## Overview
 
@@ -64,7 +64,7 @@ Qr and Aztec code have a specific, highly efficient, method for storing alphanum
 
 Details of this "11 bits per two characters" encoding can be found at
 
--	 https://www.thonky.com/qr-code-tutorial/alphanumeric-mode-encoding
+-	https://www.thonky.com/qr-code-tutorial/alphanumeric-mode-encoding
 -	https://raw.githubusercontent.com/yansikeim/QR-Code/master/ISO%20IEC%2018004%202015%20Standard.pdf - section 7.44 on page 26
 
 For this reason, the industry generally encodes these in base45. A document for this de-facto standard is in progress:

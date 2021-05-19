@@ -293,9 +293,9 @@ The document signing certificate MAY contain Extended Key Usage extension fields
 * OID 1.3.6.1.4.1.1847.2021.1.2  -- valid for vaccinations
 * OID 1.3.6.1.4.1.1847.2021.1.3  -- valid for recovery
 
-The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If present the verifiers SHALL verify the key usage against the stored HCERT. 
+The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If one or more are present the verifiers SHALL verify the key usage against the stored HCERT. 
 
-In absence of any key usage extension, this certificate can be used to validate any type of HCERT.  Other documents MAY define relevant additional extended key usage policy identifiers used with validation of HCERTs.
+In absence of any key usage extension (i.e. no extensions or zero extensions), this certificate can be used to validate any type of HCERT.  Other documents MAY define relevant additional extended key usage policy identifiers used with validation of HCERTs.
 _________________
 
 - Fredrik Ljunggren, Kirei AB.

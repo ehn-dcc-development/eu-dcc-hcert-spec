@@ -7,7 +7,7 @@ This repository contains a proposal for encoding and signing the Electronic Heal
 
 ## Specification
 
-The current authoritative version is v1.0.5 at https://github.com/ehn-digital-green-development/hcert-spec/blob/v105/hcert_spec.md
+The current authoritative version is v1.0.5 at https://github.com/ehn-digital-green-development/hcert-spec/blob/main/hcert_spec.md
 
 ## Overview
 

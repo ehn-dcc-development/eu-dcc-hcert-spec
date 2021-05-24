@@ -1,0 +1,22 @@
+name: Documentation
+
+on: 
+  - push
+  - pull_request
+
+jobs:
+  render:
+    name: Render documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install grip
+        run: pip3 install grip
+      - name: Install pandoc
+        run: sudo apt-get install pandoc
+      - name: Build docs
+        run: make

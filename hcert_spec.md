@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.5, 2021-04-18
+Version 1.0.6, 2021-05-19
 
 
 ## 1. Introduction
@@ -23,6 +23,7 @@ In addition, there is an _edition_ version number used for publishing updates to
 | 1.0.3    | draft  | Editorial changes                           |
 | 1.0.4    | draft  | Optical preamble update, editorial changes  |
 | 1.0.5    | final  | As accepted in eHN WC 2021-04-19            |
+| 1.0.6    | draft  | Minor clarifications                        |
 
 ## 2. Terminology
 
@@ -84,9 +85,9 @@ This corresponds to the COSE algorithm parameter: `PS256`.
 
 #### 3.3.3 Key Identifier
 
-The Key Identifier (`kid`) claim is used by Verifiers for selecting the correct public key from a list of keys pertaining to the Issuer (`iss`) Claim. Several keys may be used in parallel by an Issuer for administrative reasons and when performing key rollovers. The Key Identifier is not a security-critical field. For this reason, it MAY also be placed in an unprotected header if required. Verifiers MUST accept both options.
+The Key Identifier (`kid`) claim is used by Verifiers for selecting the correct public key from a list of keys pertaining to the Issuer (`iss`) Claim. Several keys may be used in parallel by an Issuer for administrative reasons and when performing key rollovers. The Key Identifier is not a security-critical field. For this reason, it MAY also be placed in an unprotected header if required. Verifiers MUST accept both options.  If both options are present, the Key Identifier in the protected header MUST be used.
 
-Due to the shortening of the identifier (for space-preserving reasons) there is a slim but non-finite chance that the overall list of DSCs accepted by a validator may contain DSCs with duplicate `kid`s. For this reason a verifier MUST check all DSCs with that `kid`.
+Due to the shortening of the identifier (for space-preserving reasons) there is a slim but non-zero chance that the overall list of DSCs accepted by a validator may contain DSCs with duplicate `kid`s. For this reason a verifier MUST check all DSCs with that `kid`.
 
 #### 3.3.4 Issuer
 
@@ -94,13 +95,13 @@ The Issuer (`iss`) claim is a string value that MAY optionally hold the ISO 3166
 
 #### 3.3.5 Expiration Time
 
-The Expiration Time (`exp`) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the health certificate. The Claim Key 4 is used to identify this claim.
+The Expiration Time (`exp`) claim SHALL hold a timestamp in the integer NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the health certificate. The Claim Key 4 is used to identify this claim.
 
 The Expiration Time MUST not exceed the validity period of the DSC.
 
 #### 3.3.6 Issued At
 
-The Issued At (`iat`) claim SHALL hold a timestamp in the NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the health certificate was created. 
+The Issued At (`iat`) claim SHALL hold a timestamp in the integer NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the health certificate was created. 
 
 The Issued At field MUST not predate the validity period of the DSC.
 
@@ -108,9 +109,9 @@ Verifiers MAY apply additional policies with the purpose of restricting the vali
 
 #### 3.3.7 Health Certificate Claim
 
-The Health Certificate (`hcert`) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information, which has been encoded and serialised using CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Several different types of health certificate MAY exist under the same claim, of which the European DGC is one.
+The Health Certificate (`hcert`) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information. Several different types of health certificate MAY exist under the same claim, of which the European DGC is one.
 
-Note here that the JSON is purely for schema purposes. The wire format is CBOR. Application developers may not actually ever de-, or encode to and from the JSON format, but use the in-memory structure.
+Note here that the JSON is purely for schema purposes. The wire format is CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Application developers may not actually ever decode or encode to and from the JSON format, but use the in-memory structure.
 
 The Claim Key to be used to identify this claim is -260.
 
@@ -252,7 +253,7 @@ In the first version, the secretariat will:
 * Maintain a public 24x7 incident/security contact point.
 * Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DGCG).
 * Shall validate the DSCs against the CSCA prior to publication (DGCG).
-* Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSAs thus validated (DGCG).
+* Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSCs thus validated (DGCG).
 * Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DGCG, t.b.c)
 
 **In all cases, the secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**
@@ -288,13 +289,13 @@ The Secretariat shall also:
 
 The document signing certificate MAY contain Extended Key Usage extension fields; these being:
 
-* OID 1.3.6.1.4.1.0.1847.2021.1.1 --  valid for test
-* OID 1.3.6.1.4.1.0.1847.2021.1.2  -- valid for vaccinations
-* OID 1.3.6.1.4.1.0.1847.2021.1.3  -- valid for recovery
+* OID 1.3.6.1.4.1.1847.2021.1.1 --  valid for test
+* OID 1.3.6.1.4.1.1847.2021.1.2  -- valid for vaccinations
+* OID 1.3.6.1.4.1.1847.2021.1.3  -- valid for recovery
 
-The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If present the verifiers SHALL verify the key usage against the stored HCERT. 
+The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If one or more are present the verifiers SHALL verify the key usage against the stored HCERT. 
 
-In absence of any key usage extension, this certificate can be used to validate any type of HCERT.  Other documents MAY define relevant additional extended key usage policy identifiers used with validation of HCERTs.
+In absence of any key usage extension (i.e. no extensions or zero extensions), this certificate can be used to validate any type of HCERT.  Other documents MAY define relevant additional extended key usage policy identifiers used with validation of HCERTs.
 _________________
 
 - Fredrik Ljunggren, Kirei AB.

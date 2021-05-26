@@ -37,7 +37,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The Electronic Health Certificate Container Format (HCERT) is designed to provide a uniform and standardised vehicle for health certificates from different Issuers. The aim is to harmonise how these health certificates are represented, encoded and signed with the goal of facilitating interoperability.
 
-### 3.1 The European Digital Covide Certificate (DCC)
+### 3.1 The European Digital Covid Certificate (DCC)
 
 The ability to read and interpret a DCC issued by any Issuer requires a common data structure and agreement on the significance of each data field of the payload. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema that constitutes the framing of the DCC. The use of these elements is outside the scope of this specification, and is anticipated to be regulated by European Union law.
 

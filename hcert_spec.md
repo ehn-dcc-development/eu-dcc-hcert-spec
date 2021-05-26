@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.6, 2021-05-19
+Version 1.0.7, 2021-05-26
 
 
 ## 1. Introduction
@@ -24,6 +24,7 @@ In addition, there is an _edition_ version number used for publishing updates to
 | 1.0.4    | draft  | Optical preamble update, editorial changes  |
 | 1.0.5    | final  | As accepted in eHN WC 2021-04-19            |
 | 1.0.6    | draft  | Minor clarifications                        |
+| 1.0.7    | draft  | Rename DGC to DCC                           |
 
 ## 2. Terminology
 

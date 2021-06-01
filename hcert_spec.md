@@ -15,9 +15,9 @@ In addition, there is an _edition_ version number used for publishing updates to
 
 ### Version History
 
-| version  | status | Comments                                    |
+| Version  | Status | Comments                                    |
 |----------|--------|---------------------------------------------|
-| 1.0.0    | final  | first version                               |
+| 1.0.0    | final  | First version                               |
 | 1.0.1    | draft  | A number of clarifications, remove SSC      |
 | 1.0.2    | draft  | Correct CIRCABC spelling                    |
 | 1.0.3    | draft  | Editorial changes                           |
@@ -42,11 +42,11 @@ The ability to read and interpret a DGC issued by any Issuer requires a common d
 
 Note that the DGC defines the data structure, the actual wire format (HCERT) is content neutral.
 
-### 3.2 Structure of the payload
+### 3.2 Structure of the Payload
 
 The payload is structured and encoded as a CBOR with a COSE digital signature. This is commonly known as a "CBOR Web Token" (CWT), and is defined in [RFC 8392](https://tools.ietf.org/html/rfc8392). The payload, as defined below, is transported in a `hcert` claim.
 
-The integrity and authenticity of origin of payload data MUST be verifiable by the Verifier. To provide this mechanism, the issuer of MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
+The integrity and authenticity of origin of payload data MUST be verifiable by the Verifier. To provide this mechanism, the issuer MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
 
 
 ### 3.3 CWT Claims
@@ -67,7 +67,7 @@ The integrity and authenticity of origin of payload data MUST be verifiable by t
 
 #### 3.3.2 Signature Algorithm
 
-The Signature Algorithm (`alg`) parameter indicates what algorithm is used for the creating the signature. It must meet or exceed current SOG-IT guidelines.
+The Signature Algorithm (`alg`) parameter indicates what algorithm is used for creating the signature. It must meet or exceed current SOG-IT guidelines.
 
 One primary and one secondary algorithm is defined. The secondary algorithm should only be used if the primary algorithm is not acceptable within the rules and regulations imposed on the implementor.
 
@@ -75,7 +75,7 @@ However, it is essential and of utmost importance for the security of the system
 
 For this version of the specification, the SOG-IT set levels for the primary and secondary algorithms are:
 
-- Primary Algorithm: The primary algorithm is Elliptic Curve Digital Signature Algorithm (ECDSA) as defined in (ISO/IEC 14888–3:2006) section 2.3, using the P–256 parameters as defined in appendix D (D.1.2.3) of (FIPS PUB 186–4) in combination the SHA–256 hash algorithm as defined in (ISO/IEC 10118–3:2004) function 4.
+- Primary Algorithm: The primary algorithm is Elliptic Curve Digital Signature Algorithm (ECDSA) as defined in (ISO/IEC 14888–3:2006) Section 2.3, using the P–256 parameters as defined in Appendix D (D.1.2.3) of (FIPS PUB 186–4) in combination with the SHA–256 hash algorithm as defined in (ISO/IEC 10118–3:2004) function 4.
 
 This corresponds to the COSE algorithm parameter `ES256`.
 
@@ -87,7 +87,7 @@ This corresponds to the COSE algorithm parameter: `PS256`.
 
 The Key Identifier (`kid`) claim is used by Verifiers for selecting the correct public key from a list of keys pertaining to the Issuer (`iss`) Claim. Several keys may be used in parallel by an Issuer for administrative reasons and when performing key rollovers. The Key Identifier is not a security-critical field. For this reason, it MAY also be placed in an unprotected header if required. Verifiers MUST accept both options.  If both options are present, the Key Identifier in the protected header MUST be used.
 
-Due to the shortening of the identifier (for space-preserving reasons) there is a slim but non-zero chance that the overall list of DSCs accepted by a validator may contain DSCs with duplicate `kid`s. For this reason a verifier MUST check all DSCs with that `kid`.
+Due to the shortening of the identifier (for space-preserving reasons) there is a slim but non-zero chance that the overall list of DSCs accepted by a validator may contain DSCs with duplicate `kid`s. For this reason, a verifier MUST check all DSCs with that `kid`.
 
 #### 3.3.4 Issuer
 
@@ -95,13 +95,13 @@ The Issuer (`iss`) claim is a string value that MAY optionally hold the ISO 3166
 
 #### 3.3.5 Expiration Time
 
-The Expiration Time (`exp`) claim SHALL hold a timestamp in the integer NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the health certificate. The Claim Key 4 is used to identify this claim.
+The Expiration Time (`exp`) claim SHALL hold a timestamp in the integer NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) Section 2) indicating for how long this particular signature over the Payload SHALL be considered valid, after which a Verifier MUST reject the Payload as expired. The purpose of the expiry parameter is to force a limit of the validity period of the health certificate. The Claim Key 4 is used to identify this claim.
 
 The Expiration Time MUST not exceed the validity period of the DSC.
 
 #### 3.3.6 Issued At
 
-The Issued At (`iat`) claim SHALL hold a timestamp in the integer NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) section 2) indicating the time when the health certificate was created. 
+The Issued At (`iat`) claim SHALL hold a timestamp in the integer NumericDate format (as specified in [RFC 8392](https://tools.ietf.org/html/rfc8392) Section 2) indicating the time when the health certificate was created. 
 
 The Issued At field MUST not predate the validity period of the DSC.
 
@@ -151,7 +151,7 @@ For the list of CSCA certificates, each certificate:
 
 - MUST contain a valid Country attribute in the subject DN that matches the country of issuance.
 - MUST contain DN that is unique within the specified country.
-- MUST contain a unique Subject Key Identifier (SKI) according to ([RFC5280](https://tools.ietf.org/html/rfc5280))
+- MUST contain a unique Subject Key Identifier (SKI) according to ([RFC5280](https://tools.ietf.org/html/rfc5280)).
 
 In addition, for the list of DSC certificates, each certificate:
 
@@ -168,7 +168,7 @@ Instead, the primary validity mechanism is the presence of the certificate on th
 
 ### 5.2 ICAO eMRTD PKI and Trust Centers
 
-Member States can use a separate CSCA (as per the WHO advice)(#ref) - but may also use submit their existing eMRT CSCA and/or DSC certificates; and may even chose to procure these from (commercial) trustcenters - and submit these. However, any DSC certificate must always be signed by the CSCA submitted by that country.
+Member States can use a separate CSCA (as per the WHO advice)(#ref) - but may also submit their existing eMRT CSCA and/or DSC certificates; and may even choose to procure these from (commercial) trustcenters - and submit these. However, any DSC certificate must always be signed by the CSCA submitted by that country.
 
 ## 6. Security Considerations
 
@@ -176,11 +176,11 @@ When designing a scheme using this specification, several important security asp
 
 As input to the continuous analysis and monitoring of risks, the following topics SHOULD be taken into account:
 
-### 6.1 HCERT signature validity time
+### 6.1 HCERT Signature Validity Time
 
 It is anticipated that health certificates can not be reliably revoked once issued, especially not if this specification would be used on a global scale. Publishing of recovation information containing identifiers may also create privacy concerns, as this information is per definition Personally Identifiable Information (PII). For these reasons, this specification requires the Issuer of HCERTs to limit the validity period of the signature by specifying a signature expiry time. This requires the holder of a health certificate to renew it at periodic intervals. 
 
-The acceptable validity period may be determined by practical constraints. For example, a traveller may not have the possibility to renew the health certificate during a trip overseas. However, it may also be the case that an Issuer is considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an DSC (invalidating all health certificates issued using that key which is still within their validity period). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all health certificates, on some reasonable interval.
+The acceptable validity period may be determined by practical constraints. For example, a traveller may not have the possibility to renew the health certificate during a trip overseas. However, it may also be the case that an Issuer is considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an DSC (invalidating all health certificates issued using that key which are still within their validity period). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all health certificates, on some reasonable interval.
 
 ### 6.2 Key Management
 
@@ -204,7 +204,7 @@ However, regardless of whether an Issuer decides to use HSMs or not, a key roll-
 
 This specification may be used in a way that implies receiving data from untrusted sources into systems that may be of mission-critical nature. To minimise the risks associated with this attack vector, all input fields MUST be properly validated by data types, lengths and contents. The Issuer Signature SHALL also be verified before any processing of the contents of the HCERT takes place. However, the validation of the Issuer Signature implies parsing the Protected Issuer Header first, in which a potential attacker may attempt to inject carefully crafted information designed to compromise the security of the system.
 
-# Appendix A - Trust management
+# Appendix A - Trust Management
 
 The signature of the HCERT requires a public key to verify. Countries, or institutions within countries, need to make these public keys available. Ultimately, every Verifier needs to have a list of all public keys it is willing to trust (as the public key is not part of the HCERT).
 
@@ -216,23 +216,23 @@ The system consists of (only) two layers; for each Member State one or more coun
 
 The Member State certificates are called Certificate Signer Certificate Authorities (CSCAs) and are (typically) self-signed certificates. Countries may have more than one (e.g., in case of regional devolution). These CSCA certificates regularly sign the Document Signing Certificates (DSCs) used for signing HCERTs. Member States will each maintain a public register of the DSC certificates that is kept current, communicated to the Secretariat and also published at a stable URL for bilateral exchange. Member States MUST remove any revoked or stale certificates from this list.
 
-The Secretariat will regularly aggregate and publish the Member States DSCs, after having verified these agains the list of CSCA certificates (which have been conveyed and verified by other means). 
+The Secretariat will regularly aggregate and publish the Member States DSCs, after having verified these against the list of CSCA certificates (which have been conveyed and verified by other means). 
 
 The resulting list of DSC certificates then provides the aggregated set of acceptable public keys (and the corresponding `kid`s) that Verifiers can use to validate the signatures over the HCERTs. Verifiers MUST fetch and update this list regularly.
 
 Member States may also bilaterally exchange CSCA certificates with a number of other Member States, verify these bilaterally and thus compile their own lists of CSCA and DSC certificates which is specific to that Member State. Verifiers may choose to rely on such a national list.
 
-Such Member State-specific lists are expected to be adapted in the format for their own national setting. As such, the file format of this trusted list may vary, e.g., it can be a signed JWKS ([JWK set format per RFC 7517 section 5](https://tools.ietf.org/html/rfc7517#section-5)) or any other format specific to the technology used in that Member State.
+Such Member State-specific lists are expected to be adapted in the format for their own national setting. As such, the file format of this trusted list may vary, e.g., it can be a signed JWKS ([JWK set format per RFC 7517 Section 5](https://tools.ietf.org/html/rfc7517#section-5)) or any other format specific to the technology used in that Member State.
 
 For the sake of simplicity: Member States may both submit their existing CSCA certificates from their ICAO eMRTD systems or, as recommended by the WHO, create one specifically for this health domain. 
 
 ## A.1 The Key Identifier (`kid`s)
 
-The key identifier (`kid`) is calculated when constructing the list of trusted public keys from DSC certificates and consists of a truncated (first 8 bytes) SHA-256 fingerprint of the DSC encoded in DER (raw) format.
+The Key Identifier (`kid`) is calculated when constructing the list of trusted public keys from DSC certificates and consists of a truncated (first 8 bytes) SHA-256 fingerprint of the DSC encoded in DER (raw) format.
 
-Note that Verifiers do not need to calculate the `kid` based on the DSC certificate and can directly match the key identifier in issued health certificate with the `kid` on the trusted list.
+Note that Verifiers do not need to calculate the `kid` based on the DSC certificate and can directly match the Key Identifier in issued health certificates with the `kid` on the trusted list.
 
-## A.2 Differences to the ICAO eMRTD PKI trust model
+## A.2 Differences to the ICAO eMRTD PKI Trust Model
 
 While patterned on best practices of the ICAO eMRTD PKI trust model, there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope):
 
@@ -243,35 +243,35 @@ While patterned on best practices of the ICAO eMRTD PKI trust model, there are a
 
 ## A.3 Secretariat
 
-In order to alleviate the burden of countries during the initial phase, there shall be a secretarial service which will:
+In order to alleviate the burden on countries during the initial phase, there shall be a secretarial service which will:
 
-### A.3.1 version 1.00 - secretariat tasks
+### A.3.1 Version 1.00 - Secretariat Tasks
 
-In the first version, the secretariat will:
+In the first version, the Secretariat will:
 
 * Maintain a non-public list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
 * Maintain a public 24x7 incident/security contact point.
 * Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DGCG).
 * Shall validate the DSCs against the CSCA prior to publication (DGCG).
-* Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSCs thus validated (DGCG).
-* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DGCG, t.b.c)
+* Maintain a public, integrity (secure) protected,  single, up to date, aggregated, list of all DSCs thus validated (DGCG).
+* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DGCG, t.b.c).
 
-**In all cases, the secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**
+**In all cases, the Secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**
 
 Note 1: The current DGCG design allows for the list to be up to date in real-time (i.e., it is dynamically generated from a database with the most up to date information available at this point in time. So the here aggregated list is the output of a data query to given parameters against the uploaded data by the Member States). The technical requirement is lighter - the lists should be updated within 24 hours of any change submitted by a Member State.
 
 Note 2: While data integrity is important from a security perspective, there are no confidentiality requirements for the lists of CSCAs and DSCs. 
 
-### A.3.2 future version - secretariat tasks
+### A.3.2 Future Version - Secretariat Tasks
 
-In a later version - the service may also:
+In a later version, the service may also:
 
 * Maintain a public, integrity (secure) protected, list of URLs with the most up to date CSCA lists for each Member State (DGCG).
 * Maintain a public, integrity (secure) protected, list of URLs with the most up to date DSC lists for each Member State (DGCG).
 
 ### A.3.3 Automation by the DGCG
 
-The tasks that are marked _DGCG_ or _CIRCABC are expected to be handled by DGCG automation, _CIRCABC or similar systems under control and responsibility of the Secretariat.
+The tasks that are marked _DGCG_ or _CIRCABC_ are expected to be handled by DGCG automation, _CIRCABC_ or similar systems under control and responsibility of the Secretariat.
 
 The format for the lists used for the interchange between the Member States and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
 
@@ -282,10 +282,10 @@ Member States are also expected to publish country-specific lists, in formats ad
 
 The Secretariat shall also:
 
-* Maintain a similar set of lists with 'test' certificates
+* Maintain a similar set of lists with 'test' certificates.
 * Maintain a set of test certificates - at least one for each country.
 
-## A.4 Extended key Usage Identifiers
+## A.4 Extended Key Usage Identifiers
 
 The document signing certificate MAY contain Extended Key Usage extension fields; these being:
 
@@ -293,12 +293,12 @@ The document signing certificate MAY contain Extended Key Usage extension fields
 * OID 1.3.6.1.4.1.1847.2021.1.2  -- valid for vaccinations
 * OID 1.3.6.1.4.1.1847.2021.1.3  -- valid for recovery
 
-The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If one or more are present the verifiers SHALL verify the key usage against the stored HCERT. 
+The DSC may contain an extended key usage extension with *zero or more* key usage policy identifiers that constrain the types of HCERTs this certificate is allowed to verify. If one or more are present, the verifiers SHALL verify the key usage against the stored HCERT. 
 
 In absence of any key usage extension (i.e. no extensions or zero extensions), this certificate can be used to validate any type of HCERT.  Other documents MAY define relevant additional extended key usage policy identifiers used with validation of HCERTs.
 _________________
 
-- Fredrik Ljunggren, Kirei AB.
+- Fredrik Ljunggren, Kirei AB
 - Jakob Schlyter, Kirei AB
 - Dirk-Willem van Gulik - For the Ministry of Public Health of the Netherlands
 - Martin Lindström, iDsec Solutions AB

@@ -1,6 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.6, 2021-05-19
+Version 1.0.7, 2021-05-26
 
 
 ## 1. Introduction
@@ -24,10 +24,11 @@ In addition, there is an _edition_ version number used for publishing updates to
 | 1.0.4    | draft  | Optical preamble update, editorial changes  |
 | 1.0.5    | final  | As accepted in eHN WC 2021-04-19            |
 | 1.0.6    | draft  | Minor clarifications                        |
+| 1.0.7    | draft  | Rename DGC to DCC                           |
 
 ## 2. Terminology
 
-Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status are called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a namespace and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Secretariat, carries out these tasks. The health certificate container format (HCERT) of this specification is generic, but in this context used to carry the European Digital Green Certificate (DGC).
+Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status are called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a namespace and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Secretariat, carries out these tasks. The health certificate container format (HCERT) of this specification is generic, but in this context used to carry the European Digital Covid Certificate (DCC).
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 ([RFC2119](https://tools.ietf.org/html/rfc2119), [RFC8174](https://tools.ietf.org/html/rfc8174)) when, and only when, they appear in all capitals, as shown here.
 
@@ -36,11 +37,11 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The Electronic Health Certificate Container Format (HCERT) is designed to provide a uniform and standardised vehicle for health certificates from different Issuers. The aim is to harmonise how these health certificates are represented, encoded and signed with the goal of facilitating interoperability.
 
-### 3.1 The European Digital Green Certificate (DGC)
+### 3.1 The European Digital Covid Certificate (DCC)
 
-The ability to read and interpret a DGC issued by any Issuer requires a common data structure and agreement on the significance of each data field of the payload. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema that constitutes the framing of the DGC. The use of these elements is outside the scope of this specification, and is anticipated to be regulated by European Union law.
+The ability to read and interpret a DCC issued by any Issuer requires a common data structure and agreement on the significance of each data field of the payload. To facilitate such interoperability, a common coordinated data structure is defined through the use of a JSON schema that constitutes the framing of the DCC. The use of these elements is outside the scope of this specification, and is anticipated to be regulated by European Union law.
 
-Note that the DGC defines the data structure, the actual wire format (HCERT) is content neutral.
+Note that the DCC defines the data structure, the actual wire format (HCERT) is content neutral.
 
 ### 3.2 Structure of the payload
 
@@ -61,7 +62,7 @@ The integrity and authenticity of origin of payload data MUST be verifiable by t
   - Issued At (`iat`, claim key 6)
   - Expiration Time (`exp`, claim key 4)
   - Health Certificate (`hcert`, claim key -260)
-    - EU Digital Green Certificate v1 (`eu_dgc_v1`, claim key 1)
+    - EU Digital Covid Certificate v1 (`eu_dcc_v1` aka `eu_dgc_v1`, claim key 1)
 - Signature
 
 
@@ -109,7 +110,7 @@ Verifiers MAY apply additional policies with the purpose of restricting the vali
 
 #### 3.3.7 Health Certificate Claim
 
-The Health Certificate (`hcert`) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information. Several different types of health certificate MAY exist under the same claim, of which the European DGC is one.
+The Health Certificate (`hcert`) claim is a JSON ([RFC 7159](https://tools.ietf.org/html/rfc7159)) object containing the health status information. Several different types of health certificate MAY exist under the same claim, of which the European DCC is one.
 
 Note here that the JSON is purely for schema purposes. The wire format is CBOR as defined in ([RFC 7049](https://tools.ietf.org/html/rfc7049)). Application developers may not actually ever decode or encode to and from the JSON format, but use the in-memory structure.
 
@@ -210,7 +211,7 @@ The signature of the HCERT requires a public key to verify. Countries, or instit
 
 A simplified variation on the ICAO "_Master list_" will be used, tailored to this health certificate application, whereby each country is ultimately responsible for compiling their own master list and making that available to the other Participants. The aid of a coordinating Secretariat for operational and practical purposes will be available.
 
-The _"Secretariat"_ is a functional role; not a person or a piece of software. It is expected that the Digital Green Certificate Gateway (DGCG) will automate most of these tasks.
+The _"Secretariat"_ is a functional role; not a person or a piece of software. It is expected that the Digital Covid Certificate Gateway (DCCG) will automate most of these tasks.
 
 The system consists of (only) two layers; for each Member State one or more country level certificates that each signs one or more document signing certificates that are used in day to day operations.
 
@@ -251,14 +252,14 @@ In the first version, the secretariat will:
 
 * Maintain a non-public list of operational and legal contacts for each Member State to further the orderly management of this health specific set of master lists.
 * Maintain a public 24x7 incident/security contact point.
-* Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DGCG).
-* Shall validate the DSCs against the CSCA prior to publication (DGCG).
-* Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSCs thus validated (DGCG).
-* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DGCG, t.b.c)
+* Maintain a public, integrity(secure) protected, single, up to date, aggregated, list of all CSCAs (DCCG).
+* Shall validate the DSCs against the CSCA prior to publication (DCCG).
+* Maintain a public, integrity(secure) protected,  single, up to date, aaggregated, list of all DSCs thus validated (DCCG).
+* Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DCCG, t.b.c)
 
 **In all cases, the secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**
 
-Note 1: The current DGCG design allows for the list to be up to date in real-time (i.e., it is dynamically generated from a database with the most up to date information available at this point in time. So the here aggregated list is the output of a data query to given parameters against the uploaded data by the Member States). The technical requirement is lighter - the lists should be updated within 24 hours of any change submitted by a Member State.
+Note 1: The current DCCG design allows for the list to be up to date in real-time (i.e., it is dynamically generated from a database with the most up to date information available at this point in time. So the here aggregated list is the output of a data query to given parameters against the uploaded data by the Member States). The technical requirement is lighter - the lists should be updated within 24 hours of any change submitted by a Member State.
 
 Note 2: While data integrity is important from a security perspective, there are no confidentiality requirements for the lists of CSCAs and DSCs. 
 
@@ -266,12 +267,12 @@ Note 2: While data integrity is important from a security perspective, there are
 
 In a later version - the service may also:
 
-* Maintain a public, integrity (secure) protected, list of URLs with the most up to date CSCA lists for each Member State (DGCG).
-* Maintain a public, integrity (secure) protected, list of URLs with the most up to date DSC lists for each Member State (DGCG).
+* Maintain a public, integrity (secure) protected, list of URLs with the most up to date CSCA lists for each Member State (DCCG).
+* Maintain a public, integrity (secure) protected, list of URLs with the most up to date DSC lists for each Member State (DCCG).
 
-### A.3.3 Automation by the DGCG
+### A.3.3 Automation by the DCCG
 
-The tasks that are marked _DGCG_ or _CIRCABC are expected to be handled by DGCG automation, _CIRCABC or similar systems under control and responsibility of the Secretariat.
+The tasks that are marked _DCCG_ or _CIRCABC are expected to be handled by DCCG automation, _CIRCABC or similar systems under control and responsibility of the Secretariat.
 
 The format for the lists used for the interchange between the Member States and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
 

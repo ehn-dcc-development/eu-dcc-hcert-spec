@@ -51,12 +51,12 @@ involved in the validation process in the verifier. If a CSCA'ss public keys app
 ## Known Implementations
 
 Multiple implementations are available via the ["European eHealth network - digital green development coordination"
-](https://github.com/ehn-digital-green-development) GitHub repository.
+](https://github.com/ehn-dcc-development) GitHub repository.
 
 Highly simplified JSON/CBOR/COSE/Zlib/Base45 pipelines:
 
-- [javascript](https://github.com/ehn-digital-green-development/ehn-sign-verify-javascript-trivial)
-- [python3](https://github.com/ehn-digital-green-development/ehn-sign-verify-python-trivial)
+- [javascript](https://github.com/ehn-dcc-development/ehn-sign-verify-javascript-trivial)
+- [python3](https://github.com/ehn-dcc-development/ehn-sign-verify-python-trivial)
 
 ## Base45
 
@@ -74,7 +74,7 @@ For this reason, the industry generally encodes these in base45. A document for 
 
 ## Contributions
 
-Contributions are very welcome - please generate a [pull request](https://github.com/ehn-digital-green-development/hcert-spec/pulls) or create an [issue](https://github.com/ehn-digital-green-development/hcert-spec/issues).
+Contributions are very welcome - please generate a [pull request](https://github.com/ehn-dcc-development/hcert-spec/pulls) or create an [issue](https://github.com/ehn-dcc-development/hcert-spec/issues).
 
 _________________
 

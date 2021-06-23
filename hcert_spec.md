@@ -92,7 +92,7 @@ Due to the shortening of the identifier (for space-preserving reasons) there is 
 
 #### 3.3.4 Issuer
 
-The Issuer (`iss`) claim is a string value that MAY optionally hold the ISO 3166-1 alpha-2 Country Code of the entity issuing the health certificate. This claim can be used by a Verifier to identify which set of DSCs to use for validation. The Claim Key 1 is used to identify this claim.
+The Issuer (`iss`) claim is a string value that MUST hold the ISO 3166-1 alpha-2 Country Code of the entity issuing the health certificate. This claim can be used by a Verifier to identify which set of DSCs to use for validation. The Claim Key 1 is used to identify this claim.
 
 #### 3.3.5 Expiration Time
 

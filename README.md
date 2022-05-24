@@ -57,6 +57,7 @@ Highly simplified JSON/CBOR/COSE/Zlib/Base45 pipelines:
 
 - [javascript](https://github.com/ehn-dcc-development/ehn-sign-verify-javascript-trivial)
 - [python3](https://github.com/ehn-dcc-development/ehn-sign-verify-python-trivial)
+- [Rust](https://github.com/rust-italia/dgc)
 
 ## Base45
 

@@ -1,0 +1,279 @@
+Namespace Registration for Unique (Vaccination) Certificate Identifier
+
+Namespace ID: UVCI (requested of IANA, case insensitive)
+ 
+     Version: 1.01
+
+        Date: 2021-07-28
+
+  Registrant: eHealth Network 
+        
+Post address: The eHealth Network,
+              eHealth Network Secretariat
+        p/a:  Directorate-General for Health and Food Safety
+              European Commission
+              1049 Bruxelles/Brussel
+              Belgium
+
+       eMail: eHEALTH-NETWORK(at)ec(dot)europa(dot)eu
+
+Requesting entity is a network of national authorities responsible for 
+eHealth established pursuant to Article 14 of Directive 2011/24/EU and 
+the European Commission Implementing Decision 2019/1765. It essentially 
+consists of the representatives of Ministries of Health or the equivalent 
+national Public Health Authorities of the EU and EEA Member States.
+
+Overview: 
+
+In response to the COVID-19 Pandemic the public health authorities of 
+the EU Member States collaborated on a single-purpose, cross-border, 
+interoperable, digital health certificate specific to COVID-19[1]. 
+
+This certificate takes the form of a paper or digital document, that 
+may also be displayed in a mobile app. In its digital version[2] it is 
+a QR code that contains Base45 encoded, Zlib compressed, digitally 
+signed (COSE) structured block (CBOR) of medical and citizen 
+identifying data. An out of band trust management mechanism provides 
+the ECC public keys for (offline) signare validation and key revocation.
+
+Regulation 2021/953[4] prohibits the storage or retention of data 
+following verification. The exchange of Personally Identifiable 
+Information is not necessary for the purposes of the Regulation. 
+However in certain cases (e.g. to prevent or detect fraud) it may still 
+be essential to exchange lists of revoked certificates.
+
+For this reason the design[2] calls for a Unique (Vaccination) 
+Certificate Identifier (UVCI) that uniquely identifies a specific test, 
+vaccination or recovery certificate. The format chosen for this UVCI is 
+that of a Universal Resource name or URN that follows the best current 
+practices (BCP: 66, RFC8141). The NID selected is ‘UVCI’.
+
+The NSS[3 annex 2] consists of a version and country/issuing entity 
+prefix followed by an opaque unique string, an opaque unique string 
+prefixed by a regional Issuing Entity or a triplet of entity, 
+vaccination and again an opaque unique string. This latter format never 
+saw any use  - and may be dropped from future versions of the standard.
+
+When used in print it may be followed by a ‘#’ and a LUHN based 
+checksum.
+
+To further ease of reliable manual entry the character set is limited 
+to A-Z and 0-9, case insensitive. Elements are separated by a slash 
+within the main block; and a colon for the version and country.
+
+It is up to each Member State to manage this space well and ensure that 
+the URN as a whole stays unique. Some countries have opted for a single 
+space for the whole country; others have delegated parts of the space 
+to nations or regions within the member state; each with their own 
+prefix or range. 
+
+Examples are:
+
+        urn:uvci:01:BG:UFR5PLGKU8WDSZK7#0
+        urn:uvci:01:PT:SPMS/TRC01234567890123456#1
+        URN:UVCI:01:PL:3/655052DD53A649E897FA10AC9C175654
+        URN:UvCI:01:NL:2WC7BASRIALG5FBUHLNNNX3A42#:
+        URN:UVCI:01:GB:112739138279141HSFJYRDT#R
+        
+The syntax of the NSS (i.e. the string past the URN prefix and NID, 
+‘urn:uvci:’) is defined in [3]; and can be paraphrased as:
+
+        VERSION ':' COUNTRY ':' C_NSS [ '#' LUHN ]
+
+With:
+
+        VERSION      version number. Currently set to the string '01'.
+
+        COUNTRY      Issuing entity, in general a country. The 
+                     ISO3166-1 character code must be used. Other codes
+                     (3 characters, and longer, e.g. 'UNHCR' or 'WHO' 
+                     are reserved for future use))
+
+        C_NSS        Country specific/managed/delegated NNS
+
+        LUHN         OPTIONAL checksum for print.
+
+The country specific NSS, C_NSS is one of the following 3 formats:
+
+1)      ALPHANUMSTR 
+
+2)      ISSUER '/' ALPHANUMSTR  
+
+3)      ISSUER '/' VACCINE '/' ALPHANUMSTR
+
+With:
+
+        ALPHANUMSTR  A string consisting of A-Z, 0-9 (case insensitive).
+
+        ISSUER       An ALPHANUMSTR that denotes an issuer specific 
+                     to the Country.
+
+        VACCINE      An ALPHANUMSTR that denotes a vaccine or similar
+                     sub grouping.
+
+None of these strings can be empty. All are case insensitive (as they 
+may be entered from a printed document). 
+
+Appendix 1 contains a ABNF of above.
+
+Exceptions and Legacy:
+
+At this time there are two known deviations. 
+
+Firstly - there are two suffixes in use; the original UVCI and a newer 
+UCI. The reason for this was that during the design and first roll-outs 
+the pandemic evolved; and it became clear that not just vaccination 
+certificates would be issued - but also test and recovery certificates. 
+So some countries started to use the more generic UCI.
+
+However - UCI is already in use (RFC4179). So this newer UCI will need 
+to be phased out; with UVCI remaining (only 1 or 2 countries appear to 
+use this).
+
+Secondly - a few countries have issued abbreviated UVCIs; which lack 
+the URN:UVCI prefix. An example of this is: "01/LU/2O1I84U8U12I5#UK".
+
+Rules for Lexical Equivalence:
+
+The URN should be compared case-insensitive in its entirety; from (and 
+including the ‘URN:’ up and until, but not including the optional ‘#’ 
+and optional checksum. The optional checksum is not part  of the URN 
+(or its comparison). It is however recommended when the URN is printed.
+
+If the context allows for it - the removal of the 'urn:uvci' from the 
+printed (and human entered) string is allowed. And should be restored 
+prior to digital handling, comparisons and transmission (e.g. in a 
+QR code).
+
+Assignment:
+
+Assignment of the URNs is delegated to each of the member states; who 
+may delegate this within their state - e.g. to a regional health 
+authority or to a nation within their state. The Secretariat of the 
+eHealth Network maintains a list of contacts for each State.
+
+Each Member State is responsible for managing this space well and 
+keeping the entries overall unique (some States may have multiple 
+ISO3166-1 entries; these, and the version number, are considered an 
+integral part of the identifier, also for uniqueness purposes).
+
+Security and Privacy:
+
+This URN is classified as a piece of Personally Identifiable 
+Information (it references a medical 'fact' about a person; about 
+the traveler) and, for this reason subject to the regulation[4] 
+and national law.
+
+Interoperability:  
+
+The UVCI is a unique and persistent identifier.  An UVCI, once it has 
+been assigned, must never be reused.
+
+There are no characters in UVCI which would require percent-encoding. 
+
+Persistence of the resources: 
+
+The UVCI pertains to a specific (medical) record about a specific 
+person’s vaccination, test or recovery at event level [1,2]. This 
+record is subject to national legislation and regulation.
+
+Persistence of the identifier: 
+
+The UVCI as an identifier is persistent in the sense that once 
+assigned, an UVCI will never be reassigned. 
+
+Resolution:  
+
+For URN resolution purposes, all elements up to, but not including the 
+'#' and checksum must be taken into account.
+
+Persistence of the remote/public resolvers: 
+
+At this time there are no remote or public resolvers -- the cross border
+continuity of care scenario referenced in below documents has not been 
+implemented at this time. No timeline (or a decision) to implement such
+has been taken.
+
+Documentation/References:  
+
+1: COMMISSION IMPLEMENTING DECISION (EU) 2021/1073 of 28 June 2021 
+   laying down technical specifications and rules for the implementation 
+   of the trust framework for the EU Digital COVID Certificate established 
+   by Regulation (EU) 2021/953 of the European Parliament and of the 
+   Council, <http://data.europa.eu/eli/reg/2021/953/oj>
+
+2: eHealth Network, Guidelines on Technical Specifications for EU 
+   Digital COVID Certificates, Volumes 1-5, 
+   <https://ec.europa.eu/health/ehealth/key_documents_en>
+
+3: eHealth Network Guidelines on verifiable vaccination certificates - 
+   basic interoperability elements, Release 2, 2021-03-12,
+   <https://ec.europa.eu/health/ehealth/key_documents_en>
+
+4: Regulation (EU) 2021/953 on a framework for the issuance, 
+   verification and acceptance of interoperable COVID-19 vaccination, 
+   test and recovery certificates (EU Digital COVID Certificate) to 
+   facilitate free movement during the COVID-19 pandemic, 
+   <https://eur-lex.europa.eu/eli/reg/2021/953/oj>
+
+Additional Information:  
+
+    See: https://ec.europa.eu/health/ehealth/key_documents_en
+
+Revision Information:  
+
+    Version 1.00 -- This registration is based on the 2021/1073 of 
+                    28 June 2021 implementing decision. (2021/07/20)
+
+    Version 1.01 -- Add legacy/exception example (LU), several typos
+                    Fixed, URLs added (2021/07/28).
+
+Appendix 1 - RFC5234 Augmented BNF of the URN
+
+This is a non-normative ABNF derived from [2,3]. The definitions for 
+ALPHA and DIGIT are from RFC5234. The NID or NSS are conform RFC8141.
+
+       URN = "URN" URN_SEP NID URN_SEP NSS
+
+       NID = "UVCI"; note that an ABNF string is case _in_ sensitive.
+
+       NSS =  VERSION NSS_SEP COUNTRY NSS_SEP C_NSS [ CRC_SEP LUHN ]
+
+   VERSION = 2*DIGIT  ; only the value "01" is defined at this time.
+
+   COUNTRY = 2*ALPHA [ *ALPHA ] ; only 2 char from ISO 3166-1 defined 
+                                ; at this time.
+
+     C_NSS = OPTION1 / OPTION2 / OPTION 3
+
+   OPTION1 = AZ09STR 
+
+   OPTION2 = ISSUER CNTRY_SEP AZ09STR
+
+   OPTION3 = ISSUER CNTRY_SEP VACCINE CNTRY_SEP AZ09STR ; not observed 
+                                                        ; in active use.
+
+   URN_SEP = ":"
+
+   NSS_SEP = ":"
+
+ CNTRY_SEP = "/"
+
+   CRC_SEP = "#"
+
+      LUHN = 1*ALPHANUM
+
+    ISSUER = AZ09STR
+
+   VACCINE = AZ09STR
+
+   AZ09STR = 1*AZ09 [ *AZ09 ]; non empty arbitrary len alpha numeric 
+                             ; ascii string
+
+       AZ09 = ALPHA / DIGIT
+
+Although commonly used software imposes a limit of around 2kByte on 
+the length of a URI, implementers are advised to stay below the 60 
+characters for usability reasons (they may need to be routinely entered 
+from a paper travel document by hand).
+

@@ -1,7 +1,6 @@
 # Electronic Health Certificate Specification
 
-Version 1.0.7, 2021-05-26
-
+Version 1.0.8, 2023-02-13
 
 ## 1. Introduction
 
@@ -25,13 +24,13 @@ In addition, there is an _edition_ version number used for publishing updates to
 | 1.0.5    | final  | As accepted in eHN WC 2021-04-19            |
 | 1.0.6    | draft  | Minor clarifications                        |
 | 1.0.7    | draft  | Rename DGC to DCC                           |
+| 1.0.8    | draft  | Minor updates to reflect current state      |
 
 ## 2. Terminology
 
 Organisations adopting this specification for issuing health certificates are called Issuers and organisations accepting health certificates as proof of health status are called Verifiers. Together, these are called Participants. Some aspects in this document must be coordinated between the Participants, such as the management of a namespace and the distribution of cryptographic keys. It is assumed that a party, hereafter referred to as the Secretariat, carries out these tasks. The health certificate container format (HCERT) of this specification is generic, but in this context used to carry the European Digital Covid Certificate (DCC).
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 ([RFC2119](https://tools.ietf.org/html/rfc2119), [RFC8174](https://tools.ietf.org/html/rfc8174)) when, and only when, they appear in all capitals, as shown here.
-
 
 ## 3. Electronic Health Certificate Container Format
 
@@ -49,7 +48,6 @@ The payload is structured and encoded as a CBOR with a COSE digital signature. T
 
 The integrity and authenticity of origin of payload data MUST be verifiable by the Verifier. To provide this mechanism, the issuer MUST sign the CWT using an asymmetric electronic signature scheme as defined in the COSE specification ([RFC 8152](https://tools.ietf.org/html/rfc8152)).
 
-
 ### 3.3 CWT Claims
 
 #### 3.3.1 CWT Structure Overview
@@ -65,12 +63,11 @@ The integrity and authenticity of origin of payload data MUST be verifiable by t
     - EU Digital Covid Certificate v1 (`eu_dcc_v1` aka `eu_dgc_v1`, claim key 1)
 - Signature
 
-
 #### 3.3.2 Signature Algorithm
 
 The Signature Algorithm (`alg`) parameter indicates what algorithm is used for creating the signature. It must meet or exceed current SOG-IT guidelines.
 
-One primary and one secondary algorithm is defined. The secondary algorithm should only be used if the primary algorithm is not acceptable within the rules and regulations imposed on the implementor.
+One primary and one secondary algorithm is defined. The secondary algorithm should only be used if the primary algorithm is not acceptable within the rules and regulations imposed on the implementer.
 
 However, it is essential and of utmost importance for the security of the system that all implementations incorporate the secondary algorithm. For this reason, both the primary and the secondary algorithm MUST be implemented.
 
@@ -163,13 +160,13 @@ In addition, for the list of DSC certificates, each certificate:
 
 ### 5.1 Simplified CSCA/DSC
 
-As of this version of the specifications, countries should NOT assume that any Certificate Revocation List (CRL) information is used; or that the Private Key Usage Period is verified by implementors.
+As of this version of the specifications, countries should NOT assume that any Certificate Revocation List (CRL) information is used; or that the Private Key Usage Period is verified by implementers.
 
 Instead, the primary validity mechanism is the presence of the certificate on the most recent version of that certificate list.
 
 ### 5.2 ICAO eMRTD PKI and Trust Centers
 
-Member States can use a separate CSCA (as per the WHO advice)(#ref) - but may also submit their existing eMRT CSCA and/or DSC certificates; and may even choose to procure these from (commercial) trustcenters - and submit these. However, any DSC certificate must always be signed by the CSCA submitted by that country.
+Member States can use a separate CSCA (as per the WHO advice)(#ref) - but may also submit their existing eMRT CSCA and/or DSC certificates; and may even choose to procure these from (commercial) trust centers - and submit these. However, any DSC certificate must always be signed by the CSCA submitted by that country.
 
 ## 6. Security Considerations
 
@@ -199,7 +196,6 @@ To mitigate against the risks that the signing algorithm is found to be weak, al
 The other risks mentioned here are related to the Issuers' operating environments. One effective control to mitigate significant parts of these risks is to generate, store and use the private keys in Hardware Security Modules (HSMs). Use of HSMs for signing health certificates is highly encouraged.
 
 However, regardless of whether an Issuer decides to use HSMs or not, a key roll-over schedule SHOULD be established where the frequency of the key roll-overs is proportionate to the exposure of keys to external networks, other systems and personnel. A well-chosen roll-over schedule also limits the risks associated with erroneously issued health certificates, enabling an Issuer to revoke such health certificates in batches, by withdrawing a key, if required.
-
 
 ### 6.3 Input Data Validation
 
@@ -237,7 +233,7 @@ Note that Verifiers do not need to calculate the `kid` based on the DSC certific
 
 While patterned on best practices of the ICAO eMRTD PKI trust model, there are a number of simplifications made in the interest of speed (and recognising the fact that the EU Regulation for EHN is sharply limited in time and scope):
 
-*  A Member State may submit multiple CSCA certificates.
+* A Member State may submit multiple CSCA certificates.
 * The DSC (key usage) validity period may be set to any length not exceeding the CSCA _and MAY be absent_.
 * The DSC certificate MAY contain policy identifiers (Extended Key Usage) that are EHN specific.
 * Member States may choose to never do any verification of published revocations; but instead purely rely on the DSC lists they get daily from the Secretariat or compile themselves.
@@ -274,17 +270,18 @@ In a later version, the service may also:
 
 The tasks that are marked _DCCG_ or _CIRCABC_ are expected to be handled by DCCG automation, CIRCABC or similar systems under control and responsibility of the Secretariat.
 
-The format for the lists used for the interchange between the Member States and the Secretariat is waiting for the completion of the T-Systems/SAP proposal -- and should be optimised for clarity and interoperability. The ICAO Master List structure as defined in Doc 9303 part 12 may be considered.
+The format for the lists used for the interchange between the Member States and the Secretariat is available in DGC Gateway's github repository [here](https://github.com/eu-digital-green-certificates/dgc-gateway). The specification is distributed as a build artifact, the latest of which (at time of writing) can be found [here](https://github.com/eu-digital-green-certificates/dgc-gateway/releases/download/1.3.21/openapi.json)
 
-This list format for interchange between the Member States is likely to be quite different from the format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should publish the aggregated list of DSCs in an accessible and easy to use format (as seen from a verifier's perspective).
+This list format for interchange between the Member States is  quite different from the format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should publish the aggregated list of DSCs in an accessible and easy to use format (as seen from a verifier's perspective).
 
 Member States are also expected to publish country-specific lists, in formats adapted to the technological setting at hand in that Member State.
 
-
 The Secretariat shall also:
 
-* Maintain a similar set of lists with 'test' certificates.
+* Maintain a similar set of lists with 'test' certificates for quality assurance purposes.
 * Maintain a set of test certificates - at least one for each country.
+
+The certificates are stored and maintained in the DCC Quality Assurance github repository [here](https://github.com/eu-digital-green-certificates/dcc-quality-assurance).
 
 ## A.4 Extended Key Usage Identifiers
 
@@ -301,10 +298,12 @@ _________________
 
 - Fredrik Ljunggren, Kirei AB
 - Jakob Schlyter, Kirei AB
-- Dirk-Willem van Gulik - For the Ministry of Public Health of the Netherlands
+- Dirk-Willem van Gulik, For the Ministry of Public Health of the Netherlands
 - Martin Lindström, iDsec Solutions AB
 
+Maintenance and minor revisions:
 
+- Ryan Barrett, For the Ministry of Public Health of the Netherlands
 
 [![CC BY 4.0][cc-by-shield]][cc-by]
 

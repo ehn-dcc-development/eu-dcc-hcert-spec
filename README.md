@@ -48,7 +48,7 @@ Revocation is implemented via omission. The Trusted List contains all valid cert
 
 ## Known Implementations
 
-Multiple implementations are available via the ["European eHealth network - digital green development coordination"](https://github.com/ehn-dcc-development) GitHub repository. 
+Multiple implementations are available via the ["European eHealth network - digital green development coordination"](https://github.com/ehn-dcc-development) GitHub repository.
 
 Highly simplified JSON/CBOR/COSE/Zlib/Base45 pipelines:
 
@@ -82,4 +82,4 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
-> 
+>

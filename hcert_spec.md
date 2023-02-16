@@ -135,11 +135,11 @@ In order to better handle legacy equipment designed to operate on ASCII payloads
 
 The QR format as defined in (ISO/IEC 18004:2015) SHALL be used for 2D barcode generation. An error correction rate of ‘Q’ (around 25%) is RECOMMENDED.  The Alphanumeric (Mode 2/QR Code symbols 0010) MUST be used in conjunction with Base45. 
 
-In order for Verifiers to be able to detect the type of data encoded and to select the proper decoding and processing scheme, the base45 encoded data (as per this specification) SHALL be prefixed by the Context Identifier string "HC1:". Future versions of this specification that impact backwards-compatibilty SHALL define a new Context Identifier, whereas the character following "HC" SHALL be taken from the character set [1-9A-Z]. The order of increments is defined to be in that order, i.e., first [1-9] and then [A-Z].
+In order for Verifiers to be able to detect the type of data encoded and to select the proper decoding and processing scheme, the base45 encoded data (as per this specification) SHALL be prefixed by the Context Identifier string "HC1:". Future versions of this specification that impact backwards-compatibility SHALL define a new Context Identifier, whereas the character following "HC" SHALL be taken from the character set [1-9A-Z]. The order of increments is defined to be in that order, i.e., first [1-9] and then [A-Z].
 
 The optical code is RECOMMENDED to be rendered on the presentation media with a diagonal size between 35 mm and 60 mm to accommodate readers with fixed optics where the presentation media is required to be placed on the surface of the reader.
 
-If the optical code is printed on paper using low-resolution (< 300 dpi) printers, care must be taken to represent each symbol (dot) of the QR code exactly square. Non-proportional scaling will result in some rows or columns in the QR having rectangular symbols, which will hamper readbility in many cases.
+If the optical code is printed on paper using low-resolution (< 300 dpi) printers, care must be taken to represent each symbol (dot) of the QR code exactly square. Non-proportional scaling will result in some rows or columns in the QR having rectangular symbols, which will hamper readability in many cases.
 
 ## 5 Trusted List Format (DSC list)
 
@@ -178,7 +178,7 @@ As input to the continuous analysis and monitoring of risks, the following topic
 
 It is anticipated that health certificates can not be reliably revoked once issued, especially not if this specification would be used on a global scale. Publishing of revocation information containing identifiers may also create privacy concerns, as this information is per definition Personally Identifiable Information (PII). For these reasons, this specification requires the Issuer of HCERTs to limit the validity period of the signature by specifying a signature expiry time. This requires the holder of a health certificate to renew it at periodic intervals. 
 
-The acceptable validity period may be determined by practical constraints. For example, a traveller may not have the possibility to renew the health certificate during a trip overseas. However, it may also be the case that an Issuer is considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an DSC (invalidating all health certificates issued using that key which are still within their validity period). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all health certificates, on some reasonable interval.
+The acceptable validity period may be determined by practical constraints. For example, a traveler may not have the possibility to renew the health certificate during a trip overseas. However, it may also be the case that an Issuer is considering the possibility of a security compromise of some sort, which requires the Issuer to withdraw an DSC (invalidating all health certificates issued using that key which are still within their validity period). The consequences of such an event may be limited by regularly rolling Issuer keys and requiring renewal of all health certificates, on some reasonable interval.
 
 ### 6.2 Key Management
 
@@ -250,7 +250,7 @@ In the first version, the Secretariat will:
 * Maintain a public 24x7 incident/security contact point.
 * Maintain a public, integrity (secure) protected, single, up to date, aggregated, list of all CSCAs (DCCG).
 * Shall validate the DSCs against the CSCA prior to publication (DCCG).
-* Maintain a public, integrity (secure) protected,  single, up to date, aaggregated, list of all DSCs thus validated (DCCG).
+* Maintain a public, integrity (secure) protected,  single, up to date, aggregated, list of all DSCs thus validated (DCCG).
 * Provide Member States with a secure (i.e. integrity protected) mechanism by which the Secretariat publishes the Member States aggregated CSCA and DSC lists (CIRCABC, DCCG, t.b.c).
 
 **In all cases, the secretariat acts not as content owner, all signatures and certificates must be provided by attendees.**
@@ -270,7 +270,7 @@ In a later version, the service may also:
 
 The tasks that are marked _DCCG_ or _CIRCABC_ are expected to be handled by DCCG automation, CIRCABC or similar systems under control and responsibility of the Secretariat.
 
-The format for the lists used for the interchange between the Member States and the Secretariat is available in DGC Gateway's github repository [here](https://github.com/eu-digital-green-certificates/dgc-gateway). The specification is distributed as a build artifact, the latest of which (at time of writing) can be found [here](https://github.com/eu-digital-green-certificates/dgc-gateway/releases/download/1.3.21/openapi.json)
+The format for the lists used for the interchange between the Member States and the Secretariat is available in [DGC Gateway's github repository](https://github.com/eu-digital-green-certificates/dgc-gateway). The specification is distributed as a build artifact which can be found in the - at time of writing - latest [release](https://github.com/eu-digital-green-certificates/dgc-gateway/releases/download/1.3.21/openapi.json)
 
 This list format for interchange between the Member States is  quite different from the format of the list of DSCs downloaded by the verifiers on a daily basis from the field. The Secretariat should publish the aggregated list of DSCs in an accessible and easy to use format (as seen from a verifier's perspective).
 

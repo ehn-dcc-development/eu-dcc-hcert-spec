@@ -4,7 +4,6 @@
 
 This repository contains a proposal for encoding and signing the Electronic Health Certificate (HCERT), as a candidate to be adapted and adopted by eHealth authorities and other stakeholders as they see fit.
 
-
 ## Specification
 
 The current authoritative version is tagged as [releases in this repository](https://github.com/ehn-digital-green-development/hcert-spec/releases).
@@ -45,12 +44,11 @@ At its core the trust model consists of a simple, one layer deep list of Country
 
 The trusted keys which will be used by verifiers are published in a list which includes all public keys together with issuer metadata. The keys which from time to time are used to sign the HCERTs and should be trusted are included on the Trusted List. There are no CAs or other intermediate parties involved in the validation process in the verifier. If a CSCA'ss public keys appear in the list - they are _only_ there to facilitate the creation of the trusted list of public keys itself. They are not used during verification of an HCERT (as this is generally offline - and purely based on the trusted list of that day).
 
-Revocation is implemented via omission - t
+Revocation is implemented via omission. The Trusted List contains all valid certificates, so revocation is achieved by removing a certificate from the Trusted List.
 
 ## Known Implementations
 
-Multiple implementations are available via the ["European eHealth network - digital green development coordination"
-](https://github.com/ehn-dcc-development) GitHub repository. 
+Multiple implementations are available via the ["European eHealth network - digital green development coordination"](https://github.com/ehn-dcc-development) GitHub repository. 
 
 Highly simplified JSON/CBOR/COSE/Zlib/Base45 pipelines:
 
@@ -65,7 +63,7 @@ Qr and Aztec code have a specific, highly efficient, method for storing alphanum
 Details of this "11 bits per two characters" encoding can be found at
 
 - https://www.thonky.com/qr-code-tutorial/alphanumeric-mode-encoding
--	https://raw.githubusercontent.com/yansikeim/QR-Code/master/ISO%20IEC%2018004%202015%20Standard.pdf - section 7.44 on page 26
+- https://raw.githubusercontent.com/yansikeim/QR-Code/master/ISO%20IEC%2018004%202015%20Standard.pdf - section 7.44 on page 26
 
 For this reason, the industry generally encodes these in base45. A document for this de-facto standard is in progress:
 

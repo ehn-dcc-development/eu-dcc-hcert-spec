@@ -69,6 +69,10 @@ For this reason, the industry generally encodes these in base45. A document for 
 
 - [Internet Draft draft-faltstrom-base45](https://datatracker.ietf.org/doc/draft-faltstrom-base45)
 
+## Questions?
+
+See our [FAQ](FAQ.md) for answers to commonly asked questions.
+
 ## Contributions
 
 Contributions are very welcome - please generate a [pull request](https://github.com/ehn-dcc-development/hcert-spec/pulls) or create an [issue](https://github.com/ehn-dcc-development/hcert-spec/issues).

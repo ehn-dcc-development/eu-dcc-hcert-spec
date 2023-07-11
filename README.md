@@ -4,7 +4,7 @@
 
 ## IMPORTANT NOTICE
 
-As of July 1st 2023 the EU-DCC project has been handed over to the WHO. The project has therefore been frozen. This repository will be placed into archival mode and will remain available for the foreseeable future however it will no longer be actively maintained.
+As of July 1st 2023 the EU DCC project has been handed over to the [WHO](https://github.com/WorldHealthOrganization/smart-trust-network-gateway). The project has therefore been frozen. This repository will be placed into archival mode and will remain available for the foreseeable future, however it will no longer be actively maintained.
 
 ## Introduction
 

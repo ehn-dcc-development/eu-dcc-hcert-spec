@@ -2,6 +2,12 @@
 
 # Electronic Health Certificates
 
+## IMPORTANT NOTICE
+
+As of July 1st 2023 the EU-DCC project has been handed over to the WHO. The project has therefore been frozen. This repository will be placed into archival mode and will remain available for the foreseeable future however it will no longer be actively maintained.
+
+## Introduction
+
 This repository contains a proposal for encoding and signing the Electronic Health Certificate (HCERT), as a candidate to be adapted and adopted by eHealth authorities and other stakeholders as they see fit.
 
 ## Specification
